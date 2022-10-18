@@ -5,7 +5,7 @@ namespace AffenCode
 {
     public sealed class RegisterGlobal : MonoBehaviour
     {
-        public MonoBehaviour Target;
+        public Component Target;
 
         private void Awake()
         {
