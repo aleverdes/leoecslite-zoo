@@ -5,7 +5,6 @@ namespace AffenCode
 {
     public sealed class ConvertToEntity : MonoBehaviour
     {
-        [SerializeField] private EcsWorldProvider _worldProvider;
         [SerializeField] private ConvertTime _convertTime;
         [SerializeField] private ConvertMode _convertMode;
         [SerializeField] private CollectMode _collectMode;
@@ -13,11 +12,6 @@ namespace AffenCode
 
         private int? _entity;
 
-        private void Reset()
-        {
-            _worldProvider = FindObjectOfType<EcsWorldProvider>();
-        }
-        
         private IEnumerator Start()
         {
             if (_convertTime == ConvertTime.EndOfFrame)
@@ -25,17 +19,12 @@ namespace AffenCode
                 yield return new WaitForEndOfFrame();
             }
             
-            if (!_worldProvider)
-            {
-                _worldProvider = EcsWorldProvider.DefaultWorldProvider;
-            }
-            
-            _entity = _worldProvider.World.NewEntity();
+            _entity = EcsWorldProvider.DefaultWorldProvider.World.NewEntity();
 
             var components = GetComponents<IConvertToEntity>();
             foreach (var component in components)
             {
-                component.ConvertToEntity(_worldProvider.World, _entity.Value);
+                component.ConvertToEntity(EcsWorldProvider.DefaultWorldProvider.World, _entity.Value);
             }
 
             if (_collectMode == CollectMode.IncludeChildren)
@@ -55,7 +44,7 @@ namespace AffenCode
         {
             if (_destroyEntityWithGameObject && _entity.HasValue)
             {
-                _worldProvider.World.DelEntity(_entity.Value);
+                EcsWorldProvider.DefaultWorldProvider.World.DelEntity(_entity.Value);
                 _entity = null;
             }
         }
@@ -70,7 +59,7 @@ namespace AffenCode
                     var components = child.GetComponents<IConvertToEntity>();
                     foreach (var component in components)
                     {
-                        component.ConvertToEntity(_worldProvider.World, _entity.Value);
+                        component.ConvertToEntity(EcsWorldProvider.DefaultWorldProvider.World, _entity.Value);
                     }
                     ConvertChildrenToEntity(child);
                 }
