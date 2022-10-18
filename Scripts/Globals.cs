@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace AffenCode
 {
-    public static class GlobalSharedData
+    public static class Globals
     {
         private static readonly Dictionary<Type, object> Objects = new Dictionary<Type, object>();
 
@@ -17,6 +17,16 @@ namespace AffenCode
         public static void Remove(object sharedData)
         {
             Objects.Remove(sharedData.GetType());
+        }
+
+        public static void Remove<T>()
+        {
+            Objects.Remove(typeof(T));
+        }
+
+        public static bool Exists<T>()
+        {
+            return Objects.ContainsKey(typeof(T));
         }
 
         public static T Get<T>()

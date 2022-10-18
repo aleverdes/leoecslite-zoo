@@ -76,5 +76,10 @@ namespace AffenCode
                 }
             }
         }
+
+        public int? GetEntity()
+        {
+            return _entity;
+        }
     }
 }
