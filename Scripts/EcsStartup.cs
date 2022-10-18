@@ -8,11 +8,21 @@ namespace AffenCode
     {
         public EcsWorldProvider WorldProvider;
 
+        public bool InitializeOnStart = true;
+
         private EcsSystems _updateSystems;
         private EcsSystems _lateUpdateSystems;
         private EcsSystems _fixedUpdateSystems;
-        
+
         private void Start()
+        {
+            if (InitializeOnStart)
+            {
+                Initialize();
+            }
+        }
+
+        public void Initialize()
         {
             _updateSystems = new EcsSystems(WorldProvider.World);
             _updateSystems.Add(new SyncFromUnityTransformSystem());
@@ -35,17 +45,17 @@ namespace AffenCode
 
         private void Update()
         {
-            _updateSystems.Run();
+            _updateSystems?.Run();
         }
 
         private void LateUpdate()
         {
-            _lateUpdateSystems.Run();
+            _lateUpdateSystems?.Run();
         }
 
         private void FixedUpdate()
         {
-            _fixedUpdateSystems.Run();
+            _fixedUpdateSystems?.Run();
         }
 
         private void OnDestroy()
