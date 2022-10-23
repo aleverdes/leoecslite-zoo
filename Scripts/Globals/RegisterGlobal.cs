@@ -11,5 +11,10 @@ namespace AffenCode
         {
             Globals.Add(Target);
         }
+
+        private void OnDestroy()
+        {
+            Globals.Remove(Target);
+        }
     }
 }
