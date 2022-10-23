@@ -42,7 +42,7 @@ namespace AffenCode
         
         private void OnDestroy()
         {
-            if (_destroyEntityWithGameObject && _entity.HasValue)
+            if (_destroyEntityWithGameObject && _entity.HasValue && EcsWorldProvider.DefaultWorldProvider && EcsWorldProvider.DefaultWorldProvider.World != null)
             {
                 EcsWorldProvider.DefaultWorldProvider.World.DelEntity(_entity.Value);
                 _entity = null;
