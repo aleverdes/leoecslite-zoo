@@ -28,18 +28,21 @@ namespace AffenCode
             _updateSystems.Add(new SyncFromUnityTransformSystem());
             AddUpdateSystems(_updateSystems);
             _updateSystems.Add(new SyncToUnityTransformSystem());
+            _updateSystems.Inject();
             _updateSystems.Init();
             
             _lateUpdateSystems = new EcsSystems(WorldProvider.World);
             _lateUpdateSystems.Add(new SyncFromUnityTransformSystem());
             AddLateUpdateSystems(_lateUpdateSystems);
             _lateUpdateSystems.Add(new SyncToUnityTransformSystem());
+            _lateUpdateSystems.Inject();
             _lateUpdateSystems.Init();
             
             _fixedUpdateSystems = new EcsSystems(WorldProvider.World);
             _fixedUpdateSystems.Add(new SyncFromUnityTransformSystem());
             AddFixedUpdateSystems(_fixedUpdateSystems);
             _fixedUpdateSystems.Add(new SyncToUnityTransformSystem());
+            _fixedUpdateSystems.Inject();
             _fixedUpdateSystems.Init();
         }
 
