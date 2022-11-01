@@ -16,5 +16,10 @@ namespace AffenCode
         {
             Globals.Remove(Target);
         }
+
+        private void Reset()
+        {
+            Target = gameObject.GetComponent<MonoBehaviour>();
+        }
     }
 }

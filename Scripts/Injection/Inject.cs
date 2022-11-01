@@ -2,18 +2,23 @@ using UnityEngine;
 
 namespace AffenCode
 {
-    public class Inject : MonoBehaviour
+    public sealed class Inject : MonoBehaviour
     {
         [SerializeField] private Component Component;
             
-        protected virtual void Awake()
+        private void Awake()
         {
             LeoEcsLiteInjector.AddInjection(Component);
         }
 
-        protected virtual  void OnDestroy()
+        private void OnDestroy()
         {
             LeoEcsLiteInjector.RemoveInjection(Component);
+        }
+        
+        private void Reset()
+        {
+            Component = gameObject.GetComponent<MonoBehaviour>();
         }
     }
 }
