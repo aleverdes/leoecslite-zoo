@@ -24,7 +24,7 @@ namespace AffenCode
             Objects.Remove(typeof(T));
         }
 
-        public static bool Exists<T>()
+        public static bool Has<T>()
         {
             return Objects.ContainsKey(typeof(T));
         }
