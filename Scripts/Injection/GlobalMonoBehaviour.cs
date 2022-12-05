@@ -10,7 +10,7 @@ namespace AffenCode
             Globals.Add(this);
         }
 
-        protected virtual  void OnDestroy()
+        protected virtual void OnDestroy()
         {
             LeoEcsLiteInjector.RemoveInjection(this);
             Globals.Remove(this);
