@@ -11,6 +11,7 @@ namespace AffenCode
         [SerializeField] private bool _destroyEntityWithGameObject;
 
         private int? _entity;
+        private bool _converted;
 
         private IEnumerator Start()
         {
@@ -18,7 +19,19 @@ namespace AffenCode
             {
                 yield return new WaitForEndOfFrame();
             }
-            
+
+            Convert();
+
+            yield return true;
+        }
+
+        private void Convert()
+        {
+            if (_converted)
+            {
+                return;
+            }
+
             _entity = EcsWorldProvider.DefaultWorldProvider.World.NewEntity();
 
             var components = GetComponents<IConvertToEntity>();
@@ -37,12 +50,12 @@ namespace AffenCode
                 Destroy(gameObject);
             }
 
-            yield return true;
+            _converted = true;
         }
         
         private void OnDestroy()
         {
-            if (_destroyEntityWithGameObject && _entity.HasValue && EcsWorldProvider.DefaultWorldProvider && EcsWorldProvider.DefaultWorldProvider.World != null)
+            if (_converted && _destroyEntityWithGameObject && _entity.HasValue && EcsWorldProvider.DefaultWorldProvider && EcsWorldProvider.DefaultWorldProvider.World != null)
             {
                 EcsWorldProvider.DefaultWorldProvider.World.DelEntity(_entity.Value);
                 _entity = null;
@@ -68,6 +81,10 @@ namespace AffenCode
 
         public int? GetEntity()
         {
+            if (!_converted)
+            {
+                Convert();
+            }
             return _entity;
         }
     }
