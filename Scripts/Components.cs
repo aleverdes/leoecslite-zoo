@@ -18,6 +18,11 @@ namespace AffenCode
     }
 
     [Serializable]
+    public struct LocalTransformSync
+    {
+    }
+
+    [Serializable]
     public struct RectTransformRef
     {
         public RectTransform Value;
