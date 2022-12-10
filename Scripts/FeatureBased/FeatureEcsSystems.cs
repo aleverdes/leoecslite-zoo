@@ -23,25 +23,5 @@ namespace AffenCode
             feature.FixedUpdate(_fixedUpdateSystems);
             return this;
         }
-
-        public FeatureEcsSystems Add(IEcsSystem system, SystemType systemType = SystemType.Update)
-        {
-            switch (systemType)
-            {
-                case SystemType.Update:
-                    _updateSystems.Add(system);
-                    break;
-                case SystemType.LateUpdate:
-                    _lateUpdateSystems.Add(system);
-                    break;
-                case SystemType.FixedUpdate:
-                    _fixedUpdateSystems.Add(system);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(systemType), systemType, null);
-            }
-
-            return this;
-        }
     }
 }
