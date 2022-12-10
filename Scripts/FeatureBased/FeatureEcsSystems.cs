@@ -1,3 +1,4 @@
+using System;
 using Leopotam.EcsLite;
 
 namespace AffenCode
@@ -20,6 +21,26 @@ namespace AffenCode
             feature.Update(_updateSystems);
             feature.LateUpdate(_lateUpdateSystems);
             feature.FixedUpdate(_fixedUpdateSystems);
+            return this;
+        }
+
+        public FeatureEcsSystems Add(IEcsSystem system, SystemType systemType)
+        {
+            switch (systemType)
+            {
+                case SystemType.Update:
+                    _updateSystems.Add(system);
+                    break;
+                case SystemType.LateUpdate:
+                    _lateUpdateSystems.Add(system);
+                    break;
+                case SystemType.FixedUpdate:
+                    _fixedUpdateSystems.Add(system);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(systemType), systemType, null);
+            }
+
             return this;
         }
     }
