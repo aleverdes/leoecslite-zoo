@@ -24,7 +24,7 @@ namespace AffenCode
             return this;
         }
 
-        public FeatureEcsSystems Add(IEcsSystem system, SystemType systemType)
+        public FeatureEcsSystems Add(IEcsSystem system, SystemType systemType = SystemType.Update)
         {
             switch (systemType)
             {
