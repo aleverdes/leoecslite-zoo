@@ -45,7 +45,6 @@ namespace AffenCode
             _updateSystems.Init();
             _lateUpdateSystems.Init();
             _fixedUpdateSystems.Init();
-            
         }
 
         private void Update()
