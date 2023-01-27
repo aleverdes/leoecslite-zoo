@@ -30,6 +30,8 @@ namespace AffenCode
                 }
             }
 
+            ecsSystems.Inject(ecsSystems.GetWorld());
+
             return ecsSystems;
         }
 
