@@ -228,6 +228,8 @@ namespace AffenCode
 LeoECS Lite Unity Zoo provides a mechanism to convert your components to ECS.
 To do this, you need to add the `ConvertToEntity` component and your MonoBehaviour class that implements the `IConvertToEntity` interface to the object.
 
+> Important! Using ConvertToEntity is only possible if the scene has an `EcsWorldProvider` or if any of the worlds is registered with `ConvertToEntity.DefaultConversionWorld`.
+
 For more convenient work with Unity objects, LeoECS Lite Unity Zoo includes functions for converting Unity objects into ECS-entities with the necessary components.
 
 I recommended to use Bootstrappers:
