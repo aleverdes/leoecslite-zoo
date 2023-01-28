@@ -7,7 +7,7 @@ LeoECS Lite Unity Zoo — это большое дополнение для [Leo
 * ECS Injection;
 * Несколько дополнений для EcsWorld, IEcsSystems и Unity-objects.
 
-Ссылка на [англоязычный README](https://github.com/aleverdes/leoecslite-zoo/README.md).
+Ссылка на [англоязычный README](https://github.com/aleverdes/leoecslite-zoo/).
 
 # Содержание
 
