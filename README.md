@@ -10,6 +10,9 @@ LeoECS Lite Unity Zoo is a big add-on to [LeoECS Lite](https://github.com/Leopot
 # Table of Contents
 
 * [Introduction](#introduction)
+* [Installation](#installation)
+    * [Unity Package Manager](#unity-package-manager)
+    * [Manual installation](#manual-installation)
 * [Features](#features)
     * [ECS World Provider](#ecs-world-provider)
     * [Plain ECS Startup](#plain-ecs-startup)
@@ -28,6 +31,20 @@ LeoECS Lite Unity Zoo is a big add-on to [LeoECS Lite](https://github.com/Leopot
 I developed LeoECS Lite Unity Zoo for my own use and have been developing it for a long time using it in my own projects. 
 This add-on includes many features that simplify and speed up development, while not changing the main concept of LeoECS Lite. 
 Any bug reports and suggestions for improvements are welcome.
+
+# Installation
+
+## Unity Package Manager
+
+Installation is supported as a unity module via a git link in the PackageManager or direct editing of `Packages/manifest.json`:
+```
+"com.affencode.leoecslite-zoo": "https://github.com/aleverdes/leoecslite-zoo.git",
+```
+
+## Manual installation
+
+The code can also be cloned or obtained as an archive from the releases page.
+Just put the LeoECS Lite Zoo folder in your unity project (in the Assets folder).
 
 # Features
 
