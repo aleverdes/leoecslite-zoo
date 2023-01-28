@@ -7,6 +7,8 @@ LeoECS Lite Unity Zoo is a big add-on to [LeoECS Lite](https://github.com/Leopot
 * ECS Injection;
 * Several extensions for EcsWorld, IEcsSystems and Unity-objects.
 
+Link for [Russian README](https://github.com/aleverdes/leoecslite-zoo/README_RU.md).
+
 # Table of Contents
 
 * [Introduction](#introduction)
@@ -157,12 +159,12 @@ public class TestFeature : IEcsFeature
 
 ## ECS Unity Core Components
 
-LeoECS Lite Unity Zoo includes several components for easy interaction with Unity objects in the scene.
+EcsTransform is the main component, analogous to Transform in Unity, which contains information about the position, rotation and scale of an object. By default it works in global coordinates. If you need to get search results (if you have a TransformRef component) to local coordinates, add the LocalTransformSync component to the selected entity.
 * EcsTransform is a representation of an ECS Transform that includes the position, rotation, and scale of an object.
 * TransformRef contains a reference to Unity-transform.
-  * Having both EcsTransform and TransformRef components allows the ECS state of transform to be synchronized with Unity-transform.
-* RigidbodyRef contains a reference to Unity-transform.
-  * Having both EcsTransform and RigidbodyRef components allows the ECS state of the transform to be synchronized with the Unity-rigidbody. Synchronization is done in FixedUpdate().
+  * Having both EcsTransform and TransformRef components allows the ECS state of transform to be synchronized with Unity-transform (only if you use EcsStartup or FeaturedEcsStartup).
+* RigidbodyRef contains a reference to Unity-rigidbody.
+  * Having both EcsTransform and RigidbodyRef components allows the ECS state of the transform to be synchronized with the Unity-rigidbody (only if you use EcsStartup or FeaturedEcsStartup). Synchronization is done in FixedUpdate().
 * LocalTransformSync allows you to switch the synchronization of global coordinates to local ones for the EcsTransform and TransformRef (or EcsTransform and RigidbodyRef) binding.
 
 Also:
@@ -298,7 +300,7 @@ using Leopotam.EcsLite;
 
 public void TestSystem : IEcsRunSystem
 {
-    private InjectedMonoBehaviour _injectedMonoBheaviour;
+    private InjectedMonoBehaviour _injectedMonoBehaviour;
     
     public void Run(IEcsSystems systems)
     {
