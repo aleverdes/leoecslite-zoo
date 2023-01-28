@@ -333,6 +333,22 @@ if (Globals.Has<TestClass>())
 }
 ```
 
+So, you can use EcsWorld-injection in your systems:
+
+```csharp
+using Leopotam.EcsLite;
+
+public void TestSystem : IEcsRunSystem
+{
+    private EcsWorld _world;
+    
+    public void Run(IEcsSystems systems)
+    {
+        int entity = _world.NewEntity();
+    }
+}
+```
+
 ## OneFrame Systems
 
 LeoECS Lite Unity Zoo introduces a mechanism for removing single-frame components. 
