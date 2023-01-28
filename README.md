@@ -1,6 +1,6 @@
 # LeoECS Lite Unity Zoo
 
-LeoECS Lite Unity Zoo is a great addition to LeoECS Lite for Unity, including the following features:
+LeoECS Lite Unity Zoo is a big add-on to [LeoECS Lite](https://github.com/Leopotam/ecslite) for Unity, including the following features:
 * ECS Startup (plain and feature-based);
 * ECS Component Conversion;
 * Unity Core ECS Components;
@@ -248,6 +248,9 @@ public class TestComponentProvider : ConvertComponent<TestComponent>
     }
 }
 ```
+
+And for the correct conversion of Unity objects, you must use the `UnityObjectProvider` component. 
+`UnityObjectProvider` calls the function to link gameobject, transform and rigidbody with the ECS entity.
 
 ## ECS Injection and Globals
 
