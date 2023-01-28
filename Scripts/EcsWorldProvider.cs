@@ -12,14 +12,27 @@ namespace AffenCode
         private void Awake()
         {
             World = new EcsWorld();
+            
             if (!DefaultWorldProvider)
             {
                 DefaultWorldProvider = this;
             }
+
+            ConvertToEntity.DefaultConversionWorld ??= World;
         }
 
         private void OnDestroy()
         {
+            if (DefaultWorldProvider == this)
+            {
+                DefaultWorldProvider = null;
+            }
+
+            if (ConvertToEntity.DefaultConversionWorld == World)
+            {
+                ConvertToEntity.DefaultConversionWorld = null;
+            }
+            
             World?.Destroy();
             World = null;
         }
@@ -33,6 +46,7 @@ namespace AffenCode
                 DefaultWorldProvider.World = null;
             }
             DefaultWorldProvider = null;
+            ConvertToEntity.DefaultConversionWorld = null;
         }
     }
 }
