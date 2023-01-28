@@ -1,0 +1,21 @@
+{
+  "name": "com.affencode.leoecslite-zoo",
+  "author": "AffenCode",
+  "displayName": "LeoECS Lite Zoo",
+  "description": "A big add-on to LeoECS Lite for Unity with following features: ECS Startup, ECS conversion, ECS injection and etc.",
+  "unity": "2018.4",
+  "version": "1.0.0",
+  "keywords": [
+    "LeoECS",
+    "LeoECS Lite",
+    "ECS",
+    "Conversion",
+    "Injection",
+    "Extensions"
+  ],
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aleverdes/leoecslite-zoo.git"
+  }
+}
