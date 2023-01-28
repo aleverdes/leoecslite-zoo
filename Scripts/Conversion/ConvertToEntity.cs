@@ -1,15 +1,20 @@
+using System;
 using System.Collections;
+using Leopotam.EcsLite;
 using UnityEngine;
 
 namespace AffenCode
 {
     public sealed class ConvertToEntity : MonoBehaviour
     {
+        public static EcsWorld DefaultConversionWorld { get; set; }
+        
         [SerializeField] private ConvertTime _convertTime;
         [SerializeField] private ConvertMode _convertMode;
         [SerializeField] private CollectMode _collectMode;
         [SerializeField] private bool _destroyEntityWithGameObject;
 
+        private EcsWorld _world;
         private int? _entity;
         private bool _converted;
 
@@ -25,19 +30,25 @@ namespace AffenCode
             yield return true;
         }
 
-        private void Convert()
+        public void Convert()
+        {
+            Convert(GetConversionWorld());
+        }
+        
+        public void Convert(EcsWorld world)
         {
             if (_converted)
             {
                 return;
             }
 
-            _entity = EcsWorldProvider.DefaultWorldProvider.World.NewEntity();
+            _world = world;
+            _entity = _world.NewEntity();
 
             var components = GetComponents<IConvertToEntity>();
             foreach (var component in components)
             {
-                component.ConvertToEntity(EcsWorldProvider.DefaultWorldProvider.World, _entity.Value);
+                component.ConvertToEntity(_world, _entity.Value);
             }
 
             if (_collectMode == CollectMode.IncludeChildren)
@@ -55,9 +66,9 @@ namespace AffenCode
         
         private void OnDestroy()
         {
-            if (_converted && _destroyEntityWithGameObject && _entity.HasValue && EcsWorldProvider.DefaultWorldProvider && EcsWorldProvider.DefaultWorldProvider.World != null)
+            if (_converted && _destroyEntityWithGameObject && _entity.HasValue && _world != null)
             {
-                EcsWorldProvider.DefaultWorldProvider.World.DelEntity(_entity.Value);
+                _world.DelEntity(_entity.Value);
                 _entity = null;
             }
         }
@@ -86,6 +97,27 @@ namespace AffenCode
                 Convert();
             }
             return _entity;
+        }
+
+        private static EcsWorld GetConversionWorld()
+        {
+            if (DefaultConversionWorld != null)
+            {
+                return DefaultConversionWorld;
+            }
+
+            if (EcsWorldProvider.DefaultWorldProvider && EcsWorldProvider.DefaultWorldProvider.World != null)
+            {
+                return EcsWorldProvider.DefaultWorldProvider.World;
+            }
+
+            throw new Exception("World for conversion not found. Use ConvertToEntity.DefaultConversionWorld for set it.");
+        }
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        private static void ResetStatic()
+        {
+            DefaultConversionWorld = null;
         }
     }
 }
