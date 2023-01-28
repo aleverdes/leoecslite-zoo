@@ -14,6 +14,11 @@ namespace AffenCode
         private EcsSystems _lateUpdateSystems;
         private EcsSystems _fixedUpdateSystems;
 
+        private void Reset()
+        {
+            WorldProvider = FindObjectOfType<EcsWorldProvider>();
+        }
+
         private void Start()
         {
             if (InitializeOnStart)

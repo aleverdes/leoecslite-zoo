@@ -16,6 +16,11 @@ namespace AffenCode
 
         private bool _initialized;
 
+        private void Reset()
+        {
+            WorldProvider = FindObjectOfType<EcsWorldProvider>();
+        }
+
         private void Start()
         {
             if (InitializeOnStart)
