@@ -20,6 +20,10 @@ LeoECS Lite Unity Zoo is a big add-on to [LeoECS Lite](https://github.com/Leopot
     * [ECS Unity Core Components](#ecs-unity-core-components)
     * [ECS Components Conversion](#ecs-components-conversion)
     * [ECS Injection and Globals](#ecs-injection-and-globals)
+        * [GlobalMonoBehaviour](#globalmonobehaviour)
+        * [Manual Injection](#manual-injection)
+        * [Globals](#globals)
+        * [EcsWorld Injection](#ecsworld-injection)
     * [OneFrame Systems](#oneframe-systems)
     * [LeoECS Lite Extensions](#leoecs-lite-extensions)
         * [Unity Extensions](#unity-extensions)
@@ -271,6 +275,8 @@ And for the correct conversion of Unity objects, you must use the `UnityObjectPr
 
 ## ECS Injection and Globals
 
+### GlobalMonoBehaviour
+
 LeoECS Lite Unity Zoo provides a mechanism for injecting your classes into the system's ECS and using Globals.
 
 The easiest way, suitable for MonoBehaviour classes, is to inherit from the GlobalMonoBehaviour class.
@@ -299,6 +305,8 @@ public void TestSystem : IEcsRunSystem
 }
 ```
 
+### Manual Injection
+
 If you want to manually declare your object as injectable, use the `LeoEcsInjector.AddInjection(this)` method.
 
 ```csharp
@@ -312,6 +320,8 @@ private void OnDestroy()
     LeoEcsLiteInjector.RemoveInjection(Component);
 }
 ```
+
+### Globals
 
 There is also a Globals used as a ServiceLocator. Access to objects is provided through the Globals class.
 
@@ -332,6 +342,8 @@ if (Globals.Has<TestClass>())
     var test = Globals.Get<TestClass>();
 }
 ```
+
+### EcsWorld Injection
 
 So, you can use EcsWorld-injection in your systems:
 
