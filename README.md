@@ -275,9 +275,11 @@ And for the correct conversion of Unity objects, you must use the `UnityObjectPr
 
 ## ECS Injection and Globals
 
-### GlobalMonoBehaviour
-
 LeoECS Lite Unity Zoo provides a mechanism for injecting your classes into the system's ECS and using Globals.
+
+> **Important!** EcsInjection works by default only with EcsStartup and FeaturedEcsStartup. If you want to use Injection with your own ECS-definition, put `.Inject()`-method to the end of definition your EcsSystems. 
+
+### GlobalMonoBehaviour
 
 The easiest way, suitable for MonoBehaviour classes, is to inherit from the GlobalMonoBehaviour class.
 Such a class should be in a single copy on the scene.
