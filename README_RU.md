@@ -15,7 +15,7 @@ LeoECS Lite Unity Zoo — это большое дополнение для [Leo
 * [Установка](#установка)
     * [Unity Package Manager](#unity-package-manager)
     * [Ручная установка](#ручная-установка)
-* [Возмоности](#возможности)
+* [Возможности](#возможности)
     * [ECS World Provider](#ecs-world-provider)
     * [Plain ECS Startup](#plain-ecs-startup)
     * [Feature-based ECS Startup](#feature-based-ecs-startup)
