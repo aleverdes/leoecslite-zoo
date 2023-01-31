@@ -108,7 +108,7 @@ public class TestEcsStartup : EcsStartup
 
 FeaturedEcsStartup is a more complex but more convenient way to organize your systems in a project.
 
-To organize the code, objects of the IEcsFeature type are added to FeaturedEcsStartup, which already include the declaration of the methods necessary for Unity to work correctly.
+To organize the code, objects of the `IEcsFeature` type are added to FeaturedEcsStartup, which already include the declaration of the methods necessary for Unity to work correctly.
 
 FeaturedEcsStartup is also a MonoBehaviour class and requires the presence of this component on the scene to work.
 
