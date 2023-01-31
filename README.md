@@ -4,7 +4,7 @@ LeoECS Lite Unity Zoo is a big add-on to [LeoECS Lite](https://github.com/Leopot
 * ECS Startup (plain and feature-based);
 * ECS Component Conversion;
 * Unity Core ECS Components;
-* ECS Injection;
+* ECS Injection; 
 * Several extensions for EcsWorld, IEcsSystems and Unity-objects.
 
 Link for [Russian README](https://github.com/aleverdes/leoecslite-zoo/blob/master/README_RU.md).
