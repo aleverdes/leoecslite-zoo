@@ -34,6 +34,13 @@ namespace AffenCode
             return (T) Objects[typeof(T)];
         }
 
+        public static bool TryGet<T>(out T value)
+        {
+            var result = Objects.TryGetValue(typeof(T), out var tempValue);
+            value = (T)tempValue;
+            return result;
+        }
+
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void ResetSharedData()
         {
