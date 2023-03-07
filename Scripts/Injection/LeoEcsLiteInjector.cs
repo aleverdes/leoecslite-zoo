@@ -22,6 +22,8 @@ namespace AffenCode
 
         public static IEcsSystems Inject(this IEcsSystems ecsSystems)
         {
+            ecsSystems.Inject(ecsSystems.GetWorld());
+            
             foreach (var injectedObject in InjectedObjects)
             {
                 if (injectedObject != null)
@@ -30,7 +32,7 @@ namespace AffenCode
                 }
             }
 
-            ecsSystems.Inject(ecsSystems.GetWorld());
+            ecsSystems.InjectPools();
 
             return ecsSystems;
         }
@@ -49,6 +51,35 @@ namespace AffenCode
                 if (requiredField != null)
                 {
                     requiredField.SetValue(system, injectedObject);
+                }
+            }
+            
+            return ecsSystems;
+        }
+
+        private static IEcsSystems InjectPools(this IEcsSystems ecsSystems)
+        {
+            var world = ecsSystems.GetWorld();
+            var allSystems = ecsSystems.GetAllSystems();
+            
+            var getPoolMethod = typeof(EcsWorld).GetMethod(nameof(EcsWorld.GetPool));
+
+            foreach (var system in allSystems)
+            {
+                var systemType = system.GetType();
+                var systemFields = systemType.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+
+                foreach (var systemField in systemFields)
+                {
+                    if (!typeof(IEcsPool).IsAssignableFrom(systemField.FieldType))
+                    {
+                        continue;   
+                    }
+
+                    var poolType = systemField.FieldType.GetGenericArguments().FirstOrDefault();
+                    
+                    var getTypedPoolMethod = getPoolMethod.MakeGenericMethod(poolType);
+                    systemField.SetValue(system, getTypedPoolMethod.Invoke(world, null));
                 }
             }
             

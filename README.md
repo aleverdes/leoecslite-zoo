@@ -367,6 +367,27 @@ public void TestSystem : IEcsRunSystem
 }
 ```
 
+### EcsPool Injection
+
+So, you can use EcsPool-injection in your systems:
+
+```csharp
+using Leopotam.EcsLite;
+
+public void TestSystem : IEcsRunSystem
+{
+    private EcsPool<Test> _test;
+    
+    public void Run(IEcsSystems systems)
+    {
+        if (_test.Has(0))
+        {
+            Debug.Log("Exists");
+        }
+    }
+}
+```
+
 ## OneFrame Systems
 
 LeoECS Lite Unity Zoo introduces a mechanism for removing single-frame components. 

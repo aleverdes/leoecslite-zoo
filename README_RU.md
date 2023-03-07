@@ -368,6 +368,27 @@ public void TestSystem : IEcsRunSystem
 }
 ```
 
+### EcsPool Injection
+
+Также, если Вы используете Injection от LeoECS Lite Unity Zoo, то Вам доступно обращение к пулам через простое объявление его в системе.
+
+```csharp
+using Leopotam.EcsLite;
+
+public void TestSystem : IEcsRunSystem
+{
+    private EcsPool<Test> _test;
+    
+    public void Run(IEcsSystems systems)
+    {
+        if (_test.Has(0))
+        {
+            Debug.Log("Exists");
+        }
+    }
+}
+```
+
 ## OneFrame Systems
 
 Если Вам необходимо удалять в конце работы систем какой-либо компонент, LeoECS Lite Unity Zoo предоставляет Вам возможность это сделать через OneFrame-системы. 
