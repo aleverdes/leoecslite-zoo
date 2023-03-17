@@ -5,6 +5,7 @@ namespace AffenCode
 {
     public class EcsWorldProvider : MonoBehaviour
     {
+        public static EcsWorld DefaultWorld => DefaultWorldProvider ? DefaultWorldProvider.World : null;
         public static EcsWorldProvider DefaultWorldProvider { get; private set; }
         
         public EcsWorld World { get; private set; }
