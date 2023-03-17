@@ -1,3 +1,4 @@
+using System;
 using Leopotam.EcsLite;
 
 namespace AffenCode
@@ -14,6 +15,21 @@ namespace AffenCode
         {
             entity = ecsWorld.NewEntity();
             return ref ecsWorld.GetPool<T>().Add(entity);
+        }
+
+        public static T GetFirstEntity<T>(this EcsWorld world) where T : struct
+        {
+            return world.GetFirstEntity<T>(out _);
+        }
+
+        public static T GetFirstEntity<T>(this EcsWorld world, out int entity) where T : struct
+        {
+            if (world.TryGetFirstEntity(out T component, out entity))
+            {
+                return component;
+            }
+
+            throw new Exception($"Entity with component \"{typeof(T)}\" not found");
         }
 
         public static bool TryGetFirstEntity<T>(this EcsWorld ecsWorld, out T component) where T : struct
@@ -35,6 +51,21 @@ namespace AffenCode
             component = default;
             entity = -1;
             return false;
+        }
+
+        public static T GetFirstEntity<T>(this EcsFilter filter) where T : struct
+        {
+            return filter.GetFirstEntity<T>(out _);
+        }
+
+        public static T GetFirstEntity<T>(this EcsFilter filter, out int entity) where T : struct
+        {
+            if (filter.TryGetFirstEntity(out T component, out entity))
+            {
+                return component;
+            }
+
+            throw new Exception($"Entity with component \"{typeof(T)}\" not found");
         }
 
         public static bool TryGetFirstEntity<T>(this EcsFilter filter, out T component) where T : struct
