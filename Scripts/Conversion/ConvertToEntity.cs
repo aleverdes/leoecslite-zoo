@@ -20,9 +20,14 @@ namespace AffenCode
 
         private IEnumerator Start()
         {
-            if (_convertTime == ConvertTime.EndOfFrame)
+            switch (_convertTime)
             {
-                yield return new WaitForEndOfFrame();
+                case ConvertTime.EndOfFrame:
+                    yield return new WaitForEndOfFrame();
+                    break;
+                case ConvertTime.NextFrame:
+                    yield return null;
+                    break;
             }
 
             Convert();
