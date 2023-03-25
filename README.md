@@ -159,15 +159,9 @@ public class TestFeature : IEcsFeature
 
 ## ECS Unity Core Components
 
-EcsTransform is the main component, analogous to Transform in Unity, which contains information about the position, rotation and scale of an object. By default it works in global coordinates. If you need to get search results (if you have a TransformRef component) to local coordinates, add the LocalTransformSync component to the selected entity.
 * EcsTransform is a representation of an ECS Transform that includes the position, rotation, and scale of an object.
 * TransformRef contains a reference to Unity-transform.
-  * Having both EcsTransform and TransformRef components allows the ECS state of transform to be synchronized with Unity-transform (only if you use EcsStartup or FeaturedEcsStartup).
 * RigidbodyRef contains a reference to Unity-rigidbody.
-  * Having both EcsTransform and RigidbodyRef components allows the ECS state of the transform to be synchronized with the Unity-rigidbody (only if you use EcsStartup or FeaturedEcsStartup). Synchronization is done in FixedUpdate().
-* LocalTransformSync allows you to switch the synchronization of global coordinates to local ones for the EcsTransform and TransformRef (or EcsTransform and RigidbodyRef) binding.
-
-Also:
 * GameObjectRef contains a reference to the GameObject.
 * RectTransformRef contains a reference to a RectTransform.
 * Rigidbody2DRef contains a reference to a Rigidbody2D and works the same as RigidbodyRef.
@@ -179,22 +173,9 @@ using UnityEngine;
 namespace AffenCode
 {
     [Serializable]
-    public struct EcsTransform
-    {
-        public Vector3 Position;
-        public Quaternion Rotation;
-        public Vector3 Scale;
-    }
-
-    [Serializable]
     public struct TransformRef
     {
         public Transform Value;
-    }
-
-    [Serializable]
-    public struct LocalTransformSync
-    {
     }
 
     [Serializable]
@@ -247,11 +228,6 @@ public class PlayerBootstrapper : MonoBehaviour, IConvertToEntity
         {
             Name = "Test"
         };
-    
-        // for linking ECS-entity with Unity-object
-        ConversionUtils.SetupGameObjectRef(ecsWorld, entity, gameObject);
-        ConversionUtils.SetupTransformRef(ecsWorld, entity, transform);
-        ConversionUtils.SetupRigidbody(ecsWorld, entity, GetComponent<Rigidbody>());
     }
 }
 ```

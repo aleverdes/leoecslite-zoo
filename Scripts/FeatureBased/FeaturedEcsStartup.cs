@@ -40,15 +40,7 @@ namespace AffenCode
             _lateUpdateSystems = new EcsSystems(WorldProvider.World);
             _fixedUpdateSystems = new EcsSystems(WorldProvider.World);
             
-            _updateSystems.Add(new SyncFromUnityTransformSystem());
-            _lateUpdateSystems.Add(new SyncFromUnityTransformSystem());
-            _fixedUpdateSystems.Add(new SyncFromUnityTransformSystem());
-            
             AddFeatures(new FeatureEcsSystems(_updateSystems, _lateUpdateSystems, _fixedUpdateSystems));
-            
-            _updateSystems.Add(new SyncToUnityTransformSystem());
-            _lateUpdateSystems.Add(new SyncToUnityTransformSystem());
-            _fixedUpdateSystems.Add(new SyncToUnityTransformSystem());
             
             _updateSystems.Inject();
             _lateUpdateSystems.Inject();
