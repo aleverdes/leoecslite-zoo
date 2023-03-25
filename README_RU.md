@@ -161,14 +161,8 @@ public class TestFeature : IEcsFeature
 ## ECS Unity Core Components
 
 LeoECS Lite Unity Zoo включает в себя несколько компонентов для упрощения взаимодействия с Unity-компонентами на сцене:
-* EcsTransform — это основной компонент, аналог Transform в Unity, содержащий в себе информацию о position, rotation и scale объекта. По умолчанию работает в глоабльных координатах. Если необходимо перевести работу методов синхронизации (при наличии TransformRef-компонента) на локальные координаты, добавьте компонент LocalTransformSync к выбранной сущности.
 * TransformRef содержит ссылку на Unity-transform.
-  * Наличие обоих компонентов (EcsTransform и TransformRef) позволяет настроить синхронизацию компонента с transform'ом на сцене, если используется один из вышеперечисленных типов EcsStartup.
 * RigidbodyRef содержит ссылку на Unity-rigidbody.
-  * Наличие обоих компонентов (EcsTransform и RigidbodyRef) позволяет настроить синхронизацию компонента с transform'ом на сцене, если используется один из вышеперечисленных типов EcsStartup. Данные в таком случае будут синхронизировать в FixedUpdate().
-* LocalTransformSync позволяет перевести синхронизацию координат и вращения объекта с глобальных на локальные.
-
-Также:
 * GameObjectRef содержит ссылку на GameObject.
 * RectTransformRef содержит ссылку на RectTransform.
 * Rigidbody2DRef содержит ссылку на Rigidbody2D и дублирует функционал RigidbodyRef.
@@ -180,22 +174,9 @@ using UnityEngine;
 namespace AffenCode
 {
     [Serializable]
-    public struct EcsTransform
-    {
-        public Vector3 Position;
-        public Quaternion Rotation;
-        public Vector3 Scale;
-    }
-
-    [Serializable]
     public struct TransformRef
     {
         public Transform Value;
-    }
-
-    [Serializable]
-    public struct LocalTransformSync
-    {
     }
 
     [Serializable]
@@ -248,11 +229,6 @@ public class PlayerBootstrapper : MonoBehaviour, IConvertToEntity
         {
             Name = "Test"
         };
-    
-        // for linking ECS-entity with Unity-object
-        ConversionUtils.SetupGameObjectRef(ecsWorld, entity, gameObject);
-        ConversionUtils.SetupTransformRef(ecsWorld, entity, transform);
-        ConversionUtils.SetupRigidbody(ecsWorld, entity, GetComponent<Rigidbody>());
     }
 }
 ```

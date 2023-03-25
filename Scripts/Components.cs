@@ -4,22 +4,9 @@ using UnityEngine;
 namespace AffenCode
 {
     [Serializable]
-    public struct EcsTransform
-    {
-        public Vector3 Position;
-        public Quaternion Rotation;
-        public Vector3 Scale;
-    }
-
-    [Serializable]
     public struct TransformRef
     {
         public Transform Value;
-    }
-
-    [Serializable]
-    public struct LocalTransformSync
-    {
     }
 
     [Serializable]
@@ -28,14 +15,6 @@ namespace AffenCode
         public RectTransform Value;
     }
     
-    [Serializable]
-    public struct IgnoreTransformSync
-    {}
-    
-    [Serializable]
-    public struct IgnoreRigidbodySync
-    {}
-
     [Serializable]
     public struct RigidbodyRef
     {
