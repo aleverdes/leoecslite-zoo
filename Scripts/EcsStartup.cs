@@ -1,4 +1,3 @@
-using System;
 using Leopotam.EcsLite;
 using UnityEngine;
 
