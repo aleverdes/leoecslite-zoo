@@ -16,6 +16,7 @@ namespace AffenCode
     {
         Start,
         EndOfFrame,
-        NextFrame
+        NextFrame,
+        Manual
     }
 }

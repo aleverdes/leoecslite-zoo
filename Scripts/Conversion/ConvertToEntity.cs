@@ -28,6 +28,8 @@ namespace AffenCode
                 case ConvertTime.NextFrame:
                     yield return null;
                     break;
+                case ConvertTime.Manual:
+                    yield break;
             }
 
             Convert();
