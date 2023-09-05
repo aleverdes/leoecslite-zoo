@@ -17,6 +17,7 @@ namespace AffenCode
         private EcsWorld _world;
         private int? _entity;
         private bool _converted;
+        private bool _hasAnyComponent;
 
         private IEnumerator Start()
         {
@@ -53,6 +54,7 @@ namespace AffenCode
             _entity = _world.NewEntity();
 
             var components = GetComponents<IConvertToEntity>();
+            
             foreach (var component in components)
             {
                 component.ConvertToEntity(_world, _entity.Value);
@@ -61,6 +63,13 @@ namespace AffenCode
             if (_collectMode == CollectMode.IncludeChildren)
             {
                 ConvertChildrenToEntity(transform);
+                _hasAnyComponent = true;
+            }
+
+            if (!_hasAnyComponent)
+            {
+                Debug.LogError("Can't convert game object to entity without IConvertToEntity components", this);
+                return;
             }
 
             if (_convertMode == ConvertMode.ConvertAndDestroy)
@@ -91,6 +100,7 @@ namespace AffenCode
                     foreach (var component in components)
                     {
                         component.ConvertToEntity(EcsWorldProvider.DefaultWorldProvider.World, _entity.Value);
+                        _hasAnyComponent = true;
                     }
                     ConvertChildrenToEntity(child);
                 }
