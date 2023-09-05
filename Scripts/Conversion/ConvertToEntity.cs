@@ -58,12 +58,12 @@ namespace AffenCode
             foreach (var component in components)
             {
                 component.ConvertToEntity(_world, _entity.Value);
+                _hasAnyComponent = true;
             }
 
             if (_collectMode == CollectMode.IncludeChildren)
             {
                 ConvertChildrenToEntity(transform);
-                _hasAnyComponent = true;
             }
 
             if (!_hasAnyComponent)
