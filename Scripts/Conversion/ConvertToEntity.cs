@@ -99,7 +99,7 @@ namespace AffenCode
                     var components = child.GetComponents<IConvertToEntity>();
                     foreach (var component in components)
                     {
-                        component.ConvertToEntity(EcsWorldProvider.DefaultWorldProvider.World, _entity.Value);
+                        component.ConvertToEntity(DefaultConversionWorld, _entity.Value);
                         _hasAnyComponent = true;
                     }
                     ConvertChildrenToEntity(child);
@@ -121,11 +121,6 @@ namespace AffenCode
             if (DefaultConversionWorld != null)
             {
                 return DefaultConversionWorld;
-            }
-
-            if (EcsWorldProvider.DefaultWorldProvider && EcsWorldProvider.DefaultWorldProvider.World != null)
-            {
-                return EcsWorldProvider.DefaultWorldProvider.World;
             }
 
             throw new Exception("World for conversion not found. Use ConvertToEntity.DefaultConversionWorld for set it.");

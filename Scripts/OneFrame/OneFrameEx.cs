@@ -9,5 +9,11 @@ namespace AffenCode
             ecsSystems.Add(new OneFrameSystem<T>());
             return ecsSystems;
         }
+        
+        public static EcsFeatureSystems OneFrame<T>(this EcsFeatureSystems ecsSystems) where T : struct
+        {
+            ecsSystems.Add(new OneFrameSystem<T>());
+            return ecsSystems;
+        }
     }
 }
