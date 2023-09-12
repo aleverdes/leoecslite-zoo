@@ -26,7 +26,7 @@ namespace AffenCode
         
         public EcsInjector AddInjectionObject(object injectionObject, Type type)
         {
-            if (!type.IsAssignableFrom(injectionObject.GetType()))
+            if (!type.IsInstanceOfType(injectionObject))
             {
                 throw new Exception($"Can't add object {injectionObject} to injection-list because object's type {injectionObject.GetType()} isn't assignable from {type}");
             }
@@ -57,47 +57,6 @@ namespace AffenCode
             }
 
             InjectPools(ecsSystems);
-        }
-
-        public static IEcsSystems Inject(IEcsSystems ecsSystems, object injectedObject)
-        {
-            return Inject(ecsSystems, injectedObject, injectedObject.GetType());
-        }
-
-        public static IEcsSystems Inject(IEcsSystems ecsSystems, object injectedObject, Type injectionType)
-        {
-            var allSystems = ecsSystems.GetAllSystems();
-
-            foreach (var system in allSystems)
-            {
-                var systemType = system.GetType();
-                var systemFields = systemType.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-                var requiredField = systemFields.FirstOrDefault(x => x.FieldType == injectionType);
-                if (requiredField != null)
-                {
-                    requiredField.SetValue(system, injectedObject);
-                }
-            }
-            
-            return ecsSystems;
-        }
-
-        public static IEcsSystem Inject(IEcsSystem system, object injectedObject)
-        {
-            return Inject(system, injectedObject, injectedObject.GetType());
-        }
-
-        public static IEcsSystem Inject(IEcsSystem system, object injectedObject, Type injectionType)
-        {
-            var systemType = system.GetType();
-            var systemFields = systemType.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-            var requiredField = systemFields.FirstOrDefault(x => x.FieldType == injectionType);
-            if (requiredField != null)
-            {
-                requiredField.SetValue(system, injectedObject);
-            }
-            
-            return system;
         }
 
         private IEcsSystems InjectPools(IEcsSystems ecsSystems)
@@ -148,6 +107,41 @@ namespace AffenCode
             }
             
             return ecsSystems;
+        }
+        
+        public static IEcsSystems Inject(IEcsSystems ecsSystems, object injectedObject)
+        {
+            return Inject(ecsSystems, injectedObject, injectedObject.GetType());
+        }
+
+        public static IEcsSystems Inject(IEcsSystems ecsSystems, object injectedObject, Type injectionType)
+        {
+            var allSystems = ecsSystems.GetAllSystems();
+
+            foreach (var system in allSystems)
+            {
+                Inject(system, injectedObject, injectionType);
+            }
+            
+            return ecsSystems;
+        }
+
+        public static IEcsSystem Inject(IEcsSystem system, object injectedObject)
+        {
+            return Inject(system, injectedObject, injectedObject.GetType());
+        }
+
+        public static IEcsSystem Inject(IEcsSystem system, object injectedObject, Type injectionType)
+        {
+            var systemType = system.GetType();
+            var systemFields = systemType.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            var requiredField = systemFields.FirstOrDefault(x => x.FieldType == injectionType);
+            if (requiredField != null)
+            {
+                requiredField.SetValue(system, injectedObject);
+            }
+            
+            return system;
         }
     }
 }

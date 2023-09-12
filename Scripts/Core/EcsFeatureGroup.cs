@@ -24,7 +24,7 @@ namespace AffenCode
         public EcsWorld World { get; private set; }
         public EcsSystemsGroup SystemsGroup { get; private set; }
 
-        private List<IEcsFeature> _features;
+        private readonly List<IEcsFeature> _features;
 
         public EcsFeatureGroup()
         {
