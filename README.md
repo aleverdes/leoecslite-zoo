@@ -15,8 +15,8 @@ Link for [Russian README](https://github.com/aleverdes/leoecslite-zoo/blob/maste
 * [Installation](#installation)
     * [Unity Package Manager](#unity-package-manager)
     * [Manual installation](#manual-installation)
+* [Usage](#usage)
 * [Features](#features)
-    * [ECS StartUp](#ecs-startup)
     * [ECS Manager](#ecs-manager)
     * [ECS Feature](#ecs-feature)
     * [ECS Unity Core Components](#ecs-unity-core-components)
@@ -52,9 +52,7 @@ Installation is supported as a unity module via a git link in the PackageManager
 The code can also be cloned or obtained as an archive from the releases page.
 Just put the LeoECS Lite Zoo folder in your unity project (in the Assets folder).
 
-# Features
-
-## ECS Startup
+# Usage
 
 Below is an example of how to run ECS Manager from LeoECS Lite Zoo along with injection, world initialization and systems running.
 
@@ -64,22 +62,25 @@ public class GameEcsStartup : MonoBehaviour
     [SerializeField] private List<EcsInjectionContext> _injectionContexts;
 
     private EcsWorld _world;
-    private GameEcsManager _ecsManager;
+    private EcsManager _ecsManager;
 
     private void Awake()
     {
         _world = new EcsWorld();
         ConvertToEntity.DefaultConversionWorld = _world;
         
-        _ecsManager = new GameEcsManager();
+        _ecsManager = new EcsManager();
         _ecsManager.SetWorld(_world);
+        
         foreach (var injectionContext in _injectionContexts)
         {
-            var injector = injectionContext.GetInjector();
-            injectionContext.Setup(injector);
-            _ecsManager.AddInjector(injector);   
+            injectionContext.InitInjector();
+            _ecsManager.AddInjector(injectionContext.GetInjector());   
         }
-        _ecsManager.Initialize();
+
+        var mainEcsFeatureGroupController = new MainEcsFeatureGroupController();
+        mainEcsFeatureGroupController.Initialize();
+        _ecsManager.AddFeatureGroup(mainEcsFeatureGroupController.GetFeatureGroup());
     }
 
     private void Update()
@@ -96,8 +97,32 @@ public class GameEcsStartup : MonoBehaviour
     {
         _ecsManager.FixedUpdate();
     }
+
+    private void OnDestroy()
+    {
+        _ecsManager.Destroy();
+    }
 }
 ```
+
+```csharp
+public class MainEcsFeatureGroupController : EcsFeatureGroupController
+{
+    protected override EcsFeatureGroup CreateFeatureGroup()
+    {
+        var featureGroup = new EcsFeatureGroup();
+        
+        featureGroup
+            .AddFeature(new DebugFeature())
+            .AddFeature(new PlayerFeature())
+            ;
+
+        return featureGroup;
+    }
+}
+```
+
+# Features
 
 ## ECS Manager
 

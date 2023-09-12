@@ -15,9 +15,8 @@ LeoECS Lite Unity Zoo — это большое дополнение для [Leo
 * [Установка](#установка)
     * [Unity Package Manager](#unity-package-manager)
     * [Ручная установка](#ручная-установка)
+* [Использование](#использование)
 * [Возможности](#возможности)
-    * [ECS StartUp](#ecs-startup)
-    * [ECS Manager](#ecs-manager)
     * [ECS Feature](#ecs-feature)
     * [ECS Unity Core Components](#ecs-unity-core-components)
     * [ECS Components Conversion](#ecs-components-conversion)
@@ -53,9 +52,8 @@ LeoECS Lite Unity Zoo — это большое дополнение для [Leo
 Код так же может быть склонирован или получен в виде архива со страницы релизов.
 Просто скопируйте папку LeoECS Lite Zoo в ваш проект или установите его через unitypackage со страницы Releases.
 
-# Возможности
 
-## ECS Startup
+# Использование
 
 Ниже приведен пример того, как запустить ECS Manager от LeoECS Lite Zoo вместе с инъекцией, инициализацией мира и работой систем.
 
@@ -65,22 +63,25 @@ public class GameEcsStartup : MonoBehaviour
     [SerializeField] private List<EcsInjectionContext> _injectionContexts;
 
     private EcsWorld _world;
-    private GameEcsManager _ecsManager;
+    private EcsManager _ecsManager;
 
     private void Awake()
     {
         _world = new EcsWorld();
         ConvertToEntity.DefaultConversionWorld = _world;
         
-        _ecsManager = new GameEcsManager();
+        _ecsManager = new EcsManager();
         _ecsManager.SetWorld(_world);
+        
         foreach (var injectionContext in _injectionContexts)
         {
-            var injector = injectionContext.GetInjector();
-            injectionContext.Setup(injector);
-            _ecsManager.AddInjector(injector);   
+            injectionContext.InitInjector();
+            _ecsManager.AddInjector(injectionContext.GetInjector());   
         }
-        _ecsManager.Initialize();
+
+        var mainEcsFeatureGroupController = new MainEcsFeatureGroupController();
+        mainEcsFeatureGroupController.Initialize();
+        _ecsManager.AddFeatureGroup(mainEcsFeatureGroupController.GetFeatureGroup());
     }
 
     private void Update()
@@ -97,27 +98,54 @@ public class GameEcsStartup : MonoBehaviour
     {
         _ecsManager.FixedUpdate();
     }
+
+    private void OnDestroy()
+    {
+        _ecsManager.Destroy();
+    }
 }
 ```
 
-## ECS Manager
+```csharp
+public class MainEcsFeatureGroupController : EcsFeatureGroupController
+{
+    protected override EcsFeatureGroup CreateFeatureGroup()
+    {
+        var featureGroup = new EcsFeatureGroup();
+        
+        featureGroup
+            .AddFeature(new DebugFeature())
+            .AddFeature(new PlayerFeature())
+            ;
 
-ECS Manager — класс, в котором разработчик должен перечислить все необходимые EcsFeature.
+        return featureGroup;
+    }
+}
+```
 
 ```csharp
 using AffenCode;
 
-public class GameEcsManager : EcsManager
+public class DebugFeature : EcsFeature
 {
-    protected override void AddFeatures(EcsSystemsContext systemsContext)
+    protected override void SetupUpdateSystems(EcsFeatureSystems ecsFeatureSystems)
     {
-        systemsContext
-            .Add(new DebugFeature())
-            .Add(new PlayerFeature())
+        ecsFeatureSystems
+            .Add(new DebugTeleportSystem())
             ;
+    }
+
+    protected override void SetupLateUpdateSystems(EcsFeatureSystems ecsFeatureSystems)
+    {
+    }
+
+    protected override void SetupFixedUpdateSystems(EcsFeatureSystems ecsFeatureSystems)
+    {
     }
 }
 ```
+
+# Возможности
 
 ## ECS Feature
 
