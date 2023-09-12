@@ -2,7 +2,7 @@ using Leopotam.EcsLite;
 
 namespace AffenCode
 {
-    public sealed class OneFrameSystem<T> : IEcsRunSystem where T : struct
+    public sealed class DelHereSystem<T> : IEcsRunSystem where T : struct
     {
         public void Run(IEcsSystems systems)
         {
