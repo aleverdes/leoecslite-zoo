@@ -2,15 +2,15 @@ namespace AffenCode
 {
     public abstract class EcsFeatureGroupController
     {
-        private EcsFeatureGroup _featureGroup;
+        private IEcsFeatureGroup _featureGroup;
 
         public void Initialize()
         {
             _featureGroup = CreateFeatureGroup();
         }
 
-        protected abstract EcsFeatureGroup CreateFeatureGroup();
+        protected abstract IEcsFeatureGroup CreateFeatureGroup();
 
-        public EcsFeatureGroup GetFeatureGroup() => _featureGroup;
+        public IEcsFeatureGroup GetFeatureGroup() => _featureGroup;
     }
 }

@@ -5,7 +5,7 @@ namespace AffenCode
 {
     public sealed class EcsManager
     {
-        private readonly HashSet<EcsFeatureGroup> _systemsContexts = new HashSet<EcsFeatureGroup>();
+        private readonly HashSet<IEcsFeatureGroup> _systemsContexts = new HashSet<IEcsFeatureGroup>();
         private readonly HashSet<EcsInjector> _injectors = new HashSet<EcsInjector>();
         
         private EcsWorld _world;
@@ -68,7 +68,7 @@ namespace AffenCode
             }
         }
 
-        public void AddFeatureGroup(EcsFeatureGroup featureGroup)
+        public void AddFeatureGroup(IEcsFeatureGroup featureGroup)
         {
             featureGroup.Initialize(_world);
             
