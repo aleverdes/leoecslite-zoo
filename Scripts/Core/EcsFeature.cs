@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Leopotam.EcsLite;
 
@@ -11,11 +12,13 @@ namespace AffenCode
         EcsFeatureSystems GetLateUpdateSystems();
         EcsFeatureSystems GetFixedUpdateSystems();
 
+        IEnumerable<EcsFeatureInjectionInfo> GetInjections();
+
         void Setup();
         void Enable();
         void Disable();
     }
-    
+
     public abstract class EcsFeature : IEcsFeature
     {
         public bool Enabled { get; protected set; }
@@ -23,12 +26,14 @@ namespace AffenCode
         private readonly EcsFeatureSystems _updateSystems;
         private readonly EcsFeatureSystems _lateUpdateSystems;
         private readonly EcsFeatureSystems _fixedUpdateSystems;
+        private readonly EcsFeatureInjections _injections;
 
         public EcsFeature()
         {
             _updateSystems = new EcsFeatureSystems(this);
             _lateUpdateSystems = new EcsFeatureSystems(this);
             _fixedUpdateSystems = new EcsFeatureSystems(this);
+            _injections = new EcsFeatureInjections(this);
             Enabled = true;
         }
 
@@ -37,11 +42,16 @@ namespace AffenCode
             SetupUpdateSystems(GetUpdateSystems());
             SetupLateUpdateSystems(GetLateUpdateSystems());
             SetupFixedUpdateSystems(GetFixedUpdateSystems());
+            RegisterInjections(_injections);
         }
 
         protected abstract void SetupUpdateSystems(EcsFeatureSystems ecsFeatureSystems);
         protected abstract void SetupLateUpdateSystems(EcsFeatureSystems ecsFeatureSystems);
         protected abstract void SetupFixedUpdateSystems(EcsFeatureSystems ecsFeatureSystems);
+
+        protected virtual void RegisterInjections(EcsFeatureInjections ecsFeatureInjections)
+        {
+        }
 
         public EcsFeatureSystems GetUpdateSystems()
         {
@@ -58,6 +68,11 @@ namespace AffenCode
             return _fixedUpdateSystems;
         }
 
+        public IEnumerable<EcsFeatureInjectionInfo> GetInjections()
+        {
+            return _injections.GetInjections();
+        }
+
         public void Enable()
         {
             Enabled = true;
@@ -67,28 +82,5 @@ namespace AffenCode
         {
             Enabled = false;
         }
-    }
-
-    public class EcsFeatureSystems
-    {
-        private readonly EcsFeature _feature;
-        private readonly List<IEcsSystem> _systems = new List<IEcsSystem>();
-
-        public EcsFeatureSystems(EcsFeature feature)
-        {
-            _feature = feature;
-        }
-
-        public EcsFeatureSystems Add(IEcsSystem system)
-        {
-            EcsInjector.Inject(system, _feature, typeof(IEcsFeature));
-            EcsInjector.Inject(system, _feature, typeof(EcsFeature));
-            EcsInjector.Inject(system, _feature, _feature.GetType());
-            _systems.Add(system);
-            return this;
-        }
-
-        public EcsFeature GetFeature() => _feature;
-        public List<IEcsSystem> GetSystems() => _systems;
     }
 }

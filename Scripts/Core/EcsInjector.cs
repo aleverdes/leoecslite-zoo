@@ -47,6 +47,11 @@ namespace AffenCode
             return this;
         }
 
+        public Dictionary<Type, object> GetInjectedObjects()
+        {
+            return _injectedObjects;
+        }
+
         public void ExecuteInjection(IEcsSystems ecsSystems)
         {
             Inject(ecsSystems, ecsSystems.GetWorld(), typeof(EcsWorld));
@@ -59,10 +64,14 @@ namespace AffenCode
             InjectPools(ecsSystems);
         }
 
+
         private IEcsSystems InjectPools(IEcsSystems ecsSystems)
         {
-            var world = ecsSystems.GetWorld();
+            return InjectPools(ecsSystems, ecsSystems.GetWorld());
+        }
 
+        public IEcsSystems InjectPools(IEcsSystems ecsSystems, EcsWorld world)
+        {
             if (world == null)
             {
                 throw new Exception("For ECS-pool injection required the ECS World");
@@ -109,6 +118,47 @@ namespace AffenCode
             return ecsSystems;
         }
         
+        public void InjectPools(object obj, EcsWorld world)
+        {
+            if (world == null)
+            {
+                throw new Exception("For ECS-pool injection required the ECS World");
+            }
+
+            if (!_poolsCache.TryGetValue(world, out var poolsByGenericType))
+            {
+                poolsByGenericType = new Dictionary<Type, object>();
+                _poolsCache.Add(world, poolsByGenericType);
+            }
+
+            var getPoolMethod = typeof(EcsWorld).GetMethod(nameof(EcsWorld.GetPool));
+
+            var systemType = obj.GetType();
+            var systemFields = systemType.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+
+            foreach (var systemField in systemFields)
+            {
+                if (!typeof(IEcsPool).IsAssignableFrom(systemField.FieldType))
+                {
+                    continue;   
+                }
+
+                var poolType = systemField.FieldType.GetGenericArguments().FirstOrDefault();
+
+                if (!poolsByGenericType.TryGetValue(poolType, out var pool))
+                {
+                    var getTypedPoolMethod = getPoolMethod.MakeGenericMethod(poolType);
+                    pool = getTypedPoolMethod.Invoke(world, null);
+                    poolsByGenericType.Add(poolType, pool);
+                    systemField.SetValue(obj, pool);
+                }
+                else
+                {
+                    systemField.SetValue(obj, pool);
+                }
+            }
+        }
+        
         public static IEcsSystems Inject(IEcsSystems ecsSystems, object injectedObject)
         {
             return Inject(ecsSystems, injectedObject, injectedObject.GetType());
@@ -126,22 +176,32 @@ namespace AffenCode
             return ecsSystems;
         }
 
-        public static IEcsSystem Inject(IEcsSystem system, object injectedObject)
+        public static object Inject(object obj, object injectedObject)
         {
-            return Inject(system, injectedObject, injectedObject.GetType());
+            return Inject(obj, injectedObject, injectedObject.GetType());
         }
 
-        public static IEcsSystem Inject(IEcsSystem system, object injectedObject, Type injectionType)
+        public static object Inject(object obj, object injectedObject, Type[] injectionTypes)
         {
-            var systemType = system.GetType();
+            foreach (var injectionType in injectionTypes)
+            {
+                Inject(obj, injectedObject, injectionType);
+            }
+
+            return obj;
+        }
+
+        public static object Inject(object obj, object injectedObject, Type injectionType)
+        {
+            var systemType = obj.GetType();
             var systemFields = systemType.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
             var requiredField = systemFields.FirstOrDefault(x => x.FieldType == injectionType);
             if (requiredField != null)
             {
-                requiredField.SetValue(system, injectedObject);
+                requiredField.SetValue(obj, injectedObject);
             }
             
-            return system;
+            return obj;
         }
     }
 }
