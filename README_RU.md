@@ -1,7 +1,7 @@
 # LeoECS Lite Unity Zoo
 
 LeoECS Lite Unity Zoo — это большое дополнение для [LeoECS Lite](https://github.com/Leopotam/ecslite) с использованием Unity, включаяющая в себя:
-* ECS Startup (плоский и feature-based);
+* ECS Feature Manager;
 * ECS Component Conversion;
 * Unity Core ECS Components;
 * ECS Injection;
@@ -16,16 +16,16 @@ LeoECS Lite Unity Zoo — это большое дополнение для [Leo
     * [Unity Package Manager](#unity-package-manager)
     * [Ручная установка](#ручная-установка)
 * [Возможности](#возможности)
-    * [ECS World Provider](#ecs-world-provider)
-    * [Plain ECS Startup](#plain-ecs-startup)
-    * [Feature-based ECS Startup](#feature-based-ecs-startup)
+    * [ECS StartUp](#ecs-startup)
+    * [ECS Manager](#ecs-manager)
+    * [ECS Feature](#ecs-feature)
     * [ECS Unity Core Components](#ecs-unity-core-components)
     * [ECS Components Conversion](#ecs-components-conversion)
-    * [ECS Injection и Globals](#ecs-injection-и-globals)
-        * [GlobalMonoBehaviour](#globalmonobehaviour)
+    * [ECS Injection](#ecs-injection)
+        * [ECS Injection Context](#ecs-injection-context)
         * [Manual Injection](#manual-injection)
-        * [Globals](#globals)
         * [EcsWorld Injection](#ecsworld-injection)
+        * [EcsPool Injection](#ecspool-injection)
     * [OneFrame Systems](#oneframe-systems)
     * [LeoECS Lite Extensions](#leoecs-lite-extensions)
         * [Unity Extensions](#unity-extensions)
@@ -55,105 +55,92 @@ LeoECS Lite Unity Zoo — это большое дополнение для [Leo
 
 # Возможности
 
-## ECS World Provider
+## ECS Startup
 
-ECS World Provider — это MonoBehaviour, который занимается созданием и удалением ECS-миров (EcsWorld).
-Вы также можете получить доступ к миру через соответствующее свойство World.
-Первый созданный мир регистрируется как мир по умолчанию и доступен через статическое свойство `EcsWorldProvider.DefaultWorldProvider.World`.
+Ниже приведен пример того, как запустить ECS Manager от LeoECS Lite Zoo вместе с инъекцией, инициализацией мира и работой систем.
 
-Просто добавьте компонент EcsWorldProvider к любому объекту сцены, и при запуске сцены будет создан новый EcsWorld.
+```csharp
+public class GameEcsStartup : MonoBehaviour
+{
+    [SerializeField] private List<EcsInjectionContext> _injectionContexts;
 
-## Плоский ECS Startup
+    private EcsWorld _world;
+    private GameEcsManager _ecsManager;
 
-Сам по себе класс ECS Startup позволяет определить список Ваших систем в несколько строк кода.
-Для работы с EcsStartup, необходимо создать новый класс и отнаследоваться от класс EcsStartup и реализовать все объявленные в нём методы.
+    private void Awake()
+    {
+        _world = new EcsWorld();
+        ConvertToEntity.DefaultConversionWorld = _world;
+        
+        _ecsManager = new GameEcsManager();
+        _ecsManager.SetWorld(_world);
+        foreach (var injectionContext in _injectionContexts)
+        {
+            var injector = injectionContext.GetInjector();
+            injectionContext.Setup(injector);
+            _ecsManager.AddInjector(injector);   
+        }
+        _ecsManager.Initialize();
+    }
 
-EcsStartup является классом MonoBehaviour и для работы требует присутствия этого компонента на сцене.
+    private void Update()
+    {
+        _ecsManager.Update();
+    }
 
-Для работы ECS Startup нужна ссылка на компонент EcsWorldProvider. Я рекомендую создать на сцене объект "ECS" и добавить к нему компоненты EcsWorldProvider и наследника класса EcsStartup.
+    private void LateUpdate()
+    {
+        _ecsManager.LateUpdate();
+    }
 
-EcsStartup включает в себя функциональность для синхронизации EcsTransform с компонентом Unity-Transform. Подробнее читайте в [ECS Unity Core Components](#ecs-unity-core-components).
+    private void FixedUpdate()
+    {
+        _ecsManager.FixedUpdate();
+    }
+}
+```
 
-Просто создайте свой класс на основе EcsStartup и заполните его своими системами.
+## ECS Manager
+
+ECS Manager — класс, в котором разработчик должен перечислить все необходимые EcsFeature.
 
 ```csharp
 using AffenCode;
-using Leopotam.EcsLite;
 
-public class TestEcsStartup : EcsStartup
+public class GameEcsManager : EcsManager
 {
-    protected override void AddUpdateSystems(EcsSystems ecsSystems)
+    protected override void AddFeatures(EcsSystemsContext systemsContext)
     {
-        ecsSystems
-            .Add(new TestUpdateSystem())
-            ;
-    }
-
-    protected override void AddLateUpdateSystems(EcsSystems ecsSystems)
-    {
-        ecsSystems
-            .Add(new TestLateUpdateSystem())
-            ;
-    }
-
-    protected override void AddFixedUpdateSystems(EcsSystems ecsSystems)
-    {
-        ecsSystems
-            .Add(new TestFixedUpdateSystem())
+        systemsContext
+            .Add(new DebugFeature())
+            .Add(new PlayerFeature())
             ;
     }
 }
 ```
 
-## Feature-based ECS Startup
+## ECS Feature
 
-FeaturedEcsStartup — более сложный, но более удобный способ организации ваших систем в проекте.
-
-Для организации кода в FeaturedEcsStartup добавляются объекты типа IEcsFeature, которые уже включают в себя объявление методов, необходимых для корректной работы Unity.
-
-FeaturedEcsStartup также является классом MonoBehaviour и для работы требует наличия этого компонента на сцене.
-
-Для работы FeaturedEcsStartup нужна ссылка на компонент EcsWorldProvider. Я рекомендую создать на сцене объект «ECS» и добавить к нему компоненты EcsWorldProvider и класс-наследник FeaturedEcsStartup.
-
-FeaturedEcsStartup включает функциональные возможности для синхронизации EcsTransform с UnityTransform. Подробнее читайте в [ECS Unity Core Components](#ecs-unity-core-components).
-
-Просто унаследуйте свой класс от FeaturedEcsStartup и заполните его своими функциями с помощью систем.
+ECS Feature — основной способ организации и группировки внутриигровых систем по контексту.
 
 ```csharp
 using AffenCode;
-using Leopotam.EcsLite;
 
-public class TestEcsStartup : FeaturedEcsStartup
+public class DebugFeature : EcsFeature
 {
-    protected override void AddFeatures(FeatureEcsSystems systems)
+    protected override void SetupUpdateSystems(EcsFeatureSystems ecsFeatureSystems)
     {
-        systems
-            .Add(new TestFeature())
-            ;
-    }
-}
-
-public class TestFeature : IEcsFeature
-{
-    public void Update(IEcsSystems ecsSystems)
-    {
-        ecsSystems
-            .Add(new TestUpdateSystem())
+        ecsFeatureSystems
+            .Add(new DebugTeleportSystem())
             ;
     }
 
-    public void LateUpdate(IEcsSystems ecsSystems)
+    protected override void SetupLateUpdateSystems(EcsFeatureSystems ecsFeatureSystems)
     {
-        ecsSystems
-            .Add(new TestLateUpdateSystem())
-            ;
     }
 
-    public void FixedUpdate(IEcsSystems ecsSystems)
+    protected override void SetupFixedUpdateSystems(EcsFeatureSystems ecsFeatureSystems)
     {
-        ecsSystems
-            .Add(new TestFixedUpdateSystem())
-            ;
     }
 }
 ```
@@ -254,76 +241,59 @@ public class TestComponentProvider : ConvertComponent<TestComponent>
 Важным является дополнение, что если Вы используете ConvertComponent-способ конвертации объектов, не забудьте добавить MonoBehaviour-компонент `UnityObjectProvider`. 
 `UnityObjectProvider` позволит Вам связать Ваш Unity-объект с ECS-сущностью (будет ссылка на GameObject, свяжутся EcsTransform и TransformRef или, если есть Rigidbody, то EcsTransform и RigidbodyRef).
 
-## ECS Injection и Globals
+## ECS Injection
 
-LeoECS Lite Unity Zoo предоставляет механизм инъекции объектов (injection) в ECS-системы и ServiceLocator местного разлива под названием Globals.
+LeoECS Lite Unity Zoo предоставляет механизм инъекции объектов (injection) в ECS-системы.
 
-> **Важно!** ECS-injection работает по умолчанию только с наследниками EcsStartup и FeaturedEcsStartup. Если вы хотите использовать инъекцию от LeoECS Lite Unity Zoo в стандартном способе объявления систем LeoECS Lite, то просто вставьте метод `.Inject()` в конец объявления ваших систем, прямо перед Init. 
+### ECS Injection Context
 
-### GlobalMonoBehaviour
-
-Самый простой способ объявить глобальный MonoBehaviour, который будет заинджекчен (injected) в Ваших системах и зарегистрирован в Globals является наследование от класса GlobalMonoBehaviour.
-Наследник этого класса будет MonoBehaviour-компонентом с реализованными Awake и OnDestroy (не забудьте использовать override с base-вызовами если они вам необходимы) и потому он должен быть размещен на сцене в единственном экземпляре.
-Чтобы воспользоваться заинджекченным объектом в ECS-системе, просто объявите переменную соответствующего заинджекченному объекту типа.
+Крайне простой способ объявления инъекций в коде. Достаточно просто объявить класс, который будет наследником EcsInjectionContext, и в нем прописать поля, которые хочется заинжектить.
 
 ```csharp
 using AffenCode;
 
-public class InjectedMonoBehaviour : GlobalMonoBehaviour
+public class GameEcsInjectionContext : EcsInjectionContext
 {
-    public string Value = "Test";
+    private DebugSettings _debugSettings;
+    private PlayerCamera _playerCamera;
+    [SerializedField] private ItemDatabase _itemDatabase;
 }
 ```
-```csharp
-using Leopotam.EcsLite;
 
-public void TestSystem : IEcsRunSystem
+В дальнейшем, надо просто инициализровать EcsInjectionContext и зарегистрировать Injector контекста в EcsManager.
+
+```csharp
+using AffenCode;
+
+public class GameEcsStartup : MonoBehaviour
 {
-    private InjectedMonoBehaviour _injectedMonoBehaviour;
-    
-    public void Run(IEcsSystems systems)
+    [SerializeField] private List<EcsInjectionContext> _injectionContexts;
+
+    private GameEcsManager _ecsManager;
+        
+    private void Start()
     {
-        Debug.Log(_injectedMonoBehaviour);
+        ...
+        foreach (var injectionContext in _injectionContexts)
+        {
+            var injector = injectionContext.GetInjector();
+            injectionContext.Setup(injector);
+            _ecsManager.AddInjector(injector);   
+        }
+        ...
     }
 }
+
 ```
 
 ### Manual Injection
 
-Есил вам необходимо заинджектить объект вручную, например если он не является наследником MonoBehaviour, то используйте методы `LeoEcsInjector.AddInjection(this)`.
+Есил вам необходимо заинджектить объект вручную, то используйте данные метод:
 
 ```csharp
-private void Awake()
-{
-    LeoEcsLiteInjector.AddInjection(Component);
-}
-
-private void OnDestroy()
-{
-    LeoEcsLiteInjector.RemoveInjection(Component);
-}
-```
-
-### Globals
-
-Также есть вышеупомянутый Globals-класс — класс типа ServiceLocator. Доступ к объектам в Globals доступен из любой точки Вашего кода посредством нижеописанных методов..
-
-```csharp
-private void Awake()
-{
-    Globals.Add(this); // регистрация в Globals
-}
-
-private void OnDestroy()
-{
-    Globals.Remove(this); // удаление из Globals
-}
-```
-```csharp
-if (Globals.Has<TestClass>()) // проверка на наличие в Globals
-{
-    var test = Globals.Get<TestClass>(); // Получение объекта из Globals
-}
+var ecsInjectionContext = FindObjectOfType<EcsInjectionContext>();
+...
+ecsInjectionContext.GetInjector().AddInjectionObject(Value);
 ```
 
 ### EcsWorld Injection
@@ -346,21 +316,18 @@ public void TestSystem : IEcsRunSystem
 
 ### EcsPool Injection
 
-Также, если Вы используете Injection от LeoECS Lite Unity Zoo, то Вам доступно обращение к пулам через простое объявление его в системе.
+Также, если Вы используете Injection от LeoECS Lite Unity Zoo, то Вам доступно обращение к любом EcsPool<T> через простое объявление его в системе.
 
 ```csharp
 using Leopotam.EcsLite;
 
 public void TestSystem : IEcsRunSystem
 {
-    private EcsPool<Test> _test;
+    private EcsPool<DebugComponent> _debugComponentPool;
     
     public void Run(IEcsSystems systems)
     {
-        if (_test.Has(0))
-        {
-            Debug.Log("Exists");
-        }
+        ...
     }
 }
 ```
@@ -368,15 +335,15 @@ public void TestSystem : IEcsRunSystem
 ## OneFrame Systems
 
 Если Вам необходимо удалять в конце работы систем какой-либо компонент, LeoECS Lite Unity Zoo предоставляет Вам возможность это сделать через OneFrame-системы. 
-Просто добавьте `.OneFrame<T>` в конец Вашего списка систем с указанием необходимого для очистки типа компонентов.
+Просто добавьте `.OneFrame<T>()` в конец Вашего списка систем с указанием необходимого для очистки типа компонентов.
 
 ```csharp
 ...
-public void Update(IEcsSystems ecsSystems)
+protected override void SetupUpdateSystems(EcsFeatureSystems ecsFeatureSystems)
 {
-    ecsSystems
-        .Add(new TestUpdateSystem())
-        .OneFrame<TestComponent>()
+    ecsFeatureSystems
+        .Add(new DebugTeleportSystem())
+        .OneFrame<DebugComponent>()
         ;
 }
 ```
@@ -395,7 +362,7 @@ if (gameObject.TryGetEntity(out var entity))
 ### ECS World Extensions
 
 ```csharp
-var world = EcsWorldProvider.DefaultWorldProvider.World;
+var world = ConvertToEntity.DefaultConversionWorld;
 
 world.NewEntityWith<TestComponent>() = new TestComponent()
 {

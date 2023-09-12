@@ -16,16 +16,16 @@ Link for [Russian README](https://github.com/aleverdes/leoecslite-zoo/blob/maste
     * [Unity Package Manager](#unity-package-manager)
     * [Manual installation](#manual-installation)
 * [Features](#features)
-    * [ECS World Provider](#ecs-world-provider)
-    * [Plain ECS Startup](#plain-ecs-startup)
-    * [Feature-based ECS Startup](#feature-based-ecs-startup)
+    * [ECS StartUp](#ecs-startup)
+    * [ECS Manager](#ecs-manager)
+    * [ECS Feature](#ecs-feature)
     * [ECS Unity Core Components](#ecs-unity-core-components)
     * [ECS Components Conversion](#ecs-components-conversion)
-    * [ECS Injection and Globals](#ecs-injection-and-globals)
-        * [GlobalMonoBehaviour](#globalmonobehaviour)
+    * [ECS Injection](#ecs-injection)
+        * [ECS Injection Context](#ecs-injection-context)
         * [Manual Injection](#manual-injection)
-        * [Globals](#globals)
         * [EcsWorld Injection](#ecsworld-injection)
+        * [EcsPool Injection](#ecspool-injection)
     * [OneFrame Systems](#oneframe-systems)
     * [LeoECS Lite Extensions](#leoecs-lite-extensions)
         * [Unity Extensions](#unity-extensions)
@@ -54,105 +54,92 @@ Just put the LeoECS Lite Zoo folder in your unity project (in the Assets folder)
 
 # Features
 
-## ECS World Provider
+## ECS Startup
 
-The ECS World Provider is a MonoBehaviour class that contains the creation and deletion of an EcsWorld. 
-You can also access the world through the corresponding World property.
-The first world created is registered as the default world and is available through the static property `EcsWorldProvider.DefaultWorldProvider.World`.
+Below is an example of how to run ECS Manager from LeoECS Lite Zoo along with injection, world initialization and systems running.
 
-Just add the EcsWorldProvider component to any scene object and a new EcsWorld will be created when the scene starts. 
+```csharp
+public class GameEcsStartup : MonoBehaviour
+{
+    [SerializeField] private List<EcsInjectionContext> _injectionContexts;
 
-## Plain ECS Startup
+    private EcsWorld _world;
+    private GameEcsManager _ecsManager;
 
-By itself, the ECS Startup class allows you to define a class in a few lines of code with the declaration of all the systems necessary for your application to work.
-Plain ECS Startup is required for flat definition of systems for the format of Unity update methods.
+    private void Awake()
+    {
+        _world = new EcsWorld();
+        ConvertToEntity.DefaultConversionWorld = _world;
+        
+        _ecsManager = new GameEcsManager();
+        _ecsManager.SetWorld(_world);
+        foreach (var injectionContext in _injectionContexts)
+        {
+            var injector = injectionContext.GetInjector();
+            injectionContext.Setup(injector);
+            _ecsManager.AddInjector(injector);   
+        }
+        _ecsManager.Initialize();
+    }
 
-EcsStartup is also a MonoBehaviour-class and requires the presence of this component on the scene to work.
+    private void Update()
+    {
+        _ecsManager.Update();
+    }
 
-For ECS Startup to work, you need a reference to the EcsWorldProvider component, I recommend creating an "ECS" object on the scene and adding the EcsWorldProvider components and the EcsStartup class heir to it.
+    private void LateUpdate()
+    {
+        _ecsManager.LateUpdate();
+    }
 
-EcsStartup includes functionality to synchronize EcsTransform with Unity-Transform component. Read more in [ECS Unity Core Components](#ecs-unity-core-components).
+    private void FixedUpdate()
+    {
+        _ecsManager.FixedUpdate();
+    }
+}
+```
 
-Just derive your class from EcsStartup and populate it with your systems.
+## ECS Manager
+
+ECS Manager is a class in which the developer must list all the required EcsFeatures.
 
 ```csharp
 using AffenCode;
-using Leopotam.EcsLite;
 
-public class TestEcsStartup : EcsStartup
+public class GameEcsManager : EcsManager
 {
-    protected override void AddUpdateSystems(EcsSystems ecsSystems)
+    protected override void AddFeatures(EcsSystemsContext systemsContext)
     {
-        ecsSystems
-            .Add(new TestUpdateSystem())
-            ;
-    }
-
-    protected override void AddLateUpdateSystems(EcsSystems ecsSystems)
-    {
-        ecsSystems
-            .Add(new TestLateUpdateSystem())
-            ;
-    }
-
-    protected override void AddFixedUpdateSystems(EcsSystems ecsSystems)
-    {
-        ecsSystems
-            .Add(new TestFixedUpdateSystem())
+        systemsContext
+            .Add(new DebugFeature())
+            .Add(new PlayerFeature())
             ;
     }
 }
 ```
 
-## Feature-based ECS Startup
+## ECS Feature
 
-FeaturedEcsStartup is a more complex but more convenient way to organize your systems in a project.
-
-To organize the code, objects of the `IEcsFeature` type are added to FeaturedEcsStartup, which already include the declaration of the methods necessary for Unity to work correctly.
-
-FeaturedEcsStartup is also a MonoBehaviour class and requires the presence of this component on the scene to work.
-
-For FeaturedEcsStartup to work, you need a reference to the EcsWorldProvider component, I recommend creating an "ECS" object on the stage and adding the EcsWorldProvider components and the FeaturedEcsStartup class descendant to it.
-
-FeaturedEcsStartup includes functionality to synchronize EcsTransform with UnityTransform. Read more in [ECS Unity Core Components](#ecs-unity-core-components).
-
-Just derive your class from FeaturedEcsStartup and populate it with your features with systems.
+ECS Feature is the main way to organize and group in-game systems by context.
 
 ```csharp
 using AffenCode;
-using Leopotam.EcsLite;
 
-public class TestEcsStartup : FeaturedEcsStartup
+public class DebugFeature : EcsFeature
 {
-    protected override void AddFeatures(FeatureEcsSystems systems)
+    protected override void SetupUpdateSystems(EcsFeatureSystems ecsFeatureSystems)
     {
-        systems
-            .Add(new TestFeature())
-            ;
-    }
-}
-
-public class TestFeature : IEcsFeature
-{
-    public void Update(IEcsSystems ecsSystems)
-    {
-        ecsSystems
-            .Add(new TestUpdateSystem())
+        ecsFeatureSystems
+            .Add(new DebugTeleportSystem())
             ;
     }
 
-    public void LateUpdate(IEcsSystems ecsSystems)
+    protected override void SetupLateUpdateSystems(EcsFeatureSystems ecsFeatureSystems)
     {
-        ecsSystems
-            .Add(new TestLateUpdateSystem())
-            ;
     }
 
-    public void FixedUpdate(IEcsSystems ecsSystems)
+    protected override void SetupFixedUpdateSystems(EcsFeatureSystems ecsFeatureSystems)
     {
-        ecsSystems
-            .Add(new TestFixedUpdateSystem())
-            ;
     }
 }
 ```
@@ -255,74 +242,57 @@ And for the correct conversion of Unity objects, you must use the `UnityObjectPr
 
 ## ECS Injection and Globals
 
-LeoECS Lite Unity Zoo provides a mechanism for injecting your classes into the system's ECS and using Globals.
+LeoECS Lite Unity Zoo provides a mechanism for injecting your classes into the system's ECS. 
 
-> **Important!** EcsInjection works by default only with EcsStartup and FeaturedEcsStartup. If you want to use Injection with your own ECS-definition, put `.Inject()`-method to the end of definition your EcsSystems. 
+### ECS Injection Context
 
-### GlobalMonoBehaviour
-
-The easiest way, suitable for MonoBehaviour classes, is to inherit from the GlobalMonoBehaviour class.
-Such a class should be in a single copy on the scene.
-Further, you can simply declare a variable of the corresponding class in your system and use it.
+An extremely simple way to declare injections in code. It is enough to simply declare a class that will be the successor of EcsInjectionContext, and in it register the fields that you want to inject.
 
 ```csharp
 using AffenCode;
 
-public class InjectedMonoBehaviour : GlobalMonoBehaviour
+public class GameEcsInjectionContext : EcsInjectionContext
 {
-    public string Value = "Test";
+    private DebugSettings _debugSettings;
+    private PlayerCamera _playerCamera;
+    [SerializedField] private ItemDatabase _itemDatabase;
 }
 ```
-```csharp
-using Leopotam.EcsLite;
 
-public void TestSystem : IEcsRunSystem
+In the future, you just need to initialize the EcsInjectionContext and register the context Injector in the EcsManager.
+
+```csharp
+using AffenCode;
+
+public class GameEcsStartup : MonoBehaviour
 {
-    private InjectedMonoBehaviour _injectedMonoBehaviour;
-    
-    public void Run(IEcsSystems systems)
+    [SerializeField] private List<EcsInjectionContext> _injectionContexts;
+
+    private GameEcsManager _ecsManager;
+        
+    private void Start()
     {
-        Debug.Log(_injectedMonoBehaviour);
+        ...
+        foreach (var injectionContext in _injectionContexts)
+        {
+            var injector = injectionContext.GetInjector();
+            injectionContext.Setup(injector);
+            _ecsManager.AddInjector(injector);   
+        }
+        ...
     }
 }
+
 ```
 
 ### Manual Injection
 
-If you want to manually declare your object as injectable, use the `LeoEcsInjector.AddInjection(this)` method.
+If you need to inject an object manually, then use this method:
 
 ```csharp
-private void Awake()
-{
-    LeoEcsLiteInjector.AddInjection(Component);
-}
-
-private void OnDestroy()
-{
-    LeoEcsLiteInjector.RemoveInjection(Component);
-}
-```
-
-### Globals
-
-There is also a Globals used as a ServiceLocator. Access to objects is provided through the Globals class.
-
-```csharp
-private void Awake()
-{
-    Globals.Add(this);
-}
-
-private void OnDestroy()
-{
-    Globals.Remove(this);
-}
-```
-```csharp
-if (Globals.Has<TestClass>())
-{
-    var test = Globals.Get<TestClass>();
-}
+var ecsInjectionContext = FindObjectOfType<EcsInjectionContext>();
+...
+ecsInjectionContext.GetInjector().AddInjectionObject(Value);
 ```
 
 ### EcsWorld Injection
@@ -394,7 +364,7 @@ if (gameObject.TryGetEntity(out var entity))
 ### ECS World Extensions
 
 ```csharp
-var world = EcsWorldProvider.DefaultWorldProvider.World;
+var world = ConvertToEntity.DefaultConversionWorld;
 
 world.NewEntityWith<TestComponent>() = new TestComponent()
 {
