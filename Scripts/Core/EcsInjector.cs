@@ -10,6 +10,8 @@ namespace AffenCode
     {
         private readonly Dictionary<Type, object> _injectedObjects = new();
         
+        private readonly Dictionary<EcsWorld, Dictionary<Type, object>> _poolsCache = new Dictionary<EcsWorld, Dictionary<Type, object>>();
+
         public EcsInjector AddInjectionObject(object injectionObject)
         {
             _injectedObjects.Add(injectionObject.GetType(), injectionObject);
@@ -98,13 +100,19 @@ namespace AffenCode
             return system;
         }
 
-        private static IEcsSystems InjectPools(IEcsSystems ecsSystems)
+        private IEcsSystems InjectPools(IEcsSystems ecsSystems)
         {
             var world = ecsSystems.GetWorld();
 
             if (world == null)
             {
                 throw new Exception("For ECS-pool injection required the ECS World");
+            }
+
+            if (!_poolsCache.TryGetValue(world, out var poolsByGenericType))
+            {
+                poolsByGenericType = new Dictionary<Type, object>();
+                _poolsCache.Add(world, poolsByGenericType);
             }
 
             var allSystems = ecsSystems.GetAllSystems();
@@ -124,9 +132,18 @@ namespace AffenCode
                     }
 
                     var poolType = systemField.FieldType.GetGenericArguments().FirstOrDefault();
-                    
-                    var getTypedPoolMethod = getPoolMethod.MakeGenericMethod(poolType);
-                    systemField.SetValue(system, getTypedPoolMethod.Invoke(world, null));
+
+                    if (!poolsByGenericType.TryGetValue(poolType, out var pool))
+                    {
+                        var getTypedPoolMethod = getPoolMethod.MakeGenericMethod(poolType);
+                        pool = getTypedPoolMethod.Invoke(world, null);
+                        poolsByGenericType.Add(poolType, pool);
+                        systemField.SetValue(system, pool);
+                    }
+                    else
+                    {
+                        systemField.SetValue(system, pool);
+                    }
                 }
             }
             
