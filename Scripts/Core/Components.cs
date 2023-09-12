@@ -32,4 +32,14 @@ namespace AffenCode
     {
         public GameObject Value;
     }
+
+    [Serializable]
+    public struct UnityRef<T> where T : UnityEngine.Object, IUnityRef
+    {
+        public T Value;
+    }
+
+    public interface IUnityRef
+    {
+    }
 }

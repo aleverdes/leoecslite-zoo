@@ -87,5 +87,47 @@ namespace AffenCode
             entity = -1;
             return false;
         }
+
+        public static bool TryGetUnityRefValue<T>(this EcsWorld ecsWorld, out T component) where T : UnityEngine.Object, IUnityRef
+        {
+            return TryGetUnityRefValue(ecsWorld, out component, out _);
+        }
+
+        public static bool TryGetUnityRefValue<T>(this EcsWorld ecsWorld, out T component, out int entity) where T : UnityEngine.Object, IUnityRef 
+        {
+            var filter = ecsWorld.Filter<UnityRef<T>>().End();
+            var pool = ecsWorld.GetPool<UnityRef<T>>();
+            foreach (var e in filter)
+            {
+                component = pool.Get(e).Value;
+                entity = e;
+                return true;
+            }
+
+            component = default;
+            entity = -1;
+            return false;
+        }
+
+        public static bool TryGetUnityRefValue<T>(this EcsFilter filter, out T component) where T : UnityEngine.Object, IUnityRef
+        {
+            return TryGetUnityRefValue(filter, out component, out _);
+        }
+
+        public static bool TryGetUnityRefValue<T>(this EcsFilter filter, out T component, out int entity) where T : UnityEngine.Object, IUnityRef
+        {
+            var ecsWorld = filter.GetWorld();
+            var pool = ecsWorld.GetPool<UnityRef<T>>();
+            foreach (var e in filter)
+            {
+                component = pool.Get(e).Value;
+                entity = e;
+                return true;
+            }
+
+            component = default;
+            entity = -1;
+            return false;
+        }
     }
 }
