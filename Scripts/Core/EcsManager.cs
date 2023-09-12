@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Leopotam.EcsLite;
+using Debug = UnityEngine.Debug;
 
 namespace AffenCode
 {
@@ -13,6 +15,7 @@ namespace AffenCode
         private readonly HashSet<EcsFeatureInjectionInfo> _injections = new HashSet<EcsFeatureInjectionInfo>();
 
         private EcsWorld _world;
+        private Stopwatch _addFeatureGroupStopwatch;
 
         public void AddInjector(EcsInjector injector)
         {
@@ -71,26 +74,43 @@ namespace AffenCode
                 systemsContext.SystemsGroup.Destroy();
             }
         }
-
+        
         public void AddFeatureGroup(IEcsFeatureGroup featureGroup)
         {
+            _addFeatureGroupStopwatch = Stopwatch.StartNew();
+            
             featureGroup.Initialize(_world);
 
+            Debug.Log($"EcsManager - Initialized feature group\n{_addFeatureGroupStopwatch.Elapsed}");
+            
             foreach (var systemInfo in featureGroup.GetSystems())
             {
                 _systems.Add(systemInfo);
             }
+            
+            Debug.Log($"EcsManager - Added feature group systems\n{_addFeatureGroupStopwatch.Elapsed}");
 
             foreach (var injectionInfo in featureGroup.GetInjections())
             {
                 _injections.Add(injectionInfo);
             }
+            
+            Debug.Log($"EcsManager - Added feature group injections\n{_addFeatureGroupStopwatch.Elapsed}");
 
             _featureGroups.Add(featureGroup);
+            
+            Debug.Log($"EcsManager - Started injecting\n{_addFeatureGroupStopwatch.Elapsed}");
 
             RebuildInjections();
+            
+            Debug.Log($"EcsManager - Finished injecting\n{_addFeatureGroupStopwatch.Elapsed}");
 
             featureGroup.SystemsGroup.Init();
+            
+            Debug.Log($"EcsManager - Initialized systems\n{_addFeatureGroupStopwatch.Elapsed}");
+            
+            _addFeatureGroupStopwatch.Stop();
+            _addFeatureGroupStopwatch = null;
         }
 
         public void RemoveFeatureGroup(EcsFeatureGroup featureGroup)
@@ -106,9 +126,7 @@ namespace AffenCode
             {
                 foreach (var injector in _injectors)
                 {
-                    injector.ExecuteInjection(systemInfo.FeatureGroup.SystemsGroup.UpdateSystems);
-                    injector.ExecuteInjection(systemInfo.FeatureGroup.SystemsGroup.LateUpdateSystems);
-                    injector.ExecuteInjection(systemInfo.FeatureGroup.SystemsGroup.FixedUpdateSystems);
+                    injector.ExecuteInjection(systemInfo.System, _world);
                 }
 
                 foreach (var injection in _injections)
@@ -116,6 +134,8 @@ namespace AffenCode
                     EcsInjector.Inject(systemInfo.System, injection.Object, injection.Types);
                 }
             }
+            
+            Debug.Log($"EcsManager - RebuildInjections — Finished Systems injection\n{_addFeatureGroupStopwatch.Elapsed}");
 
             foreach (var injection in _injections)
             {
@@ -136,6 +156,8 @@ namespace AffenCode
                     EcsInjector.Inject(injection.Object, injectionToInject.Object, injectionToInject.Types);
                 }
             }
+            
+            Debug.Log($"RebuildInjections — Finished Injections injection\n{_addFeatureGroupStopwatch.Elapsed}");
         }
     }
 }

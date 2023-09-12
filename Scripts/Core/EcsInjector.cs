@@ -64,6 +64,18 @@ namespace AffenCode
             InjectPools(ecsSystems);
         }
 
+        public void ExecuteInjection(IEcsSystem ecsSystem, EcsWorld world)
+        {
+            Inject(ecsSystem, world, typeof(EcsWorld));
+            
+            foreach (var (injectionType, injectionObject) in _injectedObjects)
+            {
+                Inject(ecsSystem, injectionObject, injectionType);
+            }
+
+            InjectPools(ecsSystem, world);
+        }
+
 
         private IEcsSystems InjectPools(IEcsSystems ecsSystems)
         {
