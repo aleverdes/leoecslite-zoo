@@ -25,7 +25,7 @@ LeoECS Lite Unity Zoo — это большое дополнение для [Leo
         * [Manual Injection](#manual-injection)
         * [EcsWorld Injection](#ecsworld-injection)
         * [EcsPool Injection](#ecspool-injection)
-    * [OneFrame Systems](#oneframe-systems)
+    * [DelHere Systems](#delhere-systems)
     * [LeoECS Lite Extensions](#leoecs-lite-extensions)
         * [Unity Extensions](#unity-extensions)
         * [ECS World Extensions](#ecs-world-extensions)
@@ -304,9 +304,8 @@ public class GameEcsStartup : MonoBehaviour
         ...
         foreach (var injectionContext in _injectionContexts)
         {
-            var injector = injectionContext.GetInjector();
-            injectionContext.Setup(injector);
-            _ecsManager.AddInjector(injector);   
+            injectionContext.InitInjector();
+            _ecsManager.AddInjector(injectionContext.GetInjector());   
         }
         ...
     }
@@ -360,10 +359,10 @@ public void TestSystem : IEcsRunSystem
 }
 ```
 
-## OneFrame Systems
+## DelHere Systems
 
-Если Вам необходимо удалять в конце работы систем какой-либо компонент, LeoECS Lite Unity Zoo предоставляет Вам возможность это сделать через OneFrame-системы. 
-Просто добавьте `.OneFrame<T>()` в конец Вашего списка систем с указанием необходимого для очистки типа компонентов.
+Если Вам необходимо удалять в конце работы систем какой-либо компонент, LeoECS Lite Unity Zoo предоставляет Вам возможность это сделать через DelHere-системы. 
+Просто добавьте `.DelHere<T>()` в конец Вашего списка систем с указанием необходимого для очистки типа компонентов.
 
 ```csharp
 ...
@@ -371,7 +370,7 @@ protected override void SetupUpdateSystems(EcsFeatureSystems ecsFeatureSystems)
 {
     ecsFeatureSystems
         .Add(new DebugTeleportSystem())
-        .OneFrame<DebugComponent>()
+        .DelHere<DebugComponent>()
         ;
 }
 ```

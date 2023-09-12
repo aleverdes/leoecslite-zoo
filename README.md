@@ -26,7 +26,7 @@ Link for [Russian README](https://github.com/aleverdes/leoecslite-zoo/blob/maste
         * [Manual Injection](#manual-injection)
         * [EcsWorld Injection](#ecsworld-injection)
         * [EcsPool Injection](#ecspool-injection)
-    * [OneFrame Systems](#oneframe-systems)
+    * [DelHere Systems](#delhere-systems)
     * [LeoECS Lite Extensions](#leoecs-lite-extensions)
         * [Unity Extensions](#unity-extensions)
         * [ECS World Extensions](#ecs-world-extensions)
@@ -300,9 +300,8 @@ public class GameEcsStartup : MonoBehaviour
         ...
         foreach (var injectionContext in _injectionContexts)
         {
-            var injector = injectionContext.GetInjector();
-            injectionContext.Setup(injector);
-            _ecsManager.AddInjector(injector);   
+            injectionContext.InitInjector();
+            _ecsManager.AddInjector(injectionContext.GetInjector());   
         }
         ...
     }
@@ -359,10 +358,10 @@ public void TestSystem : IEcsRunSystem
 }
 ```
 
-## OneFrame Systems
+## DelHere Systems
 
 LeoECS Lite Unity Zoo introduces a mechanism for removing single-frame components. 
-Just add the OneFrame<T> method to the end of your systems list declaration.
+Just add the DelHere<T>() method to the end of your systems list declaration.
 
 ```csharp
 ...
@@ -370,7 +369,7 @@ public void Update(IEcsSystems ecsSystems)
 {
     ecsSystems
         .Add(new TestUpdateSystem())
-        .OneFrame<TestComponent>()
+        .DelHere<TestComponent>()
         ;
 }
 ```
