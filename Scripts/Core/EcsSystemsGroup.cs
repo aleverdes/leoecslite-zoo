@@ -3,7 +3,7 @@ using Leopotam.EcsLite;
 
 namespace AffenCode
 {
-    public struct UnityEcsSystems : IEcsSystems
+    public struct EcsSystemsGroup : IEcsSystems
     {
         public IEcsSystems UpdateSystems;
         public IEcsSystems LateUpdateSystems;

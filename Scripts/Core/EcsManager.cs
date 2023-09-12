@@ -1,90 +1,94 @@
 using System.Collections.Generic;
 using Leopotam.EcsLite;
-using UnityEngine;
 
 namespace AffenCode
 {
-    public abstract class EcsManager
+    public sealed class EcsManager
     {
-        private EcsWorld _world;
-        private EcsSystemsContext _systemsContext;
-        private readonly List<EcsInjector> _injectors = new List<EcsInjector>();
+        private readonly HashSet<EcsFeatureGroup> _systemsContexts = new HashSet<EcsFeatureGroup>();
+        private readonly HashSet<EcsInjector> _injectors = new HashSet<EcsInjector>();
         
-        private bool _initialized;
+        private EcsWorld _world;
+        
+        public void AddInjector(EcsInjector injector)
+        {
+            _injectors.Add(injector);
+
+            foreach (var systemsContext in _systemsContexts)
+            {
+                injector.ExecuteInjection(systemsContext.SystemsGroup.UpdateSystems);
+                injector.ExecuteInjection(systemsContext.SystemsGroup.LateUpdateSystems);
+                injector.ExecuteInjection(systemsContext.SystemsGroup.FixedUpdateSystems);
+            }
+        }
 
         public void SetWorld(EcsWorld ecsWorld)
         {
             _world = ecsWorld;
         }
 
-        public void AddInjector(EcsInjector injector)
-        {
-            _injectors.Add(injector);
-        }
-
-        public void Initialize()
-        {
-            if (_initialized)
-            {
-                return;
-            }
-
-            _systemsContext = new EcsSystemsContext(this, _world);
-            
-            AddFeatures(_systemsContext);
-
-            foreach (var injector in _injectors)
-            {
-                injector.ExecuteInjection(_systemsContext.Systems.UpdateSystems);
-                injector.ExecuteInjection(_systemsContext.Systems.LateUpdateSystems);
-                injector.ExecuteInjection(_systemsContext.Systems.FixedUpdateSystems);
-            }
-
-            _systemsContext.Systems.Init();
-
-            _initialized = true;
-        }
-
         public void Update()
         {
-            if (!_initialized)
+            foreach (var systemsContext in _systemsContexts)
             {
-                return;
+                if (systemsContext.Enabled)
+                {
+                    systemsContext.SystemsGroup.UpdateSystems.Run();
+                }
             }
-            
-            _systemsContext.Systems.UpdateSystems.Run();
         }
 
         public void LateUpdate()
         {
-            if (!_initialized)
+            foreach (var systemsContext in _systemsContexts)
             {
-                return;
+                if (systemsContext.Enabled)
+                {
+                    systemsContext.SystemsGroup.LateUpdateSystems.Run();
+                }
             }
-            
-            _systemsContext.Systems.LateUpdateSystems.Run();
         }
 
         public void FixedUpdate()
         {
-            if (!_initialized)
+            foreach (var systemsContext in _systemsContexts)
             {
-                return;
+                if (systemsContext.Enabled)
+                {
+                    systemsContext.SystemsGroup.FixedUpdateSystems.Run();
+                }
             }
-
-            _systemsContext.Systems.FixedUpdateSystems?.Run();
         }
 
-        private void OnDestroy()
+        public void Destroy()
         {
-            if (!_initialized)
+            foreach (var systemsContext in _systemsContexts)
             {
-                return;
+                systemsContext.SystemsGroup.Destroy();
+            }
+        }
+
+        public void AddFeatureGroup(EcsFeatureGroup featureGroup)
+        {
+            featureGroup.Initialize(_world);
+            
+            foreach (var injector in _injectors)
+            {
+                injector.ExecuteInjection(featureGroup.SystemsGroup.UpdateSystems);
+                injector.ExecuteInjection(featureGroup.SystemsGroup.LateUpdateSystems);
+                injector.ExecuteInjection(featureGroup.SystemsGroup.FixedUpdateSystems);
             }
             
-            _systemsContext.Systems.Destroy();
+            _systemsContexts.Add(featureGroup);
+            
+            featureGroup.SystemsGroup.Init();
         }
 
-        protected abstract void AddFeatures(EcsSystemsContext systemsContext);
+        public void RemoveFeatureGroup(EcsFeatureGroup featureGroup)
+        {
+            featureGroup.SystemsGroup.Destroy();
+            
+            _systemsContexts.Remove(featureGroup);
+        }
     }
 }

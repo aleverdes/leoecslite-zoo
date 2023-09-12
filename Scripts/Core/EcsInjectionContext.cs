@@ -1,14 +1,10 @@
-using System;
-using System.Collections;
 using System.Linq;
 using System.Reflection;
-using AleVerDes;
 using UnityEngine;
 
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-
 
 namespace AffenCode
 {
@@ -16,22 +12,27 @@ namespace AffenCode
     {
         private readonly EcsInjector _ecsInjector = new EcsInjector();
 
-        protected virtual void ResetField()
+        protected virtual void FillFields()
         {
             var fields = GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic);
             foreach (var field in fields)
             {
+                if (field.GetValue(this) != null)
+                {
+                    continue;
+                }
+                
                 if (typeof(ScriptableObject).IsAssignableFrom(field.FieldType))
                 {
-                    var o = default(ScriptableObject);
+                    var scriptableObject = default(ScriptableObject);
 #if UNITY_EDITOR
                     var assetGuid = AssetDatabase.FindAssets("t:" + field.FieldType.Name).FirstOrDefault();
                     if (!string.IsNullOrEmpty(assetGuid))
                     {
-                        o = AssetDatabase.LoadAssetAtPath<ScriptableObject>(AssetDatabase.GUIDToAssetPath(assetGuid));
+                        scriptableObject = AssetDatabase.LoadAssetAtPath<ScriptableObject>(AssetDatabase.GUIDToAssetPath(assetGuid));
                     }
 #endif
-                    field.SetValue(this, o);
+                    field.SetValue(this, scriptableObject);
                 }
                 else if (typeof(Component).IsAssignableFrom(field.FieldType))
                 {
@@ -40,9 +41,9 @@ namespace AffenCode
             }
         }
 
-        public virtual void Setup(EcsInjector ecsInjector)
+        public virtual void InitInjector()
         {
-            ResetField();
+            FillFields();
                 
             var fields = GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic);
             foreach (var field in fields)
@@ -50,7 +51,7 @@ namespace AffenCode
                 var fieldValue = field.GetValue(this);
                 if (fieldValue != null)
                 {
-                    ecsInjector.AddInjectionObject(fieldValue);
+                    _ecsInjector.AddInjectionObject(fieldValue);
                 }
             }
         }
