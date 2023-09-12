@@ -12,9 +12,21 @@ namespace AffenCode
     {
         private readonly EcsInjector _ecsInjector = new EcsInjector();
 
-        protected virtual void FillFields()
+        protected void Reset()
         {
-            var fields = GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic);
+            var privateSerializedUnityFields = GetType()
+                .GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
+                .Where(x => typeof(Object).IsAssignableFrom(x.FieldType))
+                .Where(x => x.GetCustomAttributes(typeof(SerializeField)).Any())
+                ;
+            
+            var publicUnityFields = GetType()
+                .GetFields(BindingFlags.Instance | BindingFlags.Public)
+                .Where(x => typeof(Object).IsAssignableFrom(x.FieldType))
+                ;
+
+            var fields = privateSerializedUnityFields.Concat(publicUnityFields).ToArray();
+            
             foreach (var field in fields)
             {
                 if (field.GetValue(this) != null)
@@ -43,9 +55,7 @@ namespace AffenCode
 
         public virtual void InitInjector()
         {
-            FillFields();
-                
-            var fields = GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic);
+            var fields = GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
             foreach (var field in fields)
             {
                 var fieldValue = field.GetValue(this);
