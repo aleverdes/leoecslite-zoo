@@ -4,7 +4,7 @@ using Leopotam.EcsLite;
 
 namespace AffenCode
 {
-    public interface IEcsFeatureGroup
+    public interface IEcsModule
     {
         bool Enabled { get; }
         
@@ -13,7 +13,7 @@ namespace AffenCode
 
         void Initialize(EcsWorld world);
         
-        IEcsFeatureGroup AddFeature(IEcsFeature feature);
+        IEcsModule AddFeature(IEcsFeature feature);
 
         IEnumerable<EcsFeatureSystemInfo> GetSystems();
         IEnumerable<EcsFeatureInjectionInfo> GetInjections();
@@ -22,7 +22,7 @@ namespace AffenCode
         void Disable();
     }
     
-    public sealed class EcsFeatureGroup : IEcsFeatureGroup
+    public sealed class EcsModule : IEcsModule
     {
         public bool Enabled { get; private set; } = true;
         public EcsWorld World { get; private set; }
@@ -34,7 +34,7 @@ namespace AffenCode
 
         private bool _initialized;
 
-        public EcsFeatureGroup()
+        public EcsModule()
         {
             _features = new List<IEcsFeature>();
             _systems = new List<EcsFeatureSystemInfo>();
@@ -45,7 +45,7 @@ namespace AffenCode
         {
             if (_initialized)
             {
-                throw new Exception("EcsFeatureGroup can't initialized twice");
+                throw new Exception("EcsModule can't initialized twice");
             }
 
             World = ecsWorld;
@@ -86,11 +86,11 @@ namespace AffenCode
 
                 void SystemPostAdd(IEcsSystem system)
                 {
-                    EcsInjector.Inject(system, this, typeof(IEcsFeatureGroup));
-                    EcsInjector.Inject(system, this, typeof(EcsFeatureGroup));
+                    EcsInjector.Inject(system, this, typeof(IEcsModule));
+                    EcsInjector.Inject(system, this, typeof(EcsModule));
                     _systems.Add(new EcsFeatureSystemInfo()
                     {
-                        FeatureGroup = this,
+                        Module = this,
                         Feature = feature,
                         System = system
                     });
@@ -98,7 +98,7 @@ namespace AffenCode
             }
         }
 
-        public IEcsFeatureGroup AddFeature(IEcsFeature feature)
+        public IEcsModule AddFeature(IEcsFeature feature)
         {
             _features.Add(feature);
             return this;

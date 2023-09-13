@@ -4,7 +4,7 @@ namespace AffenCode
 {
     public struct EcsFeatureSystemInfo
     {
-        public IEcsFeatureGroup FeatureGroup;
+        public IEcsModule Module;
         public IEcsFeature Feature;
         public IEcsSystem System;
     }

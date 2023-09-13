@@ -8,13 +8,14 @@ namespace AffenCode
 {
     public sealed class EcsManager
     {
-        private readonly HashSet<IEcsFeatureGroup> _featureGroups = new HashSet<IEcsFeatureGroup>();
+        private readonly HashSet<IEcsModule> _featureGroups = new HashSet<IEcsModule>();
         private readonly HashSet<EcsInjector> _injectors = new HashSet<EcsInjector>();
 
         private readonly HashSet<EcsFeatureSystemInfo> _systems = new HashSet<EcsFeatureSystemInfo>();
         private readonly HashSet<EcsFeatureInjectionInfo> _injections = new HashSet<EcsFeatureInjectionInfo>();
 
         private EcsWorld _world;
+        
         private Stopwatch _addFeatureGroupStopwatch;
 
         public void AddInjector(EcsInjector injector)
@@ -75,29 +76,29 @@ namespace AffenCode
             }
         }
         
-        public void AddFeatureGroup(IEcsFeatureGroup featureGroup)
+        public void AddFeatureGroup(IEcsModule module)
         {
             _addFeatureGroupStopwatch = Stopwatch.StartNew();
             
-            featureGroup.Initialize(_world);
+            module.Initialize(_world);
 
             Debug.Log($"EcsManager - Initialized feature group\n{_addFeatureGroupStopwatch.Elapsed}");
             
-            foreach (var systemInfo in featureGroup.GetSystems())
+            foreach (var systemInfo in module.GetSystems())
             {
                 _systems.Add(systemInfo);
             }
             
             Debug.Log($"EcsManager - Added feature group systems\n{_addFeatureGroupStopwatch.Elapsed}");
 
-            foreach (var injectionInfo in featureGroup.GetInjections())
+            foreach (var injectionInfo in module.GetInjections())
             {
                 _injections.Add(injectionInfo);
             }
             
             Debug.Log($"EcsManager - Added feature group injections\n{_addFeatureGroupStopwatch.Elapsed}");
 
-            _featureGroups.Add(featureGroup);
+            _featureGroups.Add(module);
             
             Debug.Log($"EcsManager - Started injecting\n{_addFeatureGroupStopwatch.Elapsed}");
 
@@ -105,7 +106,7 @@ namespace AffenCode
             
             Debug.Log($"EcsManager - Finished injecting\n{_addFeatureGroupStopwatch.Elapsed}");
 
-            featureGroup.SystemsGroup.Init();
+            module.SystemsGroup.Init();
             
             Debug.Log($"EcsManager - Initialized systems\n{_addFeatureGroupStopwatch.Elapsed}");
             
@@ -113,11 +114,11 @@ namespace AffenCode
             _addFeatureGroupStopwatch = null;
         }
 
-        public void RemoveFeatureGroup(EcsFeatureGroup featureGroup)
+        public void RemoveFeatureGroup(EcsModule module)
         {
-            featureGroup.SystemsGroup.Destroy();
+            module.SystemsGroup.Destroy();
 
-            _featureGroups.Remove(featureGroup);
+            _featureGroups.Remove(module);
         }
 
         private void RebuildInjections()
