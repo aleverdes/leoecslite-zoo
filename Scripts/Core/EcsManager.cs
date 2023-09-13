@@ -9,7 +9,6 @@ namespace AffenCode
 {
     public interface IEcsManager
     {
-        void AddInjector(IEcsInjector injector);
         void SetWorld(EcsWorld ecsWorld);
 
         void Update();
@@ -20,29 +19,21 @@ namespace AffenCode
 
         IEcsModule InstallModule(IEcsModuleInstaller moduleInstaller);
         void UninstallModule(IEcsModule module);
+        
+        void AddInjector(IEcsInjector injector, bool isExternalInjector);
     }
     
     public sealed class EcsManager : IEcsManager
     {
         private readonly HashSet<IEcsModule> _modules = new HashSet<IEcsModule>();
-        private readonly HashSet<IEcsInjector> _injectors = new HashSet<IEcsInjector>();
+        private readonly Dictionary<IEcsInjector, bool> _injectors = new Dictionary<IEcsInjector, bool>();
 
         private readonly HashSet<EcsFeatureSystemInfo> _systems = new HashSet<EcsFeatureSystemInfo>();
-        private readonly HashSet<EcsFeatureInjectionInfo> _injections = new HashSet<EcsFeatureInjectionInfo>();
 
         private EcsWorld _world;
         
-        private Stopwatch _addFeatureGroupStopwatch;
-
-        public void AddInjector(IEcsInjector injector)
-        {
-            _injectors.Add(injector);
-
-            foreach (var systemInfo in _systems)
-            {
-                injector.ExecuteInjection(systemInfo.System, _world);
-            }
-        }
+        private Stopwatch _installModuleStopwatch;
+        private Stopwatch _rebuildInjectionsStopwatch;
 
         public void SetWorld(EcsWorld ecsWorld)
         {
@@ -92,44 +83,44 @@ namespace AffenCode
         
         public IEcsModule InstallModule(IEcsModuleInstaller moduleInstaller)
         {
-            _addFeatureGroupStopwatch = Stopwatch.StartNew();
+            _installModuleStopwatch = Stopwatch.StartNew();
             
             var module = moduleInstaller.Install();
 
-            Debug.Log($"EcsManager - Installed ECS Module\n{_addFeatureGroupStopwatch.Elapsed}");
+            Debug.Log($"EcsManager - Installed ECS Module\n{_installModuleStopwatch.Elapsed}");
             
             module.Initialize(_world);
 
-            Debug.Log($"EcsManager - Initialized ECS Module\n{_addFeatureGroupStopwatch.Elapsed}");
+            Debug.Log($"EcsManager - Initialized ECS Module\n{_installModuleStopwatch.Elapsed}");
             
             foreach (var systemInfo in module.GetAllSystems())
             {
                 _systems.Add(systemInfo);
             }
             
-            Debug.Log($"EcsManager - Added ECS Module info about systems\n{_addFeatureGroupStopwatch.Elapsed}");
+            Debug.Log($"EcsManager - Added ECS Module info about systems\n{_installModuleStopwatch.Elapsed}");
 
-            foreach (var injectionInfo in module.GetAllInjections())
+            foreach (var injector in module.GetAllInjectors())
             {
-                _injections.Add(injectionInfo);
+                _injectors.Add(injector, false);
             }
             
-            Debug.Log($"EcsManager - Added ECS Module info about injections\n{_addFeatureGroupStopwatch.Elapsed}");
+            Debug.Log($"EcsManager - Added ECS Module info about injections\n{_installModuleStopwatch.Elapsed}");
 
             _modules.Add(module);
             
-            Debug.Log($"EcsManager - Started injecting into ECS Module\n{_addFeatureGroupStopwatch.Elapsed}");
+            Debug.Log($"EcsManager - Started injecting into ECS Module\n{_installModuleStopwatch.Elapsed}");
 
             RebuildInjections();
             
-            Debug.Log($"EcsManager - Finished injecting into ECS Module\n{_addFeatureGroupStopwatch.Elapsed}");
+            Debug.Log($"EcsManager - Finished injecting into ECS Module\n{_installModuleStopwatch.Elapsed}");
 
             module.GetSystemsGroup().Init();
             
-            Debug.Log($"EcsManager - Initialized ECS Module systems\n{_addFeatureGroupStopwatch.Elapsed}");
+            Debug.Log($"EcsManager - Initialized ECS Module systems\n{_installModuleStopwatch.Elapsed}");
             
-            _addFeatureGroupStopwatch.Stop();
-            _addFeatureGroupStopwatch = null;
+            _installModuleStopwatch.Stop();
+            _installModuleStopwatch = null;
 
             return module;
         }
@@ -145,45 +136,45 @@ namespace AffenCode
             
             _modules.Remove(module);
         }
+        
+        public void AddInjector(IEcsInjector injector, bool isExternalInjector)
+        {
+            _injectors.Add(injector, isExternalInjector);
+            RebuildInjections();
+        }
 
         private void RebuildInjections()
         {
+            _rebuildInjectionsStopwatch = Stopwatch.StartNew();
+            
             foreach (var systemInfo in _systems)
             {
-                foreach (var injector in _injectors)
+                foreach (var (injector, isExternalInjector) in _injectors)
                 {
-                    injector.ExecuteInjection(systemInfo.System, _world);
-                }
-
-                foreach (var injection in _injections)
-                {
-                    EcsInjection.Inject(systemInfo.System, injection.Object, injection.Types);
+                    EcsInjection.Inject(systemInfo.System, _world, typeof(EcsWorld));
+                    injector.ExecuteInjection(systemInfo.System);
+                    EcsInjection.InjectPools(systemInfo.System, _world);
                 }
             }
             
-            Debug.Log($"EcsManager - RebuildInjections — Finished Systems injection\n{_addFeatureGroupStopwatch.Elapsed}");
+            Debug.Log($"EcsManager - RebuildInjections — Finished Systems injection\n{_rebuildInjectionsStopwatch.Elapsed}");
 
-            foreach (var injection in _injections)
+            foreach (var (targetObjectType, targetObject) in _injectors.Where(x => !x.Value).SelectMany(targetInjector => targetInjector.Key.GetInjectionObjects()))
             {
-                foreach (var injector in _injectors)
+                EcsInjection.Inject(targetObject, _world, typeof(EcsWorld));
+                    
+                foreach (var (sourceInjector, isExternalInjector) in _injectors)
                 {
-                    EcsInjection.Inject(injection.Object, _world, typeof(EcsWorld));
-            
-                    foreach (var (injectionType, injectionObject) in injector.GetInjectionObjects())
-                    {
-                        EcsInjection.Inject(injection.Object, injectionObject, injectionType);
-                    }
-
-                    EcsInjection.InjectPools(injection.Object, _world);
+                    sourceInjector.ExecuteInjection(targetObject);
                 }
-
-                foreach (var injectionToInject in _injections)
-                {
-                    EcsInjection.Inject(injection.Object, injectionToInject.Object, injectionToInject.Types);
-                }
+                    
+                EcsInjection.InjectPools(targetObject, _world);
             }
             
-            Debug.Log($"RebuildInjections — Finished Injections injection\n{_addFeatureGroupStopwatch.Elapsed}");
+            Debug.Log($"EcsManager - RebuildInjections — Finished Injections injection\n{_rebuildInjectionsStopwatch.Elapsed}");
+            
+            _rebuildInjectionsStopwatch.Stop();
+            _rebuildInjectionsStopwatch = null;
         }
     }
 }

@@ -19,8 +19,7 @@ namespace AffenCode
 
         Dictionary<Type, object> GetInjectionObjects();
 
-        void ExecuteInjection(IEcsSystems ecsSystems);
-        void ExecuteInjection(IEcsSystem ecsSystem, EcsWorld world);
+        void ExecuteInjection(object target);
     }
     
     public sealed class EcsInjector : IEcsInjector
@@ -96,28 +95,12 @@ namespace AffenCode
             return _injectionObjects;
         }
 
-        public void ExecuteInjection(IEcsSystems ecsSystems)
+        public void ExecuteInjection(object target)
         {
-            EcsInjection.Inject(ecsSystems, ecsSystems.GetWorld(), typeof(EcsWorld));
-            
             foreach (var (injectionType, injectionObject) in _injectionObjects)
             {
-                EcsInjection.Inject(ecsSystems, injectionObject, injectionType);
+                EcsInjection.Inject(target, injectionObject, injectionType);
             }
-
-            EcsInjection.InjectPools(ecsSystems, ecsSystems.GetWorld());
-        }
-
-        public void ExecuteInjection(IEcsSystem ecsSystem, EcsWorld world)
-        {
-            EcsInjection.Inject(ecsSystem, world, typeof(EcsWorld));
-            
-            foreach (var (injectionType, injectionObject) in _injectionObjects)
-            {
-                EcsInjection.Inject(ecsSystem, injectionObject, injectionType);
-            }
-
-            EcsInjection.InjectPools(ecsSystem, world);
         }
     }
 }

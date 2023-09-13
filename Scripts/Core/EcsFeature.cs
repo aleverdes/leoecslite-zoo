@@ -12,7 +12,7 @@ namespace AffenCode
         EcsFeatureSystems GetLateUpdateSystems();
         EcsFeatureSystems GetFixedUpdateSystems();
 
-        IEnumerable<EcsFeatureInjectionInfo> GetInjections();
+        IEcsInjector GetInjector();
 
         void Setup();
         void Enable();
@@ -26,14 +26,14 @@ namespace AffenCode
         private readonly EcsFeatureSystems _updateSystems;
         private readonly EcsFeatureSystems _lateUpdateSystems;
         private readonly EcsFeatureSystems _fixedUpdateSystems;
-        private readonly EcsFeatureInjections _injections;
+        private readonly EcsInjector _injector;
 
         public EcsFeature()
         {
             _updateSystems = new EcsFeatureSystems(this);
             _lateUpdateSystems = new EcsFeatureSystems(this);
             _fixedUpdateSystems = new EcsFeatureSystems(this);
-            _injections = new EcsFeatureInjections(this);
+            _injector = new EcsInjector();
             Enabled = true;
         }
 
@@ -42,14 +42,14 @@ namespace AffenCode
             SetupUpdateSystems(GetUpdateSystems());
             SetupLateUpdateSystems(GetLateUpdateSystems());
             SetupFixedUpdateSystems(GetFixedUpdateSystems());
-            RegisterInjections(_injections);
+            RegisterInjections(_injector);
         }
 
         protected abstract void SetupUpdateSystems(EcsFeatureSystems ecsFeatureSystems);
         protected abstract void SetupLateUpdateSystems(EcsFeatureSystems ecsFeatureSystems);
         protected abstract void SetupFixedUpdateSystems(EcsFeatureSystems ecsFeatureSystems);
 
-        protected virtual void RegisterInjections(EcsFeatureInjections ecsFeatureInjections)
+        protected virtual void RegisterInjections(IEcsInjector injector)
         {
         }
 
@@ -68,9 +68,9 @@ namespace AffenCode
             return _fixedUpdateSystems;
         }
 
-        public IEnumerable<EcsFeatureInjectionInfo> GetInjections()
+        public IEcsInjector GetInjector()
         {
-            return _injections.GetInjections();
+            return _injector;
         }
 
         public void Enable()

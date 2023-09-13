@@ -12,6 +12,7 @@ namespace AffenCode
         
         private static readonly Dictionary<EcsWorld, Dictionary<Type, object>> _poolsCache = new Dictionary<EcsWorld, Dictionary<Type, object>>();
         private static readonly Dictionary<Type, FieldInfo[]> _fieldsByType = new Dictionary<Type, FieldInfo[]>();
+        private static readonly Dictionary<object, HashSet<Type>> _processedObjects = new Dictionary<object, HashSet<Type>>(); 
 
         public static IEcsSystems Inject(IEcsSystems ecsSystems, object injectedObject)
         {
@@ -97,7 +98,7 @@ namespace AffenCode
                 }
                 
                 var poolType = field.FieldType.GetGenericArguments().First();
-                field.SetValue(world, GetEcsPool(world, poolType));
+                field.SetValue(target, GetEcsPool(world, poolType));
             }
 
             return target;
@@ -165,6 +166,28 @@ namespace AffenCode
         private static bool TryGetFields(Type type, out FieldInfo[] fields)
         {
             return _fieldsByType.TryGetValue(type, out fields);
+        }
+
+        private static bool CheckObjectForProcessed(object targetObject, Type injectionType)
+        {
+            if (!_processedObjects.TryGetValue(targetObject, out var injectedTypes))
+            {
+                _processedObjects[targetObject] = new HashSet<Type>();
+                return false;
+            }
+
+            return injectedTypes.Contains(injectionType);
+        }
+
+        private static void SetObjectAsProcessed(object targetObject, Type injectionType)
+        {
+            if (!_processedObjects.TryGetValue(targetObject, out var injectedTypes))
+            {
+                _processedObjects[targetObject] = new HashSet<Type>();
+                injectedTypes = _processedObjects[targetObject];
+            }
+
+            injectedTypes.Add(injectionType);
         }
     }
 }

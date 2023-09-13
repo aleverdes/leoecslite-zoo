@@ -16,7 +16,7 @@ namespace AffenCode
         EcsSystemsGroup GetSystemsGroup();
 
         IEnumerable<EcsFeatureSystemInfo> GetAllSystems();
-        IEnumerable<EcsFeatureInjectionInfo> GetAllInjections();
+        IEnumerable<IEcsInjector> GetAllInjectors();
 
         void Enable();
         void Disable();
@@ -28,7 +28,7 @@ namespace AffenCode
 
         private readonly List<IEcsFeature> _features;
         private readonly List<EcsFeatureSystemInfo> _systems;
-        private readonly List<EcsFeatureInjectionInfo> _injections;
+        private readonly List<IEcsInjector> _injectors;
 
         private EcsWorld _world;
         private EcsSystemsGroup _systemsGroup;
@@ -39,7 +39,7 @@ namespace AffenCode
         {
             _features = new List<IEcsFeature>();
             _systems = new List<EcsFeatureSystemInfo>();
-            _injections = new List<EcsFeatureInjectionInfo>();
+            _injectors = new List<IEcsInjector>();
         }
         
         public void Initialize(EcsWorld ecsWorld)
@@ -62,10 +62,7 @@ namespace AffenCode
             {
                 feature.Setup();
 
-                foreach (var injectionInfo in feature.GetInjections())
-                {
-                    _injections.Add(injectionInfo);
-                }
+                _injectors.Add(feature.GetInjector());
             
                 foreach (var system in feature.GetUpdateSystems().GetSystems())
                 {
@@ -122,9 +119,9 @@ namespace AffenCode
             return _systems;
         }
 
-        public IEnumerable<EcsFeatureInjectionInfo> GetAllInjections()
+        public IEnumerable<IEcsInjector> GetAllInjectors()
         {
-            return _injections;
+            return _injectors;
         }
 
         public void Enable()
