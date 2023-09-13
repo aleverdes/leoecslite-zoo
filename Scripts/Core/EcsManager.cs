@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Leopotam.EcsLite;
+using UnityEngine;
 using Debug = UnityEngine.Debug;
 
 namespace AffenCode
@@ -31,8 +32,12 @@ namespace AffenCode
 
         private EcsWorld _world;
         
-        private Stopwatch _installModuleStopwatch;
-        private Stopwatch _rebuildInjectionsStopwatch;
+        private readonly IEcsLogger _logger;
+
+        public EcsManager()
+        {
+            _logger = new EcsLogger();
+        }
 
         public void SetWorld(EcsWorld ecsWorld)
         {
@@ -82,44 +87,41 @@ namespace AffenCode
         
         public IEcsModule InstallModule(IEcsModuleInstaller moduleInstaller)
         {
-            _installModuleStopwatch = Stopwatch.StartNew();
+            _logger.Info<EcsManager>("Start ECS Module installing");
             
             var module = moduleInstaller.Install();
 
-            Debug.Log($"EcsManager - Installed ECS Module\n{_installModuleStopwatch.Elapsed}");
+            _logger.Info<EcsManager>("ECS Module installed");
             
             module.Initialize(_world);
 
-            Debug.Log($"EcsManager - Initialized ECS Module\n{_installModuleStopwatch.Elapsed}");
+            _logger.Info<EcsManager>("ECS Module initialized");
             
             foreach (var systemInfo in module.GetAllSystems())
             {
                 _systems.Add(systemInfo);
             }
             
-            Debug.Log($"EcsManager - Added ECS Module info about systems\n{_installModuleStopwatch.Elapsed}");
+            _logger.Info<EcsManager>("Collected ECS Module's Systems information");
 
             foreach (var injector in module.GetAllInjectors())
             {
                 _injectors.Add(injector, false);
             }
             
-            Debug.Log($"EcsManager - Added ECS Module info about injections\n{_installModuleStopwatch.Elapsed}");
+            _logger.Info<EcsManager>("Collected ECS Module's Injections information");
 
             _modules.Add(module);
             
-            Debug.Log($"EcsManager - Started injecting into ECS Module\n{_installModuleStopwatch.Elapsed}");
+            _logger.Info<EcsManager>("Injection to ECS Module started");
 
             RebuildInjections();
             
-            Debug.Log($"EcsManager - Finished injecting into ECS Module\n{_installModuleStopwatch.Elapsed}");
+            _logger.Info<EcsManager>("Injection to ECS Module finished");
 
             module.GetSystemsGroup().Init();
             
-            Debug.Log($"EcsManager - Initialized ECS Module systems\n{_installModuleStopwatch.Elapsed}");
-            
-            _installModuleStopwatch.Stop();
-            _installModuleStopwatch = null;
+            _logger.Info<EcsManager>("ECS Module's systems are initialized");
 
             return module;
         }
@@ -144,8 +146,6 @@ namespace AffenCode
 
         private void RebuildInjections()
         {
-            _rebuildInjectionsStopwatch = Stopwatch.StartNew();
-            
             foreach (var systemInfo in _systems)
             {
                 foreach (var (injector, isExternalInjector) in _injectors)
@@ -153,10 +153,11 @@ namespace AffenCode
                     EcsInjection.Inject(systemInfo.System, _world, typeof(EcsWorld));
                     injector.ExecuteInjection(systemInfo.System);
                     EcsInjection.InjectPools(systemInfo.System, _world);
+                    EcsInjection.Inject(systemInfo.System, _logger, typeof(IEcsLogger));
                 }
             }
             
-            Debug.Log($"EcsManager - RebuildInjections — Finished Systems injection\n{_rebuildInjectionsStopwatch.Elapsed}");
+            _logger.Info<EcsManager>("Finished injection to systems");
 
             foreach (var (targetObjectType, targetObject) in _injectors.Where(x => !x.Value).SelectMany(targetInjector => targetInjector.Key.GetInjectionObjects()))
             {
@@ -168,12 +169,10 @@ namespace AffenCode
                 }
                     
                 EcsInjection.InjectPools(targetObject, _world);
+                EcsInjection.Inject(targetObject, _logger, typeof(IEcsLogger));
             }
             
-            Debug.Log($"EcsManager - RebuildInjections — Finished Injections injection\n{_rebuildInjectionsStopwatch.Elapsed}");
-            
-            _rebuildInjectionsStopwatch.Stop();
-            _rebuildInjectionsStopwatch = null;
+            _logger.Info<EcsManager>("Finished injection to injections");
         }
     }
 }
