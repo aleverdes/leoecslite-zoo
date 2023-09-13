@@ -1,13 +1,13 @@
 # LeoECS Lite Unity Zoo
 
 LeoECS Lite Unity Zoo is a big add-on to [LeoECS Lite](https://github.com/Leopotam/ecslite) for Unity, including the following features:
-* ECS Startup (plain and feature-based);
+* ECS Manager;
+* ECS Modules;
+* ECS Features;
+* ECS Injection;
 * ECS Component Conversion;
-* Unity Core ECS Components;
-* ECS Injection; 
+* Unity Core ECS Components; 
 * Several extensions for EcsWorld, IEcsSystems and Unity-objects.
-
-Link for [Russian README](https://github.com/aleverdes/leoecslite-zoo/blob/master/README_RU.md).
 
 # Table of Contents
 
@@ -16,8 +16,12 @@ Link for [Russian README](https://github.com/aleverdes/leoecslite-zoo/blob/maste
     * [Unity Package Manager](#unity-package-manager)
     * [Manual installation](#manual-installation)
 * [Usage](#usage)
-* [Features](#features)
-    * [ECS Manager](#ecs-manager)
+    * [ECS Startup Example](#ecs-startup-example)     
+    * [ECS Module Installer Example](#ecs-module-installer-example)     
+    * [ECS Feature Example](#ecs-feature-example)     
+* [Features](#features) 
+    * [ECS Module](#ecs-module)
+    * [ECS Module Installer](#ecs-module-installer)
     * [ECS Feature](#ecs-feature)
     * [ECS Unity Core Components](#ecs-unity-core-components)
     * [ECS Components Conversion](#ecs-components-conversion)
@@ -56,8 +60,10 @@ Just put the LeoECS Lite Zoo folder in your unity project (in the Assets folder)
 
 Below is an example of how to run ECS Manager from LeoECS Lite Zoo along with injection, world initialization and systems running.
 
+## ECS Startup Example
+
 ```csharp
-public class GameEcsStartup : MonoBehaviour
+public class MainEcsStartup : MonoBehaviour
 {
     [SerializeField] private List<EcsInjectionContext> _injectionContexts;
 
@@ -75,12 +81,13 @@ public class GameEcsStartup : MonoBehaviour
         foreach (var injectionContext in _injectionContexts)
         {
             injectionContext.InitInjector();
-            _ecsManager.AddInjector(injectionContext.GetInjector());   
+            _ecsManager.AddInjector(injectionContext.GetInjector(), true);   
         }
+    }
 
-        var mainEcsFeatureGroupController = new MainEcsFeatureGroupController();
-        mainEcsFeatureGroupController.Initialize();
-        _ecsManager.AddFeatureGroup(mainEcsFeatureGroupController.GetFeatureGroup());
+    private void Start()
+    {
+        _ecsManager.InstallModule(new MainEcsModuleInstaller());
     }
 
     private void Update()
@@ -105,40 +112,86 @@ public class GameEcsStartup : MonoBehaviour
 }
 ```
 
+## ECS Module Installer Example
+
 ```csharp
-public class MainEcsFeatureGroupController : EcsFeatureGroupController
+using AffenCode;
+
+public class MainEcsModuleInstaller : IEcsModuleInstaller
 {
-    protected override EcsFeatureGroup CreateFeatureGroup()
+    public IEcsModule Install()
     {
-        var featureGroup = new EcsFeatureGroup();
+        var module = new EcsModule();
         
-        featureGroup
+        module
             .AddFeature(new DebugFeature())
             .AddFeature(new PlayerFeature())
             ;
 
-        return featureGroup;
+        return module;
+    }
+}
+```
+
+## ECS Feature Example
+
+```csharp
+using AffenCode;
+
+public class DebugFeature : EcsFeature
+{
+    protected override void SetupUpdateSystems(EcsFeatureSystems ecsFeatureSystems)
+    {
+        ecsFeatureSystems
+            .Add(new DebugTeleportSystem())
+            ;
+    }
+
+    protected override void SetupLateUpdateSystems(EcsFeatureSystems ecsFeatureSystems)
+    {
+    }
+
+    protected override void SetupFixedUpdateSystems(EcsFeatureSystems ecsFeatureSystems)
+    {
+    }
+
+    // An optional method required to record injections into all systems and all other injections.
+    protected override void RegisterInjections(IEcsInjector injector)
+    {
+        injector
+            .AddInjectionObject(new DebugService(), typeof(IDebugService), typeof(DebugService))
+            ;
     }
 }
 ```
 
 # Features
 
-## ECS Manager
+## ECS Module
 
-ECS Manager is a class in which the developer must list all the required EcsFeatures.
+**ECS Module** is a container that is created and filled by **ECS Feature** using **ECS Module Installer**. The only way to organize code and execute it using **ECS Manager**.
+
+## ECS Module Installer
+
+**ECS Module Installer** is a special class that implements the `IEcsModuleInstaller` interface, in particular the `public IEcsModule Install() {}` method. It is assumed that a unique **ECS Module** will be created in the body of this method, which will be immediately filled with the necessary list of **ECS Features**.
+
+The **ECS Module Installer** is used in the `InstallModule(IEcsModuleInstaller)` method of the **ECS Manager** class. This means that installer is the only correct way to create **ECS Modules** and then register them in **ECS Manager** for execution.
 
 ```csharp
 using AffenCode;
 
-public class GameEcsManager : EcsManager
+public class MainEcsModuleInstaller : IEcsModuleInstaller
 {
-    protected override void AddFeatures(EcsSystemsContext systemsContext)
+    public IEcsModule Install()
     {
-        systemsContext
-            .Add(new DebugFeature())
-            .Add(new PlayerFeature())
+        var module = new EcsModule();
+        
+        module
+            .AddFeature(new DebugFeature())
+            .AddFeature(new PlayerFeature())
             ;
+
+        return module;
     }
 }
 ```
@@ -166,6 +219,14 @@ public class DebugFeature : EcsFeature
     protected override void SetupFixedUpdateSystems(EcsFeatureSystems ecsFeatureSystems)
     {
     }
+    
+    // An optional method required to record injections into all systems and all other injections.
+    protected override void RegisterInjections(IEcsInjector injector)
+    {
+        injector
+            .AddInjectionObject(new DebugService(), typeof(IDebugService), typeof(DebugService))
+            ;
+    }
 }
 ```
 
@@ -177,6 +238,7 @@ public class DebugFeature : EcsFeature
 * GameObjectRef contains a reference to the GameObject.
 * RectTransformRef contains a reference to a RectTransform.
 * Rigidbody2DRef contains a reference to a Rigidbody2D and works the same as RigidbodyRef.
+* UnityRef<T> where T : UnityEngine.Object, IUnityRef
 
 ```csharp
 using System;
@@ -213,6 +275,11 @@ namespace AffenCode
     {
         public GameObject Value;
     }
+    
+    public struct UnityRef<T> where T : UnityEngine.Object, IUnityRef
+    {
+        public T Value;
+    }
 }
 ```
 
@@ -221,7 +288,7 @@ namespace AffenCode
 LeoECS Lite Unity Zoo provides a mechanism to convert your components to ECS.
 To do this, you need to add the `ConvertToEntity` component and your MonoBehaviour class that implements the `IConvertToEntity` interface to the object.
 
-> Important! Using ConvertToEntity is only possible if the scene has an `EcsWorldProvider` or if any of the worlds is registered with `ConvertToEntity.DefaultConversionWorld`.
+> Important! Using ConvertToEntity is only possible if the any world is registered as `ConvertToEntity.DefaultConversionWorld`.
 
 For more convenient work with Unity objects, LeoECS Lite Unity Zoo includes functions for converting Unity objects into ECS-entities with the necessary components.
 
