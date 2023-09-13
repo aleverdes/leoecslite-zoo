@@ -7,16 +7,16 @@ namespace AffenCode
     public interface IEcsModule
     {
         bool Enabled { get; }
-        
-        EcsWorld World { get; }
-        EcsSystemsGroup SystemsGroup { get; }
 
         void Initialize(EcsWorld world);
         
         IEcsModule AddFeature(IEcsFeature feature);
 
-        IEnumerable<EcsFeatureSystemInfo> GetSystems();
-        IEnumerable<EcsFeatureInjectionInfo> GetInjections();
+        EcsWorld GetWorld();
+        EcsSystemsGroup GetSystemsGroup();
+
+        IEnumerable<EcsFeatureSystemInfo> GetAllSystems();
+        IEnumerable<EcsFeatureInjectionInfo> GetAllInjections();
 
         void Enable();
         void Disable();
@@ -25,12 +25,13 @@ namespace AffenCode
     public sealed class EcsModule : IEcsModule
     {
         public bool Enabled { get; private set; } = true;
-        public EcsWorld World { get; private set; }
-        public EcsSystemsGroup SystemsGroup { get; private set; }
 
         private readonly List<IEcsFeature> _features;
         private readonly List<EcsFeatureSystemInfo> _systems;
         private readonly List<EcsFeatureInjectionInfo> _injections;
+
+        private EcsWorld _world;
+        private EcsSystemsGroup _systemsGroup;
 
         private bool _initialized;
 
@@ -48,13 +49,13 @@ namespace AffenCode
                 throw new Exception("EcsModule can't initialized twice");
             }
 
-            World = ecsWorld;
+            _world = ecsWorld;
             
-            SystemsGroup = new EcsSystemsGroup
+            _systemsGroup = new EcsSystemsGroup
             {
-                UpdateSystems = new EcsSystems(World),
-                LateUpdateSystems = new EcsSystems(World),
-                FixedUpdateSystems = new EcsSystems(World)
+                UpdateSystems = new EcsSystems(_world),
+                LateUpdateSystems = new EcsSystems(_world),
+                FixedUpdateSystems = new EcsSystems(_world)
             };
 
             foreach (var feature in _features)
@@ -68,26 +69,26 @@ namespace AffenCode
             
                 foreach (var system in feature.GetUpdateSystems().GetSystems())
                 {
-                    SystemsGroup.UpdateSystems.Add(system);
+                    _systemsGroup.UpdateSystems.Add(system);
                     SystemPostAdd(system);
                 }
             
                 foreach (var system in feature.GetLateUpdateSystems().GetSystems())
                 {
-                    SystemsGroup.LateUpdateSystems.Add(system);
+                    _systemsGroup.LateUpdateSystems.Add(system);
                     SystemPostAdd(system);
                 }
             
                 foreach (var system in feature.GetFixedUpdateSystems().GetSystems())
                 {
-                    SystemsGroup.FixedUpdateSystems.Add(system);
+                    _systemsGroup.FixedUpdateSystems.Add(system);
                     SystemPostAdd(system);
                 }
 
                 void SystemPostAdd(IEcsSystem system)
                 {
-                    EcsInjector.Inject(system, this, typeof(IEcsModule));
-                    EcsInjector.Inject(system, this, typeof(EcsModule));
+                    EcsInjection.Inject(system, this, typeof(IEcsModule));
+                    EcsInjection.Inject(system, this, typeof(EcsModule));
                     _systems.Add(new EcsFeatureSystemInfo()
                     {
                         Module = this,
@@ -96,6 +97,8 @@ namespace AffenCode
                     });
                 }
             }
+
+            _initialized = true;
         }
 
         public IEcsModule AddFeature(IEcsFeature feature)
@@ -103,13 +106,23 @@ namespace AffenCode
             _features.Add(feature);
             return this;
         }
+        
+        public EcsWorld GetWorld()
+        {
+            return _world;
+        }
 
-        public IEnumerable<EcsFeatureSystemInfo> GetSystems()
+        public EcsSystemsGroup GetSystemsGroup()
+        {
+            return _systemsGroup;
+        }
+
+        public IEnumerable<EcsFeatureSystemInfo> GetAllSystems()
         {
             return _systems;
         }
 
-        public IEnumerable<EcsFeatureInjectionInfo> GetInjections()
+        public IEnumerable<EcsFeatureInjectionInfo> GetAllInjections()
         {
             return _injections;
         }

@@ -15,9 +15,9 @@ namespace AffenCode
 
         public EcsFeatureSystems Add(IEcsSystem system)
         {
-            EcsInjector.Inject(system, _feature, typeof(IEcsFeature));
-            EcsInjector.Inject(system, _feature, typeof(EcsFeature));
-            EcsInjector.Inject(system, _feature, _feature.GetType());
+            EcsInjection.Inject(system, _feature, typeof(IEcsFeature));
+            EcsInjection.Inject(system, _feature, typeof(EcsFeature));
+            EcsInjection.Inject(system, _feature, _feature.GetType());
             _systems.Add(system);
             return this;
         }

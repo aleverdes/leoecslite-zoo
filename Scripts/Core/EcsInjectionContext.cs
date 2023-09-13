@@ -10,7 +10,7 @@ namespace AffenCode
 {
     public abstract class EcsInjectionContext : MonoBehaviour
     {
-        private readonly EcsInjector _ecsInjector = new EcsInjector();
+        private readonly IEcsInjector _ecsInjector = new EcsInjector();
 
         protected void Reset()
         {
@@ -66,6 +66,6 @@ namespace AffenCode
             }
         }
 
-        public EcsInjector GetInjector() => _ecsInjector;
+        public IEcsInjector GetInjector() => _ecsInjector;
     }
 }

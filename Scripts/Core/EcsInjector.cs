@@ -6,214 +6,118 @@ using Leopotam.EcsLite;
 
 namespace AffenCode
 {
-    public sealed class EcsInjector
+    public interface IEcsInjector
     {
-        private readonly Dictionary<Type, object> _injectedObjects = new();
-        
-        private readonly Dictionary<EcsWorld, Dictionary<Type, object>> _poolsCache = new Dictionary<EcsWorld, Dictionary<Type, object>>();
+        IEcsInjector AddInjectionObject(object injectionObject);
+        IEcsInjector AddInjectionObject<T>(object injectionObject);
+        IEcsInjector AddInjectionObject(object injectionObject, Type type);
+        IEcsInjector AddInjectionObject(object injectionObject, params Type[] type);
 
-        public EcsInjector AddInjectionObject(object injectionObject)
+        IEcsInjector RemoveInjectionObject(Type injectionType);
+        IEcsInjector RemoveInjectionObject<T>();
+        IEcsInjector RemoveInjectionObject(object injectionObjectToRemove);
+
+        Dictionary<Type, object> GetInjectionObjects();
+
+        void ExecuteInjection(IEcsSystems ecsSystems);
+        void ExecuteInjection(IEcsSystem ecsSystem, EcsWorld world);
+    }
+    
+    public sealed class EcsInjector : IEcsInjector
+    {
+        private readonly Dictionary<Type, object> _injectionObjects = new();
+
+        public IEcsInjector AddInjectionObject(object injectionObject)
         {
-            _injectedObjects.Add(injectionObject.GetType(), injectionObject);
+            _injectionObjects.Add(injectionObject.GetType(), injectionObject);
             return this;
         }
         
-        public EcsInjector AddInjectionObject<T>(object injectionObject)
+        public IEcsInjector AddInjectionObject<T>(object injectionObject)
         {
-            _injectedObjects.Add(typeof(T), injectionObject);
+            _injectionObjects.Add(typeof(T), injectionObject);
             return this;
         }
         
-        public EcsInjector AddInjectionObject(object injectionObject, Type type)
+        public IEcsInjector AddInjectionObject(object injectionObject, Type type)
         {
             if (!type.IsInstanceOfType(injectionObject))
             {
                 throw new Exception($"Can't add object {injectionObject} to injection-list because object's type {injectionObject.GetType()} isn't assignable from {type}");
             }
             
-            _injectedObjects.Add(type, injectionObject);
+            _injectionObjects.Add(type, injectionObject);
             return this;
         }
 
-        public EcsInjector RemoveInjectionObject(Type injectionType)
+        public IEcsInjector AddInjectionObject(object injectionObject, Type[] types)
         {
-            _injectedObjects.Remove(injectionType);
+            foreach (var type in types)
+            {
+                AddInjectionObject(injectionObject, type);
+            }
             return this;
         }
 
-        public EcsInjector RemoveInjectionObject<T>()
+        public IEcsInjector RemoveInjectionObject(Type injectionType)
         {
-            _injectedObjects.Remove(typeof(T));
+            _injectionObjects.Remove(injectionType);
             return this;
         }
 
-        public Dictionary<Type, object> GetInjectedObjects()
+        public IEcsInjector RemoveInjectionObject<T>()
         {
-            return _injectedObjects;
+            _injectionObjects.Remove(typeof(T));
+            return this;
+        }
+
+        public IEcsInjector RemoveInjectionObject(object injectionObjectToRemove)
+        {
+            var toRemove = new HashSet<Type>();
+            
+            foreach (var (injectionType, injectionObject) in _injectionObjects)
+            {
+                if (injectionObjectToRemove == injectionObject)
+                {
+                    toRemove.Add(injectionType);
+                }
+            }
+
+            foreach (var injectionType in toRemove)
+            {
+                _injectionObjects.Remove(injectionType);
+            }
+            
+            return this;
+        }
+
+        public Dictionary<Type, object> GetInjectionObjects()
+        {
+            return _injectionObjects;
         }
 
         public void ExecuteInjection(IEcsSystems ecsSystems)
         {
-            Inject(ecsSystems, ecsSystems.GetWorld(), typeof(EcsWorld));
+            EcsInjection.Inject(ecsSystems, ecsSystems.GetWorld(), typeof(EcsWorld));
             
-            foreach (var (injectionType, injectionObject) in _injectedObjects)
+            foreach (var (injectionType, injectionObject) in _injectionObjects)
             {
-                Inject(ecsSystems, injectionObject, injectionType);
+                EcsInjection.Inject(ecsSystems, injectionObject, injectionType);
             }
 
-            InjectPools(ecsSystems);
+            EcsInjection.InjectPools(ecsSystems, ecsSystems.GetWorld());
         }
 
         public void ExecuteInjection(IEcsSystem ecsSystem, EcsWorld world)
         {
-            Inject(ecsSystem, world, typeof(EcsWorld));
+            EcsInjection.Inject(ecsSystem, world, typeof(EcsWorld));
             
-            foreach (var (injectionType, injectionObject) in _injectedObjects)
+            foreach (var (injectionType, injectionObject) in _injectionObjects)
             {
-                Inject(ecsSystem, injectionObject, injectionType);
+                EcsInjection.Inject(ecsSystem, injectionObject, injectionType);
             }
 
-            InjectPools(ecsSystem, world);
-        }
-
-
-        private IEcsSystems InjectPools(IEcsSystems ecsSystems)
-        {
-            return InjectPools(ecsSystems, ecsSystems.GetWorld());
-        }
-
-        public IEcsSystems InjectPools(IEcsSystems ecsSystems, EcsWorld world)
-        {
-            if (world == null)
-            {
-                throw new Exception("For ECS-pool injection required the ECS World");
-            }
-
-            if (!_poolsCache.TryGetValue(world, out var poolsByGenericType))
-            {
-                poolsByGenericType = new Dictionary<Type, object>();
-                _poolsCache.Add(world, poolsByGenericType);
-            }
-
-            var allSystems = ecsSystems.GetAllSystems();
-            
-            var getPoolMethod = typeof(EcsWorld).GetMethod(nameof(EcsWorld.GetPool));
-
-            foreach (var system in allSystems)
-            {
-                var systemType = system.GetType();
-                var systemFields = systemType.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-
-                foreach (var systemField in systemFields)
-                {
-                    if (!typeof(IEcsPool).IsAssignableFrom(systemField.FieldType))
-                    {
-                        continue;   
-                    }
-
-                    var poolType = systemField.FieldType.GetGenericArguments().FirstOrDefault();
-
-                    if (!poolsByGenericType.TryGetValue(poolType, out var pool))
-                    {
-                        var getTypedPoolMethod = getPoolMethod.MakeGenericMethod(poolType);
-                        pool = getTypedPoolMethod.Invoke(world, null);
-                        poolsByGenericType.Add(poolType, pool);
-                        systemField.SetValue(system, pool);
-                    }
-                    else
-                    {
-                        systemField.SetValue(system, pool);
-                    }
-                }
-            }
-            
-            return ecsSystems;
-        }
-        
-        public void InjectPools(object obj, EcsWorld world)
-        {
-            if (world == null)
-            {
-                throw new Exception("For ECS-pool injection required the ECS World");
-            }
-
-            if (!_poolsCache.TryGetValue(world, out var poolsByGenericType))
-            {
-                poolsByGenericType = new Dictionary<Type, object>();
-                _poolsCache.Add(world, poolsByGenericType);
-            }
-
-            var getPoolMethod = typeof(EcsWorld).GetMethod(nameof(EcsWorld.GetPool));
-
-            var systemType = obj.GetType();
-            var systemFields = systemType.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-
-            foreach (var systemField in systemFields)
-            {
-                if (!typeof(IEcsPool).IsAssignableFrom(systemField.FieldType))
-                {
-                    continue;   
-                }
-
-                var poolType = systemField.FieldType.GetGenericArguments().FirstOrDefault();
-
-                if (!poolsByGenericType.TryGetValue(poolType, out var pool))
-                {
-                    var getTypedPoolMethod = getPoolMethod.MakeGenericMethod(poolType);
-                    pool = getTypedPoolMethod.Invoke(world, null);
-                    poolsByGenericType.Add(poolType, pool);
-                    systemField.SetValue(obj, pool);
-                }
-                else
-                {
-                    systemField.SetValue(obj, pool);
-                }
-            }
-        }
-        
-        public static IEcsSystems Inject(IEcsSystems ecsSystems, object injectedObject)
-        {
-            return Inject(ecsSystems, injectedObject, injectedObject.GetType());
-        }
-
-        public static IEcsSystems Inject(IEcsSystems ecsSystems, object injectedObject, Type injectionType)
-        {
-            var allSystems = ecsSystems.GetAllSystems();
-
-            foreach (var system in allSystems)
-            {
-                Inject(system, injectedObject, injectionType);
-            }
-            
-            return ecsSystems;
-        }
-
-        public static object Inject(object obj, object injectedObject)
-        {
-            return Inject(obj, injectedObject, injectedObject.GetType());
-        }
-
-        public static object Inject(object obj, object injectedObject, Type[] injectionTypes)
-        {
-            foreach (var injectionType in injectionTypes)
-            {
-                Inject(obj, injectedObject, injectionType);
-            }
-
-            return obj;
-        }
-
-        public static object Inject(object obj, object injectedObject, Type injectionType)
-        {
-            var systemType = obj.GetType();
-            var systemFields = systemType.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-            var requiredField = systemFields.FirstOrDefault(x => x.FieldType == injectionType);
-            if (requiredField != null)
-            {
-                requiredField.SetValue(obj, injectedObject);
-            }
-            
-            return obj;
+            EcsInjection.InjectPools(ecsSystem, world);
         }
     }
 }
