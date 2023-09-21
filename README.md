@@ -334,7 +334,7 @@ public class TestComponentProvider : ConvertComponent<TestComponent>
 And for the correct conversion of Unity objects, you must use the `UnityObjectProvider` component. 
 `UnityObjectProvider` calls the function to link gameobject, transform and rigidbody with the ECS entity.
 
-## ECS Injection and Globals
+## ECS Injection
 
 LeoECS Lite Unity Zoo provides a mechanism for injecting your classes into the system's ECS. 
 
