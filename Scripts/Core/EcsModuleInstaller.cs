@@ -1,4 +1,4 @@
-namespace AleVerDes
+namespace AleVerDes.LeoEcsLiteZoo
 {
     public interface IEcsModuleInstaller
     {

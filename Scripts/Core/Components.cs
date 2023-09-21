@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace AleVerDes
+namespace AleVerDes.LeoEcsLiteZoo
 {
     [Serializable]
     public struct TransformRef

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Leopotam.EcsLite;
 
-namespace AleVerDes
+namespace AleVerDes.LeoEcsLiteZoo
 {
     public static class EcsInjection
     {

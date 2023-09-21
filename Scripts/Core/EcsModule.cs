@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Leopotam.EcsLite;
 
-namespace AleVerDes
+namespace AleVerDes.LeoEcsLiteZoo
 {
     public interface IEcsModule
     {

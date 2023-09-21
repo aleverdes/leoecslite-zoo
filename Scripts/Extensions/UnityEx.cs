@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace AleVerDes
+namespace AleVerDes.LeoEcsLiteZoo
 {
     public static class UnityEx
     {

@@ -5,7 +5,7 @@ using Leopotam.EcsLite;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
-namespace AleVerDes
+namespace AleVerDes.LeoEcsLiteZoo
 {
     public interface IEcsManager
     {

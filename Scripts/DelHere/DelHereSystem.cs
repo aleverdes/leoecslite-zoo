@@ -1,6 +1,6 @@
 using Leopotam.EcsLite;
 
-namespace AleVerDes
+namespace AleVerDes.LeoEcsLiteZoo
 {
     public sealed class DelHereSystem<T> : IEcsRunSystem where T : struct
     {

@@ -1,7 +1,7 @@
 using Leopotam.EcsLite;
 using UnityEngine;
 
-namespace AleVerDes
+namespace AleVerDes.LeoEcsLiteZoo
 {
     [RequireComponent(typeof(ConvertToEntity))]
     public abstract class ConvertComponent<T> : MonoBehaviour, IConvertToEntity where T : struct

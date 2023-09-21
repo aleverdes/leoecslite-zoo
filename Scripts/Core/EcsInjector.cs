@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace AleVerDes
+namespace AleVerDes.LeoEcsLiteZoo
 {
     public interface IEcsInjector
     {
