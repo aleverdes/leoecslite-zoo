@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-namespace AffenCode
+namespace AleVerDes
 {
     public abstract class EcsInjectionContext : MonoBehaviour
     {

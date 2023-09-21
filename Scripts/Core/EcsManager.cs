@@ -5,7 +5,7 @@ using Leopotam.EcsLite;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
-namespace AffenCode
+namespace AleVerDes
 {
     public interface IEcsManager
     {
@@ -31,13 +31,6 @@ namespace AffenCode
         private readonly HashSet<EcsFeatureSystemInfo> _systems = new HashSet<EcsFeatureSystemInfo>();
 
         private EcsWorld _world;
-        
-        private readonly IEcsLogger _logger;
-
-        public EcsManager()
-        {
-            _logger = new EcsLogger();
-        }
 
         public void SetWorld(EcsWorld ecsWorld)
         {
@@ -87,41 +80,25 @@ namespace AffenCode
         
         public IEcsModule InstallModule(IEcsModuleInstaller moduleInstaller)
         {
-            _logger.Info<EcsManager>("Start ECS Module installing");
-            
             var module = moduleInstaller.Install();
-
-            _logger.Info<EcsManager>("ECS Module installed");
-            
+   
             module.Initialize(_world);
-
-            _logger.Info<EcsManager>("ECS Module initialized");
             
             foreach (var systemInfo in module.GetAllSystems())
             {
                 _systems.Add(systemInfo);
             }
-            
-            _logger.Info<EcsManager>("Collected ECS Module's Systems information");
 
             foreach (var injector in module.GetAllInjectors())
             {
                 _injectors.Add(injector, false);
             }
-            
-            _logger.Info<EcsManager>("Collected ECS Module's Injections information");
 
             _modules.Add(module);
-            
-            _logger.Info<EcsManager>("Injection to ECS Module started");
 
             RebuildInjections();
-            
-            _logger.Info<EcsManager>("Injection to ECS Module finished");
 
             module.GetSystemsGroup().Init();
-            
-            _logger.Info<EcsManager>("ECS Module's systems are initialized");
 
             return module;
         }
@@ -153,11 +130,8 @@ namespace AffenCode
                     EcsInjection.Inject(systemInfo.System, _world, typeof(EcsWorld));
                     injector.ExecuteInjection(systemInfo.System);
                     EcsInjection.InjectPools(systemInfo.System, _world);
-                    EcsInjection.Inject(systemInfo.System, _logger, typeof(IEcsLogger));
                 }
             }
-            
-            _logger.Info<EcsManager>("Finished injection to systems");
 
             foreach (var (targetObjectType, targetObject) in _injectors.Where(x => !x.Value).SelectMany(targetInjector => targetInjector.Key.GetInjectionObjects()))
             {
@@ -169,10 +143,7 @@ namespace AffenCode
                 }
                     
                 EcsInjection.InjectPools(targetObject, _world);
-                EcsInjection.Inject(targetObject, _logger, typeof(IEcsLogger));
             }
-            
-            _logger.Info<EcsManager>("Finished injection to injections");
         }
     }
 }

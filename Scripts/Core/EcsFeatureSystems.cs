@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Leopotam.EcsLite;
 
-namespace AffenCode
+namespace AleVerDes
 {
     public class EcsFeatureSystems
     {

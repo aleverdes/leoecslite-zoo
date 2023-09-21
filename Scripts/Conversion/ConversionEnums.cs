@@ -1,4 +1,4 @@
-namespace AffenCode
+namespace AleVerDes
 {
     public enum CollectMode
     {

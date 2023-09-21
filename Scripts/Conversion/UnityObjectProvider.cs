@@ -1,7 +1,7 @@
 using Leopotam.EcsLite;
 using UnityEngine;
 
-namespace AffenCode
+namespace AleVerDes
 {
     [RequireComponent(typeof(ConvertToEntity))]
     public class UnityObjectProvider : MonoBehaviour, IConvertToEntity

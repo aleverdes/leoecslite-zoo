@@ -3,7 +3,7 @@ using System.Collections;
 using Leopotam.EcsLite;
 using UnityEngine;
 
-namespace AffenCode
+namespace AleVerDes
 {
     public sealed class ConvertToEntity : MonoBehaviour
     {

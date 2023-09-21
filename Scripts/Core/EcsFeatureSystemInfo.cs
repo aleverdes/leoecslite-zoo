@@ -1,6 +1,6 @@
 using Leopotam.EcsLite;
 
-namespace AffenCode
+namespace AleVerDes
 {
     public struct EcsFeatureSystemInfo
     {

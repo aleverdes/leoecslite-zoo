@@ -1,6 +1,6 @@
 using Leopotam.EcsLite;
 
-namespace AffenCode
+namespace AleVerDes
 {
     public sealed class DelHereSystem<T> : IEcsRunSystem where T : struct
     {

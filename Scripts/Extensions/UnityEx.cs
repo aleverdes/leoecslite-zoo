@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace AffenCode
+namespace AleVerDes
 {
     public static class UnityEx
     {

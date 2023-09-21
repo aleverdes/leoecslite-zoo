@@ -1,7 +1,7 @@
 using System;
 using Leopotam.EcsLite;
 
-namespace AffenCode
+namespace AleVerDes
 {
     public static class EcsEx
     {

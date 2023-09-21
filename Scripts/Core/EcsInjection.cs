@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Leopotam.EcsLite;
 
-namespace AffenCode
+namespace AleVerDes
 {
     public static class EcsInjection
     {
