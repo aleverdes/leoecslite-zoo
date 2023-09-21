@@ -63,6 +63,8 @@ Below is an example of how to run ECS Manager from LeoECS Lite Zoo along with in
 ## ECS Startup Example
 
 ```csharp
+using AleVerDes;
+
 public class MainEcsStartup : MonoBehaviour
 {
     [SerializeField] private List<EcsInjectionContext> _injectionContexts;
@@ -115,7 +117,7 @@ public class MainEcsStartup : MonoBehaviour
 ## ECS Module Installer Example
 
 ```csharp
-using AffenCode;
+using AleVerDes;
 
 public class MainEcsModuleInstaller : IEcsModuleInstaller
 {
@@ -136,7 +138,7 @@ public class MainEcsModuleInstaller : IEcsModuleInstaller
 ## ECS Feature Example
 
 ```csharp
-using AffenCode;
+using AleVerDes;
 
 public class DebugFeature : EcsFeature
 {
@@ -178,7 +180,7 @@ public class DebugFeature : EcsFeature
 The **ECS Module Installer** is used in the `InstallModule(IEcsModuleInstaller)` method of the **ECS Manager** class. This means that installer is the only correct way to create **ECS Modules** and then register them in **ECS Manager** for execution.
 
 ```csharp
-using AffenCode;
+using AleVerDes;
 
 public class MainEcsModuleInstaller : IEcsModuleInstaller
 {
@@ -201,7 +203,7 @@ public class MainEcsModuleInstaller : IEcsModuleInstaller
 ECS Feature is the main way to organize and group in-game systems by context.
 
 ```csharp
-using AffenCode;
+using AleVerDes;
 
 public class DebugFeature : EcsFeature
 {
@@ -244,7 +246,7 @@ public class DebugFeature : EcsFeature
 using System;
 using UnityEngine;
 
-namespace AffenCode
+namespace AleVerDes
 {
     [Serializable]
     public struct TransformRef
@@ -295,7 +297,7 @@ For more convenient work with Unity objects, LeoECS Lite Unity Zoo includes func
 I recommended to use Bootstrappers:
 
 ```csharp
-using AffenCode;
+using AleVerDes;
 
 [RequireComponent(typeof(ConvertToEntity))]
 public class PlayerBootstrapper : MonoBehaviour, IConvertToEntity
@@ -314,7 +316,7 @@ public class PlayerBootstrapper : MonoBehaviour, IConvertToEntity
 An easier way to convert your component to ECS is to use the ConvertComponent<T> class.
 
 ```csharp
-using AffenCode;
+using AleVerDes;
 
 public class TestComponentProvider : ConvertComponent<TestComponent>
 {
@@ -341,7 +343,7 @@ LeoECS Lite Unity Zoo provides a mechanism for injecting your classes into the s
 An extremely simple way to declare injections in code. It is enough to simply declare a class that will be the successor of EcsInjectionContext, and in it register the fields that you want to inject.
 
 ```csharp
-using AffenCode;
+using AleVerDes;
 
 public class GameEcsInjectionContext : EcsInjectionContext
 {
@@ -354,7 +356,7 @@ public class GameEcsInjectionContext : EcsInjectionContext
 In the future, you just need to initialize the EcsInjectionContext and register the context Injector in the EcsManager.
 
 ```csharp
-using AffenCode;
+using AleVerDes;
 
 public class GameEcsStartup : MonoBehaviour
 {
