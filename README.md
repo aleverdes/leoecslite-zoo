@@ -83,7 +83,7 @@ public class MainEcsStartup : MonoBehaviour
         foreach (var injectionContext in _injectionContexts)
         {
             injectionContext.InitInjector();
-            _ecsManager.AddInjector(injectionContext.GetInjector(), true);   
+            _ecsManager.AddInjector(injectionContext.GetInjector());   
         }
     }
 
@@ -139,26 +139,26 @@ public class MainEcsModuleInstaller : IEcsModuleInstaller
 
 ```csharp
 using AleVerDes.LeoEcsLiteZoo;
+using Leopotam.EcsLite;
 
-public class DebugFeature : EcsFeature
+public class DebugFeature : IEcsFeature
 {
-    protected override void SetupUpdateSystems(EcsFeatureSystems ecsFeatureSystems)
+    public void SetupUpdateSystems(IEcsSystems systems)
     {
         ecsFeatureSystems
             .Add(new DebugTeleportSystem())
             ;
     }
 
-    protected override void SetupLateUpdateSystems(EcsFeatureSystems ecsFeatureSystems)
+    public void SetupLateUpdateSystems(IEcsSystems systems)
     {
     }
 
-    protected override void SetupFixedUpdateSystems(EcsFeatureSystems ecsFeatureSystems)
+    public void SetupFixedUpdateSystems(IEcsSystems systems)
     {
     }
 
-    // An optional method required to record injections into all systems and all other injections.
-    protected override void RegisterInjections(IEcsInjector injector)
+    public void SetupInjector(IEcsInjector injector)
     {
         injector
             .AddInjectionObject(new DebugService(), typeof(IDebugService), typeof(DebugService))
@@ -204,26 +204,26 @@ ECS Feature is the main way to organize and group in-game systems by context.
 
 ```csharp
 using AleVerDes.LeoEcsLiteZoo;
+using Leopotam.EcsLite;
 
-public class DebugFeature : EcsFeature
+public class DebugFeature : IEcsFeature
 {
-    protected override void SetupUpdateSystems(EcsFeatureSystems ecsFeatureSystems)
+    public void SetupUpdateSystems(IEcsSystems systems)
     {
         ecsFeatureSystems
             .Add(new DebugTeleportSystem())
             ;
     }
 
-    protected override void SetupLateUpdateSystems(EcsFeatureSystems ecsFeatureSystems)
+    public void SetupLateUpdateSystems(IEcsSystems systems)
     {
     }
 
-    protected override void SetupFixedUpdateSystems(EcsFeatureSystems ecsFeatureSystems)
+    public void SetupFixedUpdateSystems(IEcsSystems systems)
     {
     }
-    
-    // An optional method required to record injections into all systems and all other injections.
-    protected override void RegisterInjections(IEcsInjector injector)
+
+    public void SetupInjector(IEcsInjector injector)
     {
         injector
             .AddInjectionObject(new DebugService(), typeof(IDebugService), typeof(DebugService))
@@ -346,9 +346,8 @@ An extremely simple way to declare injections in code. It is enough to simply de
 using AleVerDes.LeoEcsLiteZoo;
 
 public class GameEcsInjectionContext : EcsInjectionContext
-{
-    private DebugSettings _debugSettings;
-    private PlayerCamera _playerCamera;
+
+    private PlayerCamera _playerCamera; // if PlayerCamera is MonoBehaviour then it will be found on the scene automatically
     [SerializedField] private ItemDatabase _itemDatabase;
 }
 ```

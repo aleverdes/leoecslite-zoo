@@ -15,8 +15,8 @@ namespace AleVerDes.LeoEcsLiteZoo
         EcsWorld GetWorld();
         EcsSystemsGroup GetSystemsGroup();
 
-        IEnumerable<EcsFeatureSystemInfo> GetAllSystems();
-        IEnumerable<IEcsInjector> GetAllInjectors();
+        IEnumerable<IEcsSystem> GetAllSystems();
+        IEcsInjector GetInjector();
 
         void Enable();
         void Disable();
@@ -27,8 +27,7 @@ namespace AleVerDes.LeoEcsLiteZoo
         public bool Enabled { get; private set; } = true;
 
         private readonly List<IEcsFeature> _features;
-        private readonly List<EcsFeatureSystemInfo> _systems;
-        private readonly List<IEcsInjector> _injectors;
+        private readonly IEcsInjector _injector;
 
         private EcsWorld _world;
         private EcsSystemsGroup _systemsGroup;
@@ -38,8 +37,7 @@ namespace AleVerDes.LeoEcsLiteZoo
         public EcsModule()
         {
             _features = new List<IEcsFeature>();
-            _systems = new List<EcsFeatureSystemInfo>();
-            _injectors = new List<IEcsInjector>();
+            _injector = new EcsInjector();
         }
         
         public void Initialize(EcsWorld ecsWorld)
@@ -60,39 +58,10 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             foreach (var feature in _features)
             {
-                feature.Setup();
-
-                _injectors.Add(feature.GetInjector());
-            
-                foreach (var system in feature.GetUpdateSystems().GetSystems())
-                {
-                    _systemsGroup.UpdateSystems.Add(system);
-                    SystemPostAdd(system);
-                }
-            
-                foreach (var system in feature.GetLateUpdateSystems().GetSystems())
-                {
-                    _systemsGroup.LateUpdateSystems.Add(system);
-                    SystemPostAdd(system);
-                }
-            
-                foreach (var system in feature.GetFixedUpdateSystems().GetSystems())
-                {
-                    _systemsGroup.FixedUpdateSystems.Add(system);
-                    SystemPostAdd(system);
-                }
-
-                void SystemPostAdd(IEcsSystem system)
-                {
-                    EcsInjection.Inject(system, this, typeof(IEcsModule));
-                    EcsInjection.Inject(system, this, typeof(EcsModule));
-                    _systems.Add(new EcsFeatureSystemInfo()
-                    {
-                        Module = this,
-                        Feature = feature,
-                        System = system
-                    });
-                }
+                feature.SetupUpdateSystems(_systemsGroup.UpdateSystems);
+                feature.SetupLateUpdateSystems(_systemsGroup.LateUpdateSystems);
+                feature.SetupFixedUpdateSystems(_systemsGroup.FixedUpdateSystems);
+                feature.SetupInjector(_injector);
             }
 
             _initialized = true;
@@ -114,14 +83,14 @@ namespace AleVerDes.LeoEcsLiteZoo
             return _systemsGroup;
         }
 
-        public IEnumerable<EcsFeatureSystemInfo> GetAllSystems()
+        public IEnumerable<IEcsSystem> GetAllSystems()
         {
-            return _systems;
+            return _systemsGroup.GetAllSystems();
         }
 
-        public IEnumerable<IEcsInjector> GetAllInjectors()
+        public IEcsInjector GetInjector()
         {
-            return _injectors;
+            return _injector;
         }
 
         public void Enable()
