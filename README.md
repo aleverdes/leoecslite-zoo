@@ -48,7 +48,7 @@ Any bug reports and suggestions for improvements are welcome.
 
 Installation is supported as a unity module via a git link in the PackageManager or direct editing of `Packages/manifest.json`:
 ```
-"com.affencode.leoecslite-zoo": "https://github.com/aleverdes/leoecslite-zoo.git",
+"com.aleverdes.leoecslite-zoo": "https://github.com/aleverdes/leoecslite-zoo.git",
 ```
 
 ## Manual installation
