@@ -145,7 +145,7 @@ public class DebugFeature : IEcsFeature
 {
     public void SetupUpdateSystems(IEcsSystems systems)
     {
-        ecsFeatureSystems
+        systems
             .Add(new DebugTeleportSystem())
             ;
     }
@@ -210,7 +210,7 @@ public class DebugFeature : IEcsFeature
 {
     public void SetupUpdateSystems(IEcsSystems systems)
     {
-        ecsFeatureSystems
+        systems
             .Add(new DebugTeleportSystem())
             ;
     }
