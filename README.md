@@ -361,7 +361,7 @@ public class GameEcsStartup : MonoBehaviour
 {
     [SerializeField] private List<EcsInjectionContext> _injectionContexts;
 
-    private GameEcsManager _ecsManager;
+    private IEcsManager _ecsManager;
         
     private void Start()
     {
