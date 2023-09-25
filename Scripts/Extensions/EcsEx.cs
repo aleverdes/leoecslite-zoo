@@ -18,27 +18,32 @@ namespace AleVerDes.LeoEcsLiteZoo
             return ref ecsWorld.GetPool<T>().Add(entity);
         }
 
-        public static T GetFirstEntity<T>(this EcsWorld world) where T : struct
+        public static int GetFirstEntity<T>(this EcsWorld world) where T : struct
         {
             return world.GetFirstEntity<T>(out _);
         }
 
-        public static T GetFirstEntity<T>(this EcsWorld world, out int entity) where T : struct
+        public static int GetFirstEntity<T>(this EcsWorld world, out T component) where T : struct
         {
-            if (world.TryGetFirstEntity(out T component, out entity))
+            if (world.TryGetFirstEntity(out var entity, out component))
             {
-                return component;
+                return entity;
             }
 
             throw new Exception($"Entity with component \"{typeof(T)}\" not found");
         }
 
-        public static bool TryGetFirstEntity<T>(this EcsWorld ecsWorld, out T component) where T : struct
+        public static bool TryGetFirstEntity<T>(this EcsWorld ecsWorld, out int entity) where T : struct
         {
-            return ecsWorld.TryGetFirstEntity(out component, out _);
+            return ecsWorld.TryGetFirstEntity(out entity, out T _);
         }
 
-        public static bool TryGetFirstEntity<T>(this EcsWorld ecsWorld, out T component, out int entity) where T : struct
+        public static bool TryGetFirstEntity<T>(this EcsWorld ecsWorld, out T component) where T : struct
+        {
+            return ecsWorld.TryGetFirstEntity(out _, out component);
+        }
+
+        public static bool TryGetFirstEntity<T>(this EcsWorld ecsWorld, out int entity, out T component) where T : struct
         {
             var filter = ecsWorld.Filter<T>().End();
             var pool = ecsWorld.GetPool<T>();
@@ -54,27 +59,32 @@ namespace AleVerDes.LeoEcsLiteZoo
             return false;
         }
 
-        public static T GetFirstEntity<T>(this EcsFilter filter) where T : struct
+        public static int GetFirstEntity<T>(this EcsFilter filter) where T : struct
         {
             return filter.GetFirstEntity<T>(out _);
         }
 
-        public static T GetFirstEntity<T>(this EcsFilter filter, out int entity) where T : struct
+        public static int GetFirstEntity<T>(this EcsFilter filter, out T component) where T : struct
         {
-            if (filter.TryGetFirstEntity(out T component, out entity))
+            if (filter.TryGetFirstEntity(out var entity, out component))
             {
-                return component;
+                return entity;
             }
 
             throw new Exception($"Entity with component \"{typeof(T)}\" not found");
         }
 
-        public static bool TryGetFirstEntity<T>(this EcsFilter filter, out T component) where T : struct
+        public static bool TryGetFirstEntity<T>(this EcsFilter filter, out int entity) where T : struct
         {
-            return filter.TryGetFirstEntity(out component, out _);
+            return filter.TryGetFirstEntity(out entity, out T _);
         }
 
-        public static bool TryGetFirstEntity<T>(this EcsFilter filter, out T component, out int entity) where T : struct
+        public static bool TryGetFirstEntity<T>(this EcsFilter filter, out T component) where T : struct
+        {
+            return filter.TryGetFirstEntity(out _, out component);
+        }
+
+        public static bool TryGetFirstEntity<T>(this EcsFilter filter, out int entity, out T component) where T : struct
         {
             var pool = filter.GetWorld().GetPool<T>();
             foreach (var e in filter)
@@ -89,27 +99,32 @@ namespace AleVerDes.LeoEcsLiteZoo
             return false;
         }
         
-        public static T GetRandomEntity<T>(this EcsWorld world) where T : struct
+        public static int GetRandomEntity<T>(this EcsWorld world) where T : struct
         {
             return world.GetRandomEntity<T>(out _);
         }
 
-        public static T GetRandomEntity<T>(this EcsWorld world, out int entity) where T : struct
+        public static int GetRandomEntity<T>(this EcsWorld world, out T component) where T : struct
         {
-            if (world.TryGetRandomEntity(out T component, out entity))
+            if (world.TryGetRandomEntity(out var entity, out component))
             {
-                return component;
+                return entity;
             }
 
             throw new Exception($"Entity with component \"{typeof(T)}\" not found");
         }
 
-        public static bool TryGetRandomEntity<T>(this EcsWorld ecsWorld, out T component) where T : struct
+        public static bool TryGetRandomEntity<T>(this EcsWorld ecsWorld, out int entity) where T : struct
         {
-            return ecsWorld.TryGetRandomEntity(out component, out _);
+            return ecsWorld.TryGetRandomEntity(out entity, out T _);
         }
 
-        public static bool TryGetRandomEntity<T>(this EcsWorld ecsWorld, out T component, out int entity) where T : struct
+        public static bool TryGetRandomEntity<T>(this EcsWorld ecsWorld, out T component) where T : struct
+        {
+            return ecsWorld.TryGetRandomEntity(out _, out component);
+        }
+
+        public static bool TryGetRandomEntity<T>(this EcsWorld ecsWorld, out int entity, out T component) where T : struct
         {
             var filter = ecsWorld.Filter<T>().End();
             var pool = ecsWorld.GetPool<T>();
@@ -137,27 +152,32 @@ namespace AleVerDes.LeoEcsLiteZoo
             return false;
         }
 
-        public static T GetRandomEntity<T>(this EcsFilter filter) where T : struct
+        public static int GetRandomEntity<T>(this EcsFilter filter) where T : struct
         {
             return filter.GetRandomEntity<T>(out _);
         }
 
-        public static T GetRandomEntity<T>(this EcsFilter filter, out int entity) where T : struct
+        public static int GetRandomEntity<T>(this EcsFilter filter, out T component) where T : struct
         {
-            if (filter.TryGetRandomEntity(out T component, out entity))
+            if (filter.TryGetRandomEntity( out var entity, out component))
             {
-                return component;
+                return entity;
             }
 
             throw new Exception($"Entity with component \"{typeof(T)}\" not found");
         }
 
-        public static bool TryGetRandomEntity<T>(this EcsFilter filter, out T component) where T : struct
+        public static bool TryGetRandomEntity<T>(this EcsFilter filter, out int entity) where T : struct
         {
-            return filter.TryGetRandomEntity(out component, out _);
+            return filter.TryGetRandomEntity(out entity, out T _);
         }
 
-        public static bool TryGetRandomEntity<T>(this EcsFilter filter, out T component, out int entity) where T : struct
+        public static bool TryGetRandomEntity<T>(this EcsFilter filter, out T component) where T : struct
+        {
+            return filter.TryGetRandomEntity(out _, out component);
+        }
+
+        public static bool TryGetRandomEntity<T>(this EcsFilter filter, out int entity, out T component) where T : struct
         {
             var pool = filter.GetWorld().GetPool<T>();
 
