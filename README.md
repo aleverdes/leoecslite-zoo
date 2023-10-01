@@ -1,4 +1,4 @@
-# <img src="https://github.com/aleverdes/leoecslite-zoo/assets/1634184/e17df792-8f0c-40c1-a46c-663319760b09" width="25px" height="25px" /> LeoECS Lite Unity Zoo
+# 🦁 LeoECS Lite Unity Zoo
 
 LeoECS Lite Unity Zoo is a big add-on to [LeoECS Lite](https://github.com/Leopotam/ecslite) for Unity, including the following features:
 * ECS Manager;
