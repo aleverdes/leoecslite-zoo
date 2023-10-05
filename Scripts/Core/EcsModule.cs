@@ -10,7 +10,7 @@ namespace AleVerDes.LeoEcsLiteZoo
 
         void Initialize(EcsWorld world);
         
-        IEcsModule AddFeature(IEcsFeature feature);
+        IEcsModule Add(IEcsModulePart modulePart);
 
         EcsWorld GetWorld();
         EcsSystemsGroup GetSystemsGroup();
@@ -26,7 +26,10 @@ namespace AleVerDes.LeoEcsLiteZoo
     {
         public bool Enabled { get; private set; } = true;
 
-        private readonly List<IEcsFeature> _features;
+        private readonly List<IEcsUpdateFeature> _updateFeatures = new();
+        private readonly List<IEcsLateUpdateFeature> _lateUpdateFeatures = new();
+        private readonly List<IEcsFixedUpdateFeature> _fixedUpdateFeatures = new();
+        private readonly List<IEcsInjectionFeature> _injectionFeatures = new();
         private readonly IEcsInjector _injector;
 
         private EcsWorld _world;
@@ -36,7 +39,6 @@ namespace AleVerDes.LeoEcsLiteZoo
 
         public EcsModule()
         {
-            _features = new List<IEcsFeature>();
             _injector = new EcsInjector();
         }
         
@@ -56,20 +58,51 @@ namespace AleVerDes.LeoEcsLiteZoo
                 FixedUpdateSystems = new EcsSystems(_world)
             };
 
-            foreach (var feature in _features)
+            foreach (var updateFeature in _updateFeatures)
             {
-                feature.SetupUpdateSystems(_systemsGroup.UpdateSystems);
-                feature.SetupLateUpdateSystems(_systemsGroup.LateUpdateSystems);
-                feature.SetupFixedUpdateSystems(_systemsGroup.FixedUpdateSystems);
-                feature.SetupInjector(_injector);
+                updateFeature.SetupUpdateSystems(_systemsGroup.UpdateSystems);
+            }
+
+            foreach (var lateUpdateFeature in _lateUpdateFeatures)
+            {
+                lateUpdateFeature.SetupLateUpdateSystems(_systemsGroup.LateUpdateSystems);
+            }
+
+            foreach (var fixedUpdateFeature in _fixedUpdateFeatures)
+            {
+                fixedUpdateFeature.SetupFixedUpdateSystems(_systemsGroup.FixedUpdateSystems);
+            }
+
+            foreach (var injectionFeature in _injectionFeatures)
+            {
+                injectionFeature.SetupInjector(_injector);
             }
 
             _initialized = true;
         }
 
-        public IEcsModule AddFeature(IEcsFeature feature)
+        public IEcsModule Add(IEcsModulePart modulePart)
         {
-            _features.Add(feature);
+            if (modulePart is IEcsUpdateFeature updateFeature)
+            {
+                _updateFeatures.Add(updateFeature);
+            }
+            
+            if (modulePart is IEcsLateUpdateFeature lateUpdateFeature)
+            {
+                _lateUpdateFeatures.Add(lateUpdateFeature);
+            }
+            
+            if (modulePart is IEcsFixedUpdateFeature fixedUpdateFeature)
+            {
+                _fixedUpdateFeatures.Add(fixedUpdateFeature);
+            }
+            
+            if (modulePart is IEcsInjectionFeature injectionFeature)
+            {
+                _injectionFeatures.Add(injectionFeature);
+            }
+            
             return this;
         }
         
