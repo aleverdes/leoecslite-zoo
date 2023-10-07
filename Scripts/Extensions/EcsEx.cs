@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Leopotam.EcsLite;
 using Random = UnityEngine.Random;
 
@@ -244,6 +245,24 @@ namespace AleVerDes.LeoEcsLiteZoo
             component = default;
             entity = -1;
             return false;
+        }
+
+        public static IEnumerable<Type> GetAllComponentsOnEntity(this EcsWorld world, int entity)
+        {
+            var result = new List<Type>();
+            
+            var pools = default(IEcsPool[]);
+            var poolsCount = world.GetAllPools(ref pools);
+            
+            foreach (var pool in pools)
+            {
+                if (pool.Has(entity))
+                {
+                    result.Add(pool.GetType().GenericTypeArguments[0]);
+                }
+            }
+
+            return result;
         }
     }
 }
