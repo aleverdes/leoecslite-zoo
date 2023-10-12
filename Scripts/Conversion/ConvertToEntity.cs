@@ -94,7 +94,7 @@ namespace AleVerDes.LeoEcsLiteZoo
             for (var i = 0; i < t.childCount; ++i)
             {
                 var child = t.GetChild(i);
-                if (!child.TryGetComponent<ConvertToEntity>(out var convertToEntity))
+                if (child.TryGetComponent<ConvertToEntity>(out var convertToEntity))
                 {
                     var components = child.GetComponents<IConvertToEntity>();
                     foreach (var component in components)
