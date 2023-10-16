@@ -34,11 +34,12 @@ namespace AleVerDes.LeoEcsLiteZoo
     }
 
     [Serializable]
-    public struct UnityRef<T> where T : UnityEngine.Object, IUnityRef
+    public struct UnityRef<T> where T : UnityEngine.Object
     {
         public T Value;
     }
 
+    [Obsolete]
     public interface IUnityRef
     {
     }
