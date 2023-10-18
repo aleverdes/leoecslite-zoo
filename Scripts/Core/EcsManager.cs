@@ -120,6 +120,7 @@ namespace AleVerDes.LeoEcsLiteZoo
                         injector.ExecuteInjection(target);
                     }
                     EcsInjection.InjectPools(target, _world);
+                    EcsInjection.InjectQueries(target, _world);
                     module.GetInjector().ExecuteInjection(target);
                 }
             }
