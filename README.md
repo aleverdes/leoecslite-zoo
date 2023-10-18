@@ -338,7 +338,7 @@ namespace AleVerDes.LeoEcsLiteZoo
         public GameObject Value;
     }
     
-    public struct UnityRef<T> where T : UnityEngine.Object, IUnityRef
+    public struct UnityRef<T> where T : UnityEngine.Object
     {
         public T Value;
     }
@@ -443,8 +443,8 @@ using AleVerDes.LeoEcsLiteZoo;
 
 public class GameEcsInjectionContext : EcsInjectionContext
 
-    private PlayerCamera _playerCamera; // if PlayerCamera is MonoBehaviour then it will be found on the scene automatically
-    [SerializedField] private ItemDatabase _itemDatabase;
+    [SerializedField] private TestMonoBehaviour _testMonoBehaviour;
+    [SerializedField] private TestScriptableObject _testScriptableObject;
 }
 ```
 
@@ -470,8 +470,9 @@ public class GameEcsStartup : MonoBehaviour
         ...
     }
 }
-
 ```
+
+The main thing is to remember to add your new Injection Context to the list!
 
 ### Manual Injection
 
