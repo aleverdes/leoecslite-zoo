@@ -405,13 +405,11 @@ To use `EcsQuery`, you just need to declare it in your system, and `EcsQuery` wi
 Next, you can call foreach using `EcsQuery` as if using a regular filter.
 If you need to directly access the `EcsFilter` of this `EcsQuery`, just call the `GetFilter()` method;
 
-To specify the Include filter mask, just list the components in the generic `EcsQuery` parameters.
-**Limit**: 16 components.
+To specify Include filter mask, just describe the list of the components in the generic `EcsQuery<T...>` parameters.
 
-To specify Exclude a filter mask, it is enough to specify the variable type not `EcsQuery<T>`, but `EcsQuery<T1>.Exc<T2>`.
-**Important** - you cannot make an Exclude mask without an Include mask.
-The limit is also 16 components.
-Just list them in the generic Exc<> parameters.
+To specify Exclude a filter mask, just describe the list of the components in the generic `EcsQuery.Exc<T...>` or `EcsQuery<T1...>.Exc<T2...>`.
+
+**Limit**: 16 components for Include mask and 16 components for Exclude mask.
 
 ```csharp
 using AleVerDes.LeoEcsLiteZoo;
@@ -419,7 +417,8 @@ using Leopotam.EcsLite;
 
 public void TestSystem : IEcsRunSystem
 {
-    private EcsQuery<Test> _testQuery;
+    private EcsQuery<Test> _includeOnlyQuery;
+    private EcsQuery.Exc<Test> _excludeOnlyQuery;
     private EcsQuery<Health, Respawnable, HasSpawnPoint>.Exc<Dead> _deadQuery;
     
     public void Run(IEcsSystems systems)
