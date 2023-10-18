@@ -1,9 +1,6 @@
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using Leopotam.EcsLite;
-using UnityEngine;
-using Debug = UnityEngine.Debug;
 
 namespace AleVerDes.LeoEcsLiteZoo
 {
@@ -23,21 +20,21 @@ namespace AleVerDes.LeoEcsLiteZoo
         void AddInjector(IEcsInjector injector);
     }
     
-    public sealed class EcsManager : IEcsManager
+    public class EcsManager : IEcsManager
     {
-        private readonly HashSet<IEcsModule> _modules = new();
-        private readonly HashSet<IEcsInjector> _injectors = new();
+        protected readonly HashSet<IEcsModule> Modules = new();
+        protected readonly HashSet<IEcsInjector> Injectors = new();
 
-        private EcsWorld _world;
+        protected EcsWorld World;
 
-        public void SetWorld(EcsWorld ecsWorld)
+        public virtual void SetWorld(EcsWorld ecsWorld)
         {
-            _world = ecsWorld;
+            World = ecsWorld;
         }
 
-        public void Update()
+        public virtual void Update()
         {
-            foreach (var systemsContext in _modules)
+            foreach (var systemsContext in Modules)
             {
                 if (systemsContext.Enabled)
                 {
@@ -46,9 +43,9 @@ namespace AleVerDes.LeoEcsLiteZoo
             }
         }
 
-        public void LateUpdate()
+        public virtual void LateUpdate()
         {
-            foreach (var systemsContext in _modules)
+            foreach (var systemsContext in Modules)
             {
                 if (systemsContext.Enabled)
                 {
@@ -57,9 +54,9 @@ namespace AleVerDes.LeoEcsLiteZoo
             }
         }
 
-        public void FixedUpdate()
+        public virtual void FixedUpdate()
         {
-            foreach (var systemsContext in _modules)
+            foreach (var systemsContext in Modules)
             {
                 if (systemsContext.Enabled)
                 {
@@ -68,39 +65,39 @@ namespace AleVerDes.LeoEcsLiteZoo
             }
         }
 
-        public void Destroy()
+        public virtual void Destroy()
         {
-            foreach (var systemsContext in _modules)
+            foreach (var systemsContext in Modules)
             {
                 systemsContext.GetSystemsGroup().Destroy();
             }
         }
         
-        public IEcsModule InstallModule(IEcsModuleInstaller moduleInstaller)
+        public virtual IEcsModule InstallModule(IEcsModuleInstaller moduleInstaller)
         {
             var module = moduleInstaller.Install();
-            module.Initialize(_world);
-            _modules.Add(module);
+            module.Initialize(World);
+            Modules.Add(module);
             RebuildInjections();
             module.GetSystemsGroup().Init();
             return module;
         }
 
-        public void UninstallModule(IEcsModule module)
+        public virtual void UninstallModule(IEcsModule module)
         {
             module.GetSystemsGroup().Destroy();
-            _modules.Remove(module);
+            Modules.Remove(module);
         }
         
-        public void AddInjector(IEcsInjector injector)
+        public virtual void AddInjector(IEcsInjector injector)
         {
-            _injectors.Add(injector);
+            Injectors.Add(injector);
             RebuildInjections();
         }
 
-        private void RebuildInjections()
+        protected virtual void RebuildInjections()
         {
-            foreach (var module in _modules)
+            foreach (var module in Modules)
             {
                 foreach (var system in module.GetAllSystems())
                 {
@@ -114,12 +111,13 @@ namespace AleVerDes.LeoEcsLiteZoo
                 
                 void Inject(object target)
                 {
-                    EcsInjection.Inject(target, _world, typeof(EcsWorld));
-                    foreach (var injector in _injectors)
+                    EcsInjection.Inject(target, World, typeof(EcsWorld));
+                    foreach (var injector in Injectors)
                     {
                         injector.ExecuteInjection(target);
                     }
-                    EcsInjection.InjectPools(target, _world);
+                    EcsInjection.InjectPools(target, World);
+                    EcsInjection.InjectQueries(target, World);
                     module.GetInjector().ExecuteInjection(target);
                 }
             }

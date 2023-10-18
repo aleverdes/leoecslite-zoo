@@ -8,12 +8,21 @@ namespace AleVerDes.LeoEcsLiteZoo
 {
     public static class EcsInjection
     {
-        private static MethodInfo _getEcsPoolMethod;
+        private const BindingFlags PrivateInstanceFlags = BindingFlags.NonPublic | BindingFlags.Instance; 
         
-        private static readonly Dictionary<EcsWorld, Dictionary<Type, object>> _poolsCache = new Dictionary<EcsWorld, Dictionary<Type, object>>();
-        private static readonly Dictionary<Type, FieldInfo[]> _fieldsByType = new Dictionary<Type, FieldInfo[]>();
-        private static readonly Dictionary<object, HashSet<Type>> _processedObjects = new Dictionary<object, HashSet<Type>>(); 
+        private static readonly Dictionary<object, HashSet<Type>> _processedObjects = new();
+        
+        private static readonly Dictionary<Type, FieldInfo[]> _fieldsByType = new();
+        
+        private static MethodInfo _getEcsPoolMethod;
+        private static readonly Dictionary<EcsWorld, Dictionary<Type, object>> _poolsCache = new();
 
+        private static MethodInfo _incEcsMaskMethod;
+        private static MethodInfo _excEcsMaskMethod;
+        private static MethodInfo _endEcsMaskMethod;
+        private static readonly Dictionary<Type, MethodInfo> _incEcsMaskGenericMethods = new();
+        private static readonly Dictionary<Type, MethodInfo> _excEcsMaskGenericMethods = new();
+        
         public static IEcsSystems Inject(IEcsSystems ecsSystems, object injectedObject)
         {
             return Inject(ecsSystems, injectedObject, injectedObject.GetType());
@@ -188,6 +197,133 @@ namespace AleVerDes.LeoEcsLiteZoo
             }
 
             injectedTypes.Add(injectionType);
+        }
+        
+        public static IEcsSystems InjectQueries(IEcsSystems ecsSystems, EcsWorld world)
+        {
+            if (world == null)
+            {
+                throw new Exception("For ECS-pool injection required the ECS World");
+            }
+
+            var allSystems = ecsSystems.GetAllSystems();
+
+            foreach (var system in allSystems)
+            {
+                InjectQueries(system, world);
+            }
+            
+            return ecsSystems;
+        }
+        
+        public static object InjectQueries(object target, EcsWorld world)
+        {
+            if (world == null)
+            {
+                throw new Exception("For ECS-queries injection required the ECS World");
+            }
+            
+            var fields = GetFields(target.GetType());
+
+            _incEcsMaskMethod ??= typeof(EcsWorld.Mask).GetMethod("Inc");
+            _excEcsMaskMethod ??= typeof(EcsWorld.Mask).GetMethod("Exc");
+            _endEcsMaskMethod ??= typeof(EcsWorld.Mask).GetMethod("End");
+
+            foreach (var field in fields)
+            {
+                if (!typeof(IEcsQuery).IsAssignableFrom(field.FieldType))
+                {
+                    continue;
+                }
+                
+                if (!field.FieldType.IsGenericType)
+                {
+                    continue;
+                }
+
+                var queryType = field.FieldType;
+                
+                var isIncludeOnly = queryType.DeclaringType == null; 
+                var isIncludeAndExclude = queryType.DeclaringType != null;
+
+                if (isIncludeOnly)
+                {
+                    var genericTypes = queryType.GetGenericArguments();
+                    
+                    var mask = CreateMask(world, genericTypes[0]);
+                    
+                    for (var i = 1; i < genericTypes.Length; i++)
+                    {
+                        var type = genericTypes[i];
+                        if (!_incEcsMaskGenericMethods.TryGetValue(type, out var incMethod))
+                        {
+                            incMethod = _incEcsMaskMethod.MakeGenericMethod(type);
+                            _incEcsMaskGenericMethods.Add(type, incMethod);
+                        }
+
+                        mask = incMethod.Invoke(mask, null);
+                    }
+
+                    var query = CreateQuery(queryType, mask);
+                    field.SetValue(target, query);
+                }
+                else if (isIncludeAndExclude)
+                {
+                    var genericTypes = queryType.GetGenericArguments();
+                    var includeTypesCount = queryType.DeclaringType.GetGenericArguments().Length;
+
+                    var mask = CreateMask(world, genericTypes[0]);
+
+                    for (var i = 1; i < genericTypes.Length; i++)
+                    {
+                        var type = genericTypes[i];
+                        if (i < includeTypesCount)
+                        {
+                            if (!_incEcsMaskGenericMethods.TryGetValue(type, out var incMethod))
+                            {
+                                incMethod = _incEcsMaskMethod.MakeGenericMethod(type);
+                                _incEcsMaskGenericMethods.Add(type, incMethod);
+                            }
+
+                            mask = incMethod.Invoke(mask, null);
+                        }
+                        else
+                        {
+                            if (!_excEcsMaskGenericMethods.TryGetValue(type, out var excMethod))
+                            {
+                                excMethod = _excEcsMaskMethod.MakeGenericMethod(type);
+                                _excEcsMaskGenericMethods.Add(type, excMethod);
+                            }
+
+                            mask = excMethod.Invoke(mask, null);
+                        }
+                    }
+
+                    var query = CreateQuery(queryType, mask);
+                    field.SetValue(target, query);
+                }
+            }
+
+            return target;
+        }
+        
+        private static object CreateMask(EcsWorld world, Type firstType)
+        {
+            var createFilterMethod = typeof(EcsWorld).GetMethod("Filter");
+            createFilterMethod = createFilterMethod.MakeGenericMethod(firstType);
+
+            return createFilterMethod.Invoke(world, null);
+        }
+
+        private static object CreateQuery(Type queryType, object mask)
+        {
+            var filter = _endEcsMaskMethod.Invoke(mask, new object[]{512});
+            var query = Activator.CreateInstance(queryType);
+                    
+            var queryFilterField = queryType.GetField("_filter", PrivateInstanceFlags);
+            queryFilterField.SetValue(query, filter);
+
+            return query;
         }
     }
 }

@@ -26,6 +26,7 @@ LeoECS Lite Unity Zoo is a big add-on to [LeoECS Lite](https://github.com/Leopot
     * [ECS Unity Core Components](#ecs-unity-core-components)
     * [ECS Components Conversion](#ecs-components-conversion)
     * [ECS Injection](#ecs-injection)
+        * [ECS Query](#ecs-query)
         * [ECS Injection Context](#ecs-injection-context)
         * [Manual Injection](#manual-injection)
         * [EcsWorld Injection](#ecsworld-injection)
@@ -141,28 +142,86 @@ public class MainEcsModuleInstaller : IEcsModuleInstaller
 using AleVerDes.LeoEcsLiteZoo;
 using Leopotam.EcsLite;
 
-public class DebugFeature : IEcsFeature
+public class DebugFeature : IEcsUpdateFeature, IEcsLateUpdateFeature, IEcsFixedUpdateFeature, IEcsInjectionFeature
 {
+    // Implementation of IEcsUpdateFeature - Systems that will be running in the Unity Update().
     public void SetupUpdateSystems(IEcsSystems systems)
     {
         systems
+            .Add(new TestSystem())
             .Add(new DebugTeleportSystem())
+            .DelHere<TestEvent>() // in this point all TestEvent components will be deleted from your entites
             ;
     }
 
+    // Implementation of IEcsLateUpdateFeature - Systems that will be running in the Unity LateUpdate().
     public void SetupLateUpdateSystems(IEcsSystems systems)
     {
     }
 
+    // Implementation of IEcsFixedUpdateFeature - Systems that will be running in the Unity FixedUpdate().
     public void SetupFixedUpdateSystems(IEcsSystems systems)
     {
     }
 
+    // Implementation of EcsInjectionFeature - Here you can configure the injector common to the EcsModule.
+    // All objects that you inject here will fall into all declared fields of all systems and other injection objects.
+    // That is, these DebugService and TestService will be available not only in systems, but also in other services of other EcsFeatures of this EcsModule.
     public void SetupInjector(IEcsInjector injector)
     {
         injector
             .AddInjectionObject(new DebugService(), typeof(IDebugService), typeof(DebugService))
+            .AddInjectionObject<ITestService>(new TestService())
             ;
+    }
+}
+```
+
+## ECS System Example
+
+```csharp
+using AleVerDes.LeoEcsLiteZoo;
+using Leopotam.EcsLite;
+using UnityEngine;
+
+public class TestSystem : IEcsRunSystem
+{
+    // Automatically EcsWorld injection
+    private EcsWorld _world;
+
+    // Automatically EcsPool injection
+    private EcsPool<Position> _position;
+    private EcsPool<Move> _move;
+
+    // Injectable alternative for EcsFilter
+    private EcsQuery<TransformRef, Move>.Exc<Inactive> _query;
+    
+    // You can inject any injection object from any EcsFeature in this EcsModule
+    private IDebugService _debugService;
+
+    public void Run(IEcsSystems systems)
+    {
+        // Example of EcsQuery.GetEnumerator
+        foreach (var entity in _query)
+        {
+            ref var position = ref _position.Get(entity);
+            ref var move = ref _move.Get(entity);
+            
+            position.Value += move.UnitsPerSecond * Time.DeltaTime;
+            
+            if (position.Value > 1f)
+            {
+                position.Value = 0;
+
+                // Example of NewEntityWith<T>
+                _world.NewEntityWith<TestEvent>() = new TestEvent()
+                {
+                    Entity = entity
+                };
+
+                _debugService.InvokeTestMethod();
+            }
+        }
     }
 }
 ```
@@ -227,6 +286,7 @@ public class DebugFeature : IEcsFeature
     {
         injector
             .AddInjectionObject(new DebugService(), typeof(IDebugService), typeof(DebugService))
+            .AddInjectionObject<ITestService>(new TestService())
             ;
     }
 }
@@ -278,7 +338,7 @@ namespace AleVerDes.LeoEcsLiteZoo
         public GameObject Value;
     }
     
-    public struct UnityRef<T> where T : UnityEngine.Object, IUnityRef
+    public struct UnityRef<T> where T : UnityEngine.Object
     {
         public T Value;
     }
@@ -338,6 +398,40 @@ And for the correct conversion of Unity objects, you must use the `UnityObjectPr
 
 LeoECS Lite Unity Zoo provides a mechanism for injecting your classes into the system's ECS. 
 
+### ECS Query
+
+`EcsQuery` is a filter wrapper that is automatically injected into systems and other injectables.
+To use `EcsQuery`, you just need to declare it in your system, and `EcsQuery` will automatically create its own wrapper over the filter.
+Next, you can call foreach using `EcsQuery` as if using a regular filter.
+If you need to directly access the `EcsFilter` of this `EcsQuery`, just call the `GetFilter()` method;
+
+To specify Include filter mask, just describe the list of the components in the generic parameters for `EcsQuery<T...>`.
+
+To specify Exclude a filter mask, just describe the list of the components in the generic parameters for `EcsQuery<T1...>.Exc<T2...>`. Filter (and Query) cannot be created without an Include mask.
+
+**Limit**: 16 components for Include mask and 16 components for Exclude mask.
+
+```csharp
+using AleVerDes.LeoEcsLiteZoo;
+using Leopotam.EcsLite;
+
+public void TestSystem : IEcsRunSystem
+{
+    private EcsQuery<Test> _includeOnlyQuery;
+    private EcsQuery<Health, Respawnable, HasSpawnPoint>.Exc<Dead> _deadQuery;
+    
+    public void Run(IEcsSystems systems)
+    {
+        foreach (var entity in _deadQuery)
+        {
+            // process entities
+        }
+        
+        var entitesCount = _includeOnlyQuery.GetFilter().GetEntitiesCount();
+    }
+}
+```
+
 ### ECS Injection Context
 
 An extremely simple way to declare injections in code. It is enough to simply declare a class that will be the successor of EcsInjectionContext, and in it register the fields that you want to inject.
@@ -347,8 +441,8 @@ using AleVerDes.LeoEcsLiteZoo;
 
 public class GameEcsInjectionContext : EcsInjectionContext
 
-    private PlayerCamera _playerCamera; // if PlayerCamera is MonoBehaviour then it will be found on the scene automatically
-    [SerializedField] private ItemDatabase _itemDatabase;
+    [SerializedField] private TestMonoBehaviour _testMonoBehaviour;
+    [SerializedField] private TestScriptableObject _testScriptableObject;
 }
 ```
 
@@ -374,8 +468,9 @@ public class GameEcsStartup : MonoBehaviour
         ...
     }
 }
-
 ```
+
+The main thing is to remember to add your new Injection Context to the list!
 
 ### Manual Injection
 
