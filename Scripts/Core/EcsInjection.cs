@@ -231,61 +231,50 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             foreach (var field in fields)
             {
+                if (!typeof(IEcsQuery).IsAssignableFrom(field.FieldType))
+                {
+                    continue;
+                }
+                
                 if (!field.FieldType.IsGenericType)
                 {
                     continue;
                 }
 
-                var isIncludeOnly = field.FieldType.GetGenericTypeDefinition() == typeof(EcsQuery<>); 
-                var isExcludeOnly = field.FieldType.GetGenericTypeDefinition() == typeof(EcsQuery<>.Exc<>);
-                var isIncludeAndExclude = field.FieldType.GetGenericTypeDefinition() == typeof(EcsQuery.Exc<>);
+                var queryType = field.FieldType;
+                
+                var isIncludeOnly = queryType.DeclaringType == null; 
+                var isIncludeAndExclude = queryType.DeclaringType != null;
 
                 if (isIncludeOnly)
                 {
-                    var genericTypes = field.FieldType.GetGenericArguments();
+                    var genericTypes = queryType.GetGenericArguments();
                     
-                    var mask = CreateMask(world);
-                    foreach (var includeType in genericTypes)
+                    var mask = CreateMask(world, genericTypes[0]);
+                    
+                    for (var i = 1; i < genericTypes.Length; i++)
                     {
-                        if (!_incEcsMaskGenericMethods.TryGetValue(includeType, out var incMethod))
+                        var type = genericTypes[i];
+                        if (!_incEcsMaskGenericMethods.TryGetValue(type, out var incMethod))
                         {
-                            incMethod = _incEcsMaskMethod.MakeGenericMethod(includeType);
-                            _incEcsMaskGenericMethods.Add(includeType, incMethod);
+                            incMethod = _incEcsMaskMethod.MakeGenericMethod(type);
+                            _incEcsMaskGenericMethods.Add(type, incMethod);
                         }
 
                         mask = incMethod.Invoke(mask, null);
                     }
-                    
-                    var query = CreateQuery(field.FieldType, mask);
-                    field.SetValue(target, query);
-                }
-                else if (isExcludeOnly)
-                {
-                    var genericTypes = field.FieldType.GetGenericArguments();
-                    
-                    var mask = CreateMask(world);
-                    foreach (var excludeType in genericTypes)
-                    {
-                        if (!_excEcsMaskGenericMethods.TryGetValue(excludeType, out var excMethod))
-                        {
-                            excMethod = _excEcsMaskMethod.MakeGenericMethod(excludeType);
-                            _excEcsMaskGenericMethods.Add(excludeType, excMethod);
-                        }
 
-                        mask = excMethod.Invoke(mask, null);
-                    }
-                    
-                    var query = CreateQuery(field.FieldType, mask);
+                    var query = CreateQuery(queryType, mask);
                     field.SetValue(target, query);
                 }
                 else if (isIncludeAndExclude)
                 {
-                    var genericTypes = field.FieldType.GetGenericArguments();
-                    var includeTypesCount = field.FieldType.DeclaringType.GetGenericArguments().Length;
+                    var genericTypes = queryType.GetGenericArguments();
+                    var includeTypesCount = queryType.DeclaringType.GetGenericArguments().Length;
 
-                    var mask = CreateMask(world);
+                    var mask = CreateMask(world, genericTypes[0]);
 
-                    for (var i = 0; i < genericTypes.Length; i++)
+                    for (var i = 1; i < genericTypes.Length; i++)
                     {
                         var type = genericTypes[i];
                         if (i < includeTypesCount)
@@ -310,7 +299,7 @@ namespace AleVerDes.LeoEcsLiteZoo
                         }
                     }
 
-                    var query = CreateQuery(field.FieldType, mask);
+                    var query = CreateQuery(queryType, mask);
                     field.SetValue(target, query);
                 }
             }
@@ -318,9 +307,12 @@ namespace AleVerDes.LeoEcsLiteZoo
             return target;
         }
         
-        private static object CreateMask(EcsWorld world)
+        private static object CreateMask(EcsWorld world, Type firstType)
         {
-            return Activator.CreateInstance(typeof(EcsWorld.Mask), PrivateInstanceFlags, null, new object[] {world}, null);
+            var createFilterMethod = typeof(EcsWorld).GetMethod("Filter");
+            createFilterMethod = createFilterMethod.MakeGenericMethod(firstType);
+
+            return createFilterMethod.Invoke(world, null);
         }
 
         private static object CreateQuery(Type queryType, object mask)
