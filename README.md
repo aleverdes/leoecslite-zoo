@@ -261,11 +261,18 @@ public class MainEcsModuleInstaller : IEcsModuleInstaller
 
 ECS Feature is the main way to organize and group in-game systems by context.
 
+There are four types and each type can be combined with others.
+
+- `EcsUpdateFeature` is a feature that runs in Unity `Update()`.
+- `EcsLateUpdateFeature` is a feature that runs in Unity `LateUpdate()`.
+- `EcsFixedUpdateFeature` is a feature that runs in Unity `FixedUpdate()`.
+- `EcsInjectionFeature` is a feature that allows you to customize the injector. This means that all objects specified here will be injected into all systems and other injectable objects.
+
 ```csharp
 using AleVerDes.LeoEcsLiteZoo;
 using Leopotam.EcsLite;
 
-public class DebugFeature : IEcsFeature
+public class DebugFeature : IEcsUpdateFeature, IEcsLateUpdateFeature, IEcsFixedUpdateFeature, IEcsInjectionFeature
 {
     public void SetupUpdateSystems(IEcsSystems systems)
     {
