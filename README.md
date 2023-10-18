@@ -26,6 +26,7 @@ LeoECS Lite Unity Zoo is a big add-on to [LeoECS Lite](https://github.com/Leopot
     * [ECS Unity Core Components](#ecs-unity-core-components)
     * [ECS Components Conversion](#ecs-components-conversion)
     * [ECS Injection](#ecs-injection)
+        * [ECS Query](#ecs-query)
         * [ECS Injection Context](#ecs-injection-context)
         * [Manual Injection](#manual-injection)
         * [EcsWorld Injection](#ecsworld-injection)
@@ -141,28 +142,86 @@ public class MainEcsModuleInstaller : IEcsModuleInstaller
 using AleVerDes.LeoEcsLiteZoo;
 using Leopotam.EcsLite;
 
-public class DebugFeature : IEcsFeature
+public class DebugFeature : IEcsUpdateFeature, IEcsLateUpdateFeature, IEcsFixedUpdateFeature, IEcsInjectionFeature
 {
+    // Implementation of IEcsUpdateFeature - Systems that will be running in the Unity Update().
     public void SetupUpdateSystems(IEcsSystems systems)
     {
         systems
+            .Add(new TestSystem())
             .Add(new DebugTeleportSystem())
+            .DelHere<TestEvent>() // in this point all TestEvent components will be deleted from your entites
             ;
     }
 
+    // Implementation of IEcsLateUpdateFeature - Systems that will be running in the Unity LateUpdate().
     public void SetupLateUpdateSystems(IEcsSystems systems)
     {
     }
 
+    // Implementation of IEcsFixedUpdateFeature - Systems that will be running in the Unity FixedUpdate().
     public void SetupFixedUpdateSystems(IEcsSystems systems)
     {
     }
 
+    // Implementation of EcsInjectionFeature - Here you can configure the injector common to the EcsModule.
+    // All objects that you inject here will fall into all declared fields of all systems and other injection objects.
+    // That is, these DebugService and TestService will be available not only in systems, but also in other services of other EcsFeatures of this EcsModule.
     public void SetupInjector(IEcsInjector injector)
     {
         injector
             .AddInjectionObject(new DebugService(), typeof(IDebugService), typeof(DebugService))
+            .AddInjectionObject<ITestService>(new TestService())
             ;
+    }
+}
+```
+
+## ECS System Example
+
+```csharp
+using AleVerDes.LeoEcsLiteZoo;
+using Leopotam.EcsLite;
+using UnityEngine;
+
+public class TestSystem : IEcsRunSystem
+{
+    // Automatically EcsWorld injection
+    private EcsWorld _world;
+
+    // Automatically EcsPool injection
+    private EcsPool<Position> _position;
+    private EcsPool<Move> _move;
+
+    // Injectable alternative for EcsFilter
+    private EcsQuery<TransformRef, Move>.Exc<Inactive> _query;
+    
+    // You can inject any injection object from any EcsFeature in this EcsModule
+    private IDebugService _debugService;
+
+    public void Run(IEcsSystems systems)
+    {
+        // Example of EcsQuery.GetEnumerator
+        foreach (var entity in _query)
+        {
+            ref var position = ref _position.Get(entity);
+            ref var move = ref _move.Get(entity);
+            
+            position.Value += move.UnitsPerSecond * Time.DeltaTime;
+            
+            if (position.Value > 1f)
+            {
+                position.Value = 0;
+
+                // Example of NewEntityWith<T>
+                _world.NewEntityWith<TestEvent>() = new TestEvent()
+                {
+                    Entity = entity
+                };
+
+                _debugService.InvokeTestMethod();
+            }
+        }
     }
 }
 ```
@@ -227,6 +286,7 @@ public class DebugFeature : IEcsFeature
     {
         injector
             .AddInjectionObject(new DebugService(), typeof(IDebugService), typeof(DebugService))
+            .AddInjectionObject<ITestService>(new TestService())
             ;
     }
 }
@@ -337,6 +397,42 @@ And for the correct conversion of Unity objects, you must use the `UnityObjectPr
 ## ECS Injection
 
 LeoECS Lite Unity Zoo provides a mechanism for injecting your classes into the system's ECS. 
+
+### ECS Query
+
+`EcsQuery` is a filter wrapper that is automatically injected into systems and other injectables.
+To use `EcsQuery`, you just need to declare it in your system, and `EcsQuery` will automatically create its own wrapper over the filter.
+Next, you can call foreach using `EcsQuery` as if using a regular filter.
+If you need to directly access the `EcsFilter` of this `EcsQuery`, just call the `GetFilter()` method;
+
+To specify the Include filter mask, just list the components in the generic `EcsQuery` parameters.
+**Limit**: 16 components.
+
+To specify Exclude a filter mask, it is enough to specify the variable type not `EcsQuery<T>`, but `EcsQuery<T1>.Exc<T2>`.
+**Important** - you cannot make an Exclude mask without an Include mask.
+The limit is also 16 components.
+Just list them in the generic Exc<> parameters.
+
+```csharp
+using AleVerDes.LeoEcsLiteZoo;
+using Leopotam.EcsLite;
+
+public void TestSystem : IEcsRunSystem
+{
+    private EcsQuery<Test> _testQuery;
+    private EcsQuery<Health, Respawnable, HasSpawnPoint>.Exc<Dead> _deadQuery;
+    
+    public void Run(IEcsSystems systems)
+    {
+        foreach (var entity in _deadQuery)
+        {
+            // process entities
+        }
+        
+        var entitesCount = _deadQuery.GetFilter().GetEntitiesCount();
+    }
+}
+```
 
 ### ECS Injection Context
 
