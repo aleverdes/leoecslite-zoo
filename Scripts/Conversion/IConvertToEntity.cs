@@ -4,6 +4,6 @@ namespace AleVerDes.LeoEcsLiteZoo
 {
     public interface IConvertToEntity
     {
-        void ConvertToEntity(EcsWorld ecsWorld, int entity);
+        void ConvertToEntity(EcsWorld world, int entity);
     }
 }

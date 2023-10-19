@@ -8,9 +8,9 @@ namespace AleVerDes.LeoEcsLiteZoo
     {
         public T Value;
         
-        public void ConvertToEntity(EcsWorld ecsWorld, int entity)
+        public void ConvertToEntity(EcsWorld world, int entity)
         {
-            var pool = ecsWorld.GetPool<T>();
+            var pool = world.GetPool<T>();
             pool.Add(entity) = Value;
         }
     }
