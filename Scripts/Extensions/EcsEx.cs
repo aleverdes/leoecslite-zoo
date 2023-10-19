@@ -18,6 +18,22 @@ namespace AleVerDes.LeoEcsLiteZoo
             entity = ecsWorld.NewEntity();
             return ref ecsWorld.GetPool<T>().Add(entity);
         }
+        
+        public static ref T NewEntityWith<T>(this EcsWorld ecsWorld, T value) where T : struct
+        {
+            var entity = ecsWorld.NewEntity();
+            ref var component = ref ecsWorld.GetPool<T>().Add(entity);
+            component = value;
+            return ref component;
+        }
+        
+        public static ref T NewEntityWith<T>(this EcsWorld ecsWorld, T value, out int entity) where T : struct
+        {
+            entity = ecsWorld.NewEntity();
+            ref var component = ref ecsWorld.GetPool<T>().Add(entity);
+            component = value;
+            return ref component;
+        }
 
         public static int GetFirstEntity<T>(this EcsWorld world) where T : struct
         {
