@@ -221,12 +221,12 @@ namespace AleVerDes.LeoEcsLiteZoo
             return false;
         }
 
-        public static bool TryGetUnityRefValue<T>(this EcsWorld ecsWorld, out T component) where T : UnityEngine.Object, IUnityRef
+        public static bool TryGetUnityRefValue<T>(this EcsWorld ecsWorld, out T component) where T : UnityEngine.Object
         {
             return TryGetUnityRefValue(ecsWorld, out component, out _);
         }
 
-        public static bool TryGetUnityRefValue<T>(this EcsWorld ecsWorld, out T component, out int entity) where T : UnityEngine.Object, IUnityRef 
+        public static bool TryGetUnityRefValue<T>(this EcsWorld ecsWorld, out T component, out int entity) where T : UnityEngine.Object 
         {
             var filter = ecsWorld.Filter<UnityRef<T>>().End();
             var pool = ecsWorld.GetPool<UnityRef<T>>();
@@ -242,12 +242,12 @@ namespace AleVerDes.LeoEcsLiteZoo
             return false;
         }
 
-        public static bool TryGetUnityRefValue<T>(this EcsFilter filter, out T component) where T : UnityEngine.Object, IUnityRef
+        public static bool TryGetUnityRefValue<T>(this EcsFilter filter, out T component) where T : UnityEngine.Object
         {
             return TryGetUnityRefValue(filter, out component, out _);
         }
 
-        public static bool TryGetUnityRefValue<T>(this EcsFilter filter, out T component, out int entity) where T : UnityEngine.Object, IUnityRef
+        public static bool TryGetUnityRefValue<T>(this EcsFilter filter, out T component, out int entity) where T : UnityEngine.Object
         {
             var ecsWorld = filter.GetWorld();
             var pool = ecsWorld.GetPool<UnityRef<T>>();
