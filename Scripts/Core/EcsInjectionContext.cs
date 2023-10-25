@@ -59,10 +59,14 @@ namespace AleVerDes.LeoEcsLiteZoo
             foreach (var field in fields)
             {
                 var fieldValue = field.GetValue(this);
-                if (fieldValue != null)
-                {
+                if (fieldValue == null) 
+                    continue;
+                
+                var attribute = field.GetCustomAttributes(typeof(InjectAsAttribute)).FirstOrDefault();
+                if (attribute is InjectAsAttribute injectAs)
+                    _ecsInjector.AddInjectionObject(fieldValue, injectAs.Types.ToArray());
+                else
                     _ecsInjector.AddInjectionObject(fieldValue);
-                }
             }
         }
 

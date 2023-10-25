@@ -8,7 +8,8 @@ namespace AleVerDes.LeoEcsLiteZoo
         IEcsInjector AddInjectionObject(object injectionObject);
         IEcsInjector AddInjectionObject<T>(object injectionObject);
         IEcsInjector AddInjectionObject(object injectionObject, Type type);
-        IEcsInjector AddInjectionObject(object injectionObject, params Type[] type);
+        IEcsInjector AddInjectionObject(object injectionObject, params Type[] types);
+        IEcsInjector AddInjectionObject(object injectionObject, IEnumerable<Type> types);
 
         IEcsInjector RemoveInjectionObject(Type injectionType);
         IEcsInjector RemoveInjectionObject<T>();
@@ -47,6 +48,15 @@ namespace AleVerDes.LeoEcsLiteZoo
         }
 
         public IEcsInjector AddInjectionObject(object injectionObject, Type[] types)
+        {
+            foreach (var type in types)
+            {
+                AddInjectionObject(injectionObject, type);
+            }
+            return this;
+        }
+
+        public IEcsInjector AddInjectionObject(object injectionObject, IEnumerable<Type> types)
         {
             foreach (var type in types)
             {
