@@ -108,6 +108,18 @@ namespace AleVerDes.LeoEcsLiteZoo
                 {
                     Inject(injectionObject);
                 }
+
+                foreach (var injector in Injectors)
+                {
+                    foreach (var injectionObject in injector.GetInjectionObjects().Values)
+                    {
+#if UNITY_5_3_OR_NEWER
+                        if (injectionObject is UnityEngine.Object)
+                            continue;
+#endif
+                        Inject(injectionObject);
+                    }
+                }
                 
                 void Inject(object target)
                 {
