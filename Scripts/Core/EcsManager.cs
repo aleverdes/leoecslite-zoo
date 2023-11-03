@@ -109,6 +109,14 @@ namespace AleVerDes.LeoEcsLiteZoo
                     Inject(injectionObject);
                 }
 
+                foreach (var otherModule in Modules.Except(new []{ module }))
+                {
+                    foreach (var injectionObject in otherModule.GetInjector().GetInjectionObjects().Values.ToHashSet())
+                    {
+                        Inject(injectionObject);
+                    }
+                }
+
                 foreach (var injector in Injectors)
                 {
                     foreach (var injectionObject in injector.GetInjectionObjects().Values)
