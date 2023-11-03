@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using Leopotam.EcsLite;
 
 namespace AleVerDes.LeoEcsLiteZoo
@@ -78,6 +77,7 @@ namespace AleVerDes.LeoEcsLiteZoo
             var module = moduleInstaller.Install();
             module.Initialize(World);
             Modules.Add(module);
+            Injectors.Add(module.GetInjector());
             RebuildInjections();
             module.GetSystemsGroup().Init();
             return module;
@@ -102,19 +102,6 @@ namespace AleVerDes.LeoEcsLiteZoo
                 foreach (var system in module.GetAllSystems())
                 {
                     Inject(system);
-                }
-
-                foreach (var injectionObject in module.GetInjector().GetInjectionObjects().Values.ToHashSet())
-                {
-                    Inject(injectionObject);
-                }
-
-                foreach (var otherModule in Modules.Except(new []{ module }))
-                {
-                    foreach (var injectionObject in otherModule.GetInjector().GetInjectionObjects().Values.ToHashSet())
-                    {
-                        Inject(injectionObject);
-                    }
                 }
 
                 foreach (var injector in Injectors)
