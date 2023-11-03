@@ -4,7 +4,7 @@ using UnityEngine;
 namespace AleVerDes.LeoEcsLiteZoo
 {
     [RequireComponent(typeof(ConvertToEntity))]
-    public class UnityObjectProvider : MonoBehaviour, IConvertToEntity
+    public class UnityObjectProvider : MonoBehaviour, IConvertableToEntity
     {
         public void ConvertToEntity(EcsWorld world, int entity)
         {

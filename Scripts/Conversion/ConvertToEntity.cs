@@ -53,9 +53,15 @@ namespace AleVerDes.LeoEcsLiteZoo
             _world = world;
             _entity = _world.NewEntity();
 
-            var components = GetComponents<IConvertToEntity>();
-            
+            var components = GetComponents<IConvertableToEntity>();
             foreach (var component in components)
+            {
+                component.ConvertToEntity(_world, _entity.Value);
+                _hasAnyComponent = true;
+            }
+
+            var obsoleteComponents = GetComponents<IConvertToEntity>();
+            foreach (var component in obsoleteComponents)
             {
                 component.ConvertToEntity(_world, _entity.Value);
                 _hasAnyComponent = true;
@@ -94,6 +100,18 @@ namespace AleVerDes.LeoEcsLiteZoo
             for (var i = 0; i < t.childCount; ++i)
             {
                 var child = t.GetChild(i);
+                
+                if (!child.TryGetComponent<IConvertableToEntity>(out var convertableToEntity))
+                {
+                    var components = child.GetComponents<IConvertableToEntity>();
+                    foreach (var component in components)
+                    {
+                        component.ConvertToEntity(DefaultConversionWorld, _entity.Value);
+                        _hasAnyComponent = true;
+                    }
+                    ConvertChildrenToEntity(child);
+                }
+                
                 if (!child.TryGetComponent<ConvertToEntity>(out var convertToEntity))
                 {
                     var components = child.GetComponents<IConvertToEntity>();
