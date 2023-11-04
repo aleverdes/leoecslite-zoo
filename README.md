@@ -355,7 +355,7 @@ namespace AleVerDes.LeoEcsLiteZoo
 ## ECS Components Conversion
 
 LeoECS Lite Unity Zoo provides a mechanism to convert your components to ECS.
-To do this, you need to add the `ConvertToEntity` component and your MonoBehaviour class that implements the `IConvertToEntity` interface to the object.
+To do this, you need to add the `ConvertToEntity` component and your MonoBehaviour class that implements the `IConvertableToEntity` interface to the object.
 
 > Important! Using ConvertToEntity is only possible if the any world is registered as `ConvertToEntity.DefaultConversionWorld`.
 
@@ -367,7 +367,7 @@ I recommended to use Bootstrappers:
 using AleVerDes.LeoEcsLiteZoo;
 
 [RequireComponent(typeof(ConvertToEntity))]
-public class PlayerBootstrapper : MonoBehaviour, IConvertToEntity
+public class PlayerBootstrapper : MonoBehaviour, IConvertableToEntity
 {
     public void ConvertToEntity(EcsWorld ecsWorld, int entity)
     {
@@ -403,7 +403,27 @@ And for the correct conversion of Unity objects, you must use the `UnityObjectPr
 
 ## ECS Injection
 
-LeoECS Lite Unity Zoo provides a mechanism for injecting your classes into the system's ECS. 
+LeoECS Lite Unity Zoo provides a mechanism for injecting your classes into the system's ECS.
+
+### IEcsInjectionFeature
+
+To use the injection, you need to implement the `IEcsInjectionFeature` interface in your `ECS Feature` and implement the `SetupInjector(IEcsInjector)` method.
+
+```csharp
+using AleVerDes.LeoEcsLiteZoo;
+using Leopotam.EcsLite;
+
+public class DebugFeature : IEcsInjectionFeature
+{
+    public void SetupInjector(IEcsInjector injector)
+    {
+        injector
+            .AddInjectionObject(new DebugService(), typeof(IDebugService), typeof(DebugService))
+            .AddInjectionObject<ITestService>(new TestService())
+            ;
+    }
+}
+```
 
 ### ECS Query
 
