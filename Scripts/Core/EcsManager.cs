@@ -17,6 +17,7 @@ namespace AleVerDes.LeoEcsLiteZoo
         void UninstallModule(IEcsModule module);
         
         void AddInjector(IEcsInjector injector);
+        IEnumerable<IEcsInjector> GetInjectors();
     }
     
     public class EcsManager : IEcsManager
@@ -93,6 +94,11 @@ namespace AleVerDes.LeoEcsLiteZoo
         {
             Injectors.Add(injector);
             RebuildInjections();
+        }
+        
+        public virtual IEnumerable<IEcsInjector> GetInjectors()
+        {
+            return Injectors;
         }
 
         protected virtual void RebuildInjections()
