@@ -90,7 +90,7 @@ namespace AleVerDes.LeoEcsLiteZoo
                 if (!typeof(IEcsPool).IsAssignableFrom(field.FieldType))
                     continue;
                 
-                if (!field.GetCustomAttributes(typeof(IgnoreInjectionAttribute), true).Any())
+                if (field.GetCustomAttributes(typeof(IgnoreInjectionAttribute), true).Any())
                     continue;
 
                 var poolType = field.FieldType.GetGenericArguments().First();
@@ -215,7 +215,7 @@ namespace AleVerDes.LeoEcsLiteZoo
                 if (!typeof(IEcsQuery).IsAssignableFrom(field.FieldType))
                     continue;
 
-                if (!field.GetCustomAttributes(typeof(IgnoreInjectionAttribute), true).Any())
+                if (field.GetCustomAttributes(typeof(IgnoreInjectionAttribute), true).Any())
                     continue;
                 
                 if (!field.FieldType.IsGenericType)
