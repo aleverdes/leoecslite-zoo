@@ -6,22 +6,22 @@ using Leopotam.EcsLite;
 
 namespace AleVerDes.LeoEcsLiteZoo
 {
-    public static class EcsInjection
+    public static class EcsInjectionUtils
     {
         private const BindingFlags PrivateInstanceFlags = BindingFlags.NonPublic | BindingFlags.Instance; 
         
-        private static readonly Dictionary<object, HashSet<Type>> _processedObjects = new();
+        private static readonly Dictionary<object, HashSet<Type>> ProcessedObjects = new();
         
-        private static readonly Dictionary<Type, FieldInfo[]> _fieldsByType = new();
+        private static readonly Dictionary<Type, FieldInfo[]> FieldsByType = new();
         
         private static MethodInfo _getEcsPoolMethod;
-        private static readonly Dictionary<EcsWorld, Dictionary<Type, object>> _poolsCache = new();
+        private static readonly Dictionary<EcsWorld, Dictionary<Type, object>> PoolsCache = new();
 
         private static MethodInfo _incEcsMaskMethod;
         private static MethodInfo _excEcsMaskMethod;
         private static MethodInfo _endEcsMaskMethod;
-        private static readonly Dictionary<Type, MethodInfo> _incEcsMaskGenericMethods = new();
-        private static readonly Dictionary<Type, MethodInfo> _excEcsMaskGenericMethods = new();
+        private static readonly Dictionary<Type, MethodInfo> IncEcsMaskGenericMethods = new();
+        private static readonly Dictionary<Type, MethodInfo> ExcEcsMaskGenericMethods = new();
         
         public static IEcsSystems Inject(IEcsSystems ecsSystems, object injectedObject)
         {
@@ -32,11 +32,9 @@ namespace AleVerDes.LeoEcsLiteZoo
         {
             var allSystems = ecsSystems.GetAllSystems();
 
-            foreach (var system in allSystems)
-            {
+            foreach (var system in allSystems) 
                 Inject(system, injectedObject, injectionType);
-            }
-            
+
             return ecsSystems;
         }
 
@@ -49,13 +47,9 @@ namespace AleVerDes.LeoEcsLiteZoo
         {
             var fields = GetFields(target.GetType());
 
-            foreach (var field in fields)
-            {
+            foreach (var field in fields.Where(x => !x.GetCustomAttributes(typeof(IgnoreInjectionAttribute), true).Any()))
                 if (injectionTypes.Any(injectionType => injectionType == field.FieldType))
-                {
                     field.SetValue(target, injectedObject);
-                }
-            }
 
             return target;
         }
@@ -64,48 +58,41 @@ namespace AleVerDes.LeoEcsLiteZoo
         {
             var fields = GetFields(target.GetType());
             
-            var requiredField = fields.FirstOrDefault(x => x.FieldType == injectionType);
-            if (requiredField != null)
-            {
+            var requiredField = fields.FirstOrDefault(x => x.FieldType == injectionType && !x.GetCustomAttributes(typeof(IgnoreInjectionAttribute), true).Any());
+            if (requiredField != null) 
                 requiredField.SetValue(target, injectedObject);
-            }
-            
+
             return target;
         }
 
         public static IEcsSystems InjectPools(IEcsSystems ecsSystems, EcsWorld world)
         {
             if (world == null)
-            {
                 throw new Exception("For ECS-pool injection required the ECS World");
-            }
 
             var allSystems = ecsSystems.GetAllSystems();
 
-            foreach (var system in allSystems)
-            {
+            foreach (var system in allSystems) 
                 InjectPools(system, world);
-            }
-            
+
             return ecsSystems;
         }
 
         public static object InjectPools(object target, EcsWorld world)
         {
             if (world == null)
-            {
                 throw new Exception("For ECS-pool injection required the ECS World");
-            }
-            
+
             var fields = GetFields(target.GetType());
 
             foreach (var field in fields)
             {
                 if (!typeof(IEcsPool).IsAssignableFrom(field.FieldType))
-                {
-                    continue;   
-                }
+                    continue;
                 
+                if (!field.GetCustomAttributes(typeof(IgnoreInjectionAttribute), true).Any())
+                    continue;
+
                 var poolType = field.FieldType.GetGenericArguments().First();
                 field.SetValue(target, GetEcsPool(world, poolType));
             }
@@ -147,10 +134,10 @@ namespace AleVerDes.LeoEcsLiteZoo
 
         private static Dictionary<Type, object> GetEcsPoolCache(EcsWorld ecsWorld)
         {
-            if (!_poolsCache.TryGetValue(ecsWorld, out var poolsByGenericType))
+            if (!PoolsCache.TryGetValue(ecsWorld, out var poolsByGenericType))
             {
                 poolsByGenericType = new Dictionary<Type, object>();
-                _poolsCache.Add(ecsWorld, poolsByGenericType);
+                PoolsCache.Add(ecsWorld, poolsByGenericType);
             }
 
             return poolsByGenericType;
@@ -169,19 +156,19 @@ namespace AleVerDes.LeoEcsLiteZoo
 
         private static void CacheFields(Type type, FieldInfo[] fields)
         {
-            _fieldsByType[type] = fields;
+            FieldsByType[type] = fields;
         }
 
         private static bool TryGetFields(Type type, out FieldInfo[] fields)
         {
-            return _fieldsByType.TryGetValue(type, out fields);
+            return FieldsByType.TryGetValue(type, out fields);
         }
 
         private static bool CheckObjectForProcessed(object targetObject, Type injectionType)
         {
-            if (!_processedObjects.TryGetValue(targetObject, out var injectedTypes))
+            if (!ProcessedObjects.TryGetValue(targetObject, out var injectedTypes))
             {
-                _processedObjects[targetObject] = new HashSet<Type>();
+                ProcessedObjects[targetObject] = new HashSet<Type>();
                 return false;
             }
 
@@ -190,10 +177,10 @@ namespace AleVerDes.LeoEcsLiteZoo
 
         private static void SetObjectAsProcessed(object targetObject, Type injectionType)
         {
-            if (!_processedObjects.TryGetValue(targetObject, out var injectedTypes))
+            if (!ProcessedObjects.TryGetValue(targetObject, out var injectedTypes))
             {
-                _processedObjects[targetObject] = new HashSet<Type>();
-                injectedTypes = _processedObjects[targetObject];
+                ProcessedObjects[targetObject] = new HashSet<Type>();
+                injectedTypes = ProcessedObjects[targetObject];
             }
 
             injectedTypes.Add(injectionType);
@@ -202,27 +189,21 @@ namespace AleVerDes.LeoEcsLiteZoo
         public static IEcsSystems InjectQueries(IEcsSystems ecsSystems, EcsWorld world)
         {
             if (world == null)
-            {
                 throw new Exception("For ECS-pool injection required the ECS World");
-            }
 
             var allSystems = ecsSystems.GetAllSystems();
 
-            foreach (var system in allSystems)
-            {
+            foreach (var system in allSystems) 
                 InjectQueries(system, world);
-            }
-            
+
             return ecsSystems;
         }
         
         public static object InjectQueries(object target, EcsWorld world)
         {
             if (world == null)
-            {
                 throw new Exception("For ECS-queries injection required the ECS World");
-            }
-            
+
             var fields = GetFields(target.GetType());
 
             _incEcsMaskMethod ??= typeof(EcsWorld.Mask).GetMethod("Inc");
@@ -232,14 +213,13 @@ namespace AleVerDes.LeoEcsLiteZoo
             foreach (var field in fields)
             {
                 if (!typeof(IEcsQuery).IsAssignableFrom(field.FieldType))
-                {
                     continue;
-                }
+
+                if (!field.GetCustomAttributes(typeof(IgnoreInjectionAttribute), true).Any())
+                    continue;
                 
                 if (!field.FieldType.IsGenericType)
-                {
                     continue;
-                }
 
                 var queryType = field.FieldType;
                 
@@ -255,10 +235,10 @@ namespace AleVerDes.LeoEcsLiteZoo
                     for (var i = 1; i < genericTypes.Length; i++)
                     {
                         var type = genericTypes[i];
-                        if (!_incEcsMaskGenericMethods.TryGetValue(type, out var incMethod))
+                        if (!IncEcsMaskGenericMethods.TryGetValue(type, out var incMethod))
                         {
                             incMethod = _incEcsMaskMethod.MakeGenericMethod(type);
-                            _incEcsMaskGenericMethods.Add(type, incMethod);
+                            IncEcsMaskGenericMethods.Add(type, incMethod);
                         }
 
                         mask = incMethod.Invoke(mask, null);
@@ -279,20 +259,20 @@ namespace AleVerDes.LeoEcsLiteZoo
                         var type = genericTypes[i];
                         if (i < includeTypesCount)
                         {
-                            if (!_incEcsMaskGenericMethods.TryGetValue(type, out var incMethod))
+                            if (!IncEcsMaskGenericMethods.TryGetValue(type, out var incMethod))
                             {
                                 incMethod = _incEcsMaskMethod.MakeGenericMethod(type);
-                                _incEcsMaskGenericMethods.Add(type, incMethod);
+                                IncEcsMaskGenericMethods.Add(type, incMethod);
                             }
 
                             mask = incMethod.Invoke(mask, null);
                         }
                         else
                         {
-                            if (!_excEcsMaskGenericMethods.TryGetValue(type, out var excMethod))
+                            if (!ExcEcsMaskGenericMethods.TryGetValue(type, out var excMethod))
                             {
                                 excMethod = _excEcsMaskMethod.MakeGenericMethod(type);
-                                _excEcsMaskGenericMethods.Add(type, excMethod);
+                                ExcEcsMaskGenericMethods.Add(type, excMethod);
                             }
 
                             mask = excMethod.Invoke(mask, null);

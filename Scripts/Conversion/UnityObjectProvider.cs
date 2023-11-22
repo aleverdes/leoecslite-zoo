@@ -8,40 +8,18 @@ namespace AleVerDes.LeoEcsLiteZoo
     {
         public void ConvertToEntity(EcsWorld world, int entity)
         {
-            world.GetPool<TransformRef>().Add(entity) = new TransformRef()
-            {
-                Value = transform
-            };
+            world.GetPool<TransformRef>().Add(entity).Value = transform;
 
             if (transform is RectTransform rectTransform)
-            {
-                world.GetPool<RectTransformRef>().Add(entity) = new RectTransformRef()
-                {
-                    Value = rectTransform
-                };
-            }
+                world.GetPool<RectTransformRef>().Add(entity).Value = rectTransform;
 
-            world.GetPool<GameObjectRef>().Add(entity) = new GameObjectRef()
-            {
-                Value = gameObject
-            };
+            world.GetPool<GameObjectRef>().Add(entity).Value = gameObject;
             
-            if (TryGetComponent<Rigidbody>(out var rb))
-            {
-                world.GetPool<RigidbodyRef>().Add(entity) = new RigidbodyRef()
-                {
-                    Value = rb
-                };
-            }
-            
+            if (TryGetComponent<Rigidbody>(out var rb)) 
+                world.GetPool<RigidbodyRef>().Add(entity).Value = rb;
+
             if (TryGetComponent<Rigidbody2D>(out var rb2d))
-            {
-                world.GetPool<Rigidbody2DRef>().Add(entity) = new Rigidbody2DRef()
-                {
-                    Value = rb2d
-                };
-            }
-            
+                world.GetPool<Rigidbody2DRef>().Add(entity).Value = rb2d;
         }
     }
 }

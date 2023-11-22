@@ -4,6 +4,7 @@ using UnityEngine;
 
 #if UNITY_EDITOR
 using UnityEditor;
+using UnityEditor.SceneManagement;
 #endif
 
 namespace AleVerDes.LeoEcsLiteZoo
@@ -30,24 +31,27 @@ namespace AleVerDes.LeoEcsLiteZoo
             foreach (var field in fields)
             {
                 if (field.GetValue(this) != null)
-                {
                     continue;
-                }
-                
+
                 if (typeof(ScriptableObject).IsAssignableFrom(field.FieldType))
                 {
                     var scriptableObject = default(ScriptableObject);
 #if UNITY_EDITOR
                     var assetGuid = AssetDatabase.FindAssets("t:" + field.FieldType.Name).FirstOrDefault();
-                    if (!string.IsNullOrEmpty(assetGuid))
-                    {
+                    if (!string.IsNullOrEmpty(assetGuid)) 
                         scriptableObject = AssetDatabase.LoadAssetAtPath<ScriptableObject>(AssetDatabase.GUIDToAssetPath(assetGuid));
-                    }
 #endif
                     field.SetValue(this, scriptableObject);
                 }
                 else if (typeof(Component).IsAssignableFrom(field.FieldType))
                 {
+#if UNITY_EDITOR
+                    if (PrefabStageUtility.GetCurrentPrefabStage() != null)
+                    {
+                        field.SetValue(this, PrefabStageUtility.GetCurrentPrefabStage().FindComponentsOfType<Transform>().FirstOrDefault(x => x.GetComponent(field.FieldType)));
+                        continue;
+                    }
+#endif
                     field.SetValue(this, FindObjectOfType(field.FieldType));
                 }
             }

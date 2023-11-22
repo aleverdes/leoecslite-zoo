@@ -39,29 +39,23 @@ namespace AleVerDes.LeoEcsLiteZoo
         public IEcsInjector AddInjectionObject(object injectionObject, Type type)
         {
             if (!type.IsInstanceOfType(injectionObject))
-            {
                 throw new Exception($"Can't add object {injectionObject} to injection-list because object's type {injectionObject.GetType()} isn't assignable from {type}");
-            }
-            
+
             _injectionObjects.Add(type, injectionObject);
             return this;
         }
 
         public IEcsInjector AddInjectionObject(object injectionObject, Type[] types)
         {
-            foreach (var type in types)
-            {
+            foreach (var type in types) 
                 AddInjectionObject(injectionObject, type);
-            }
             return this;
         }
 
         public IEcsInjector AddInjectionObject(object injectionObject, IEnumerable<Type> types)
         {
-            foreach (var type in types)
-            {
+            foreach (var type in types) 
                 AddInjectionObject(injectionObject, type);
-            }
             return this;
         }
 
@@ -82,18 +76,12 @@ namespace AleVerDes.LeoEcsLiteZoo
             var toRemove = new HashSet<Type>();
             
             foreach (var (injectionType, injectionObject) in _injectionObjects)
-            {
                 if (injectionObjectToRemove == injectionObject)
-                {
                     toRemove.Add(injectionType);
-                }
-            }
 
-            foreach (var injectionType in toRemove)
-            {
+            foreach (var injectionType in toRemove) 
                 _injectionObjects.Remove(injectionType);
-            }
-            
+
             return this;
         }
 
@@ -104,10 +92,8 @@ namespace AleVerDes.LeoEcsLiteZoo
 
         public void ExecuteInjection(object target)
         {
-            foreach (var (injectionType, injectionObject) in _injectionObjects)
-            {
-                EcsInjection.Inject(target, injectionObject, injectionType);
-            }
+            foreach (var (injectionType, injectionObject) in _injectionObjects) 
+                EcsInjectionUtils.Inject(target, injectionObject, injectionType);
         }
     }
 }

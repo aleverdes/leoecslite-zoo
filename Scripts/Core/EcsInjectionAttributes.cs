@@ -15,4 +15,9 @@ namespace AleVerDes.LeoEcsLiteZoo
             _types = types;
         }
     }
+    
+    [AttributeUsage(AttributeTargets.Field)]
+    public class IgnoreInjectionAttribute : Attribute
+    {
+    }
 }
