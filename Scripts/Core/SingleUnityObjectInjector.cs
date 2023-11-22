@@ -87,7 +87,11 @@ namespace AleVerDes.LeoEcsLiteZoo
             {
 #if UNITY_EDITOR
                 if (PrefabStageUtility.GetCurrentPrefabStage() != null)
-                    return PrefabStageUtility.GetCurrentPrefabStage().FindComponentsOfType<Transform>().FirstOrDefault(x => x.GetComponent(componentType));
+                    return PrefabStageUtility
+                        .GetCurrentPrefabStage()
+                        .FindComponentsOfType<Transform>()
+                        .FirstOrDefault(x => x.GetComponent(componentType))?
+                        .GetComponent(componentType);
 #endif
                 return FindObjectOfType(componentType);
             }
