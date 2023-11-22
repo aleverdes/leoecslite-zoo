@@ -10,9 +10,9 @@ namespace AleVerDes.LeoEcsLiteZoo
 {
     public abstract class EcsInjectionContext : MonoBehaviour
     {
-        private readonly IEcsInjector _ecsInjector = new EcsInjector();
+        protected readonly IEcsInjector Injector = new EcsInjector();
 
-        protected void Reset()
+        protected virtual void Reset()
         {
             var privateSerializedUnityFields = GetType()
                 .GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
@@ -64,12 +64,12 @@ namespace AleVerDes.LeoEcsLiteZoo
                 
                 var attribute = field.GetCustomAttributes(typeof(InjectAsAttribute)).FirstOrDefault();
                 if (attribute is InjectAsAttribute injectAs)
-                    _ecsInjector.AddInjectionObject(fieldValue, injectAs.Types.ToArray());
+                    Injector.AddInjectionObject(fieldValue, injectAs.Types.ToArray());
                 else
-                    _ecsInjector.AddInjectionObject(fieldValue);
+                    Injector.AddInjectionObject(fieldValue);
             }
         }
 
-        public IEcsInjector GetInjector() => _ecsInjector;
+        public IEcsInjector GetInjector() => Injector;
     }
 }
