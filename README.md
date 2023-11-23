@@ -61,56 +61,29 @@ Just put the LeoECS Lite Zoo folder in your unity project (in the Assets folder)
 
 Below is an example of how to run ECS Manager from LeoECS Lite Zoo along with injection, world initialization and systems running.
 
-## ECS Startup Example
+## ECS Runner Example
 
 ```csharp
 using AleVerDes.LeoEcsLiteZoo;
 
-public class MainEcsStartup : MonoBehaviour
+public class GameEcsRunner : EcsRunner
 {
-    [SerializeField] private List<EcsInjectionContext> _injectionContexts;
+}
+```
 
-    private EcsWorld _world;
-    private EcsManager _ecsManager;
+## ECS Module Example
 
-    private void Awake()
+```csharp
+using AleVerDes.LeoEcsLiteZoo;
+
+public class GameEcsModule : IEcsModule
+{
+    public IEcsFeatures AddFeatures(IEcsFeatures features)
     {
-        _world = new EcsWorld();
-        ConvertToEntity.DefaultConversionWorld = _world;
-        
-        _ecsManager = new EcsManager();
-        _ecsManager.SetWorld(_world);
-        
-        foreach (var injectionContext in _injectionContexts)
-        {
-            injectionContext.InitInjector();
-            _ecsManager.AddInjector(injectionContext.GetInjector());   
-        }
-    }
-
-    private void Start()
-    {
-        _ecsManager.InstallModule(new MainEcsModuleInstaller());
-    }
-
-    private void Update()
-    {
-        _ecsManager.Update();
-    }
-
-    private void LateUpdate()
-    {
-        _ecsManager.LateUpdate();
-    }
-
-    private void FixedUpdate()
-    {
-        _ecsManager.FixedUpdate();
-    }
-
-    private void OnDestroy()
-    {
-        _ecsManager.Destroy();
+        return features
+                .AddFeature(new DebugFeature())
+                .AddFeature(new PlayerFeature())
+                ;
     }
 }
 ```
@@ -120,19 +93,8 @@ public class MainEcsStartup : MonoBehaviour
 ```csharp
 using AleVerDes.LeoEcsLiteZoo;
 
-public class MainEcsModuleInstaller : IEcsModuleInstaller
+public class GameEcsModuleInstaller : EcsModuleInstaller<GameEcsModule>
 {
-    public IEcsModule Install()
-    {
-        var module = new EcsModule();
-        
-        module
-            .AddFeature(new DebugFeature())
-            .AddFeature(new PlayerFeature())
-            ;
-
-        return module;
-    }
 }
 ```
 
@@ -142,8 +104,23 @@ public class MainEcsModuleInstaller : IEcsModuleInstaller
 using AleVerDes.LeoEcsLiteZoo;
 using Leopotam.EcsLite;
 
-public class DebugFeature : IEcsUpdateFeature, IEcsLateUpdateFeature, IEcsFixedUpdateFeature, IEcsInjectionFeature
+public class TestFeature : IEcsOnInstallFeature, 
+                           IEcsOnUninstallFeature, 
+                           IEcsUpdateFeature, 
+                           IEcsLateUpdateFeature, 
+                           IEcsFixedUpdateFeature, 
+                           IEcsInjectionFeature
 {
+    public void OnInstall()
+    {
+        // Called when a feature is installed in ECS Runner (more precisely, in ECS Manager)
+    }
+    
+    public void OnUninstall()
+    {
+        // Called when a feature is uninstalled from ECS Runner (more precisely, in ECS Manager)
+    }
+    
     // Implementation of IEcsUpdateFeature - Systems that will be running in the Unity Update().
     public void SetupUpdateSystems(IEcsSystems systems)
     {
@@ -232,28 +209,30 @@ public class TestSystem : IEcsRunSystem
 
 **ECS Module** is a container that is created and filled by **ECS Feature** using **ECS Module Installer**. The only way to organize code and execute it using **ECS Manager**.
 
+```csharp
+using AleVerDes.LeoEcsLiteZoo;
+
+public class GameEcsModule : IEcsModule
+{
+    public IEcsFeatures AddFeatures(IEcsFeatures features)
+    {
+        return features
+                .AddFeature(new DebugFeature())
+                .AddFeature(new PlayerFeature())
+                ;
+    }
+}
+```
+
 ## ECS Module Installer
 
-**ECS Module Installer** is a special class that implements the `IEcsModuleInstaller` interface, in particular the `public IEcsModule Install() {}` method. It is assumed that a unique **ECS Module** will be created in the body of this method, which will be immediately filled with the necessary list of **ECS Features**.
-
-The **ECS Module Installer** is used in the `InstallModule(IEcsModuleInstaller)` method of the **ECS Manager** class. This means that installer is the only correct way to create **ECS Modules** and then register them in **ECS Manager** for execution.
+**ECS Module Installer** is a special class for installing IEcsModule in EcsRunner instance on the scene.
 
 ```csharp
 using AleVerDes.LeoEcsLiteZoo;
 
-public class MainEcsModuleInstaller : IEcsModuleInstaller
+public class GameEcsModuleInstaller : EcsModulerInstaller<GameEcsModule>
 {
-    public IEcsModule Install()
-    {
-        var module = new EcsModule();
-        
-        module
-            .AddFeature(new DebugFeature())
-            .AddFeature(new PlayerFeature())
-            ;
-
-        return module;
-    }
 }
 ```
 
@@ -498,6 +477,16 @@ public class GameEcsStartup : MonoBehaviour
 ```
 
 The main thing is to remember to add your new Injection Context to the list!
+
+### Single Object Injector
+
+If you need to inject a single object, then use this method:
+
+```csharp
+public class PrefabsDatabaseInjector : SingleObjectInjector<GameEcsRunner, PrefabsDatabase>
+{
+}
+```
 
 ### Manual Injection
 
