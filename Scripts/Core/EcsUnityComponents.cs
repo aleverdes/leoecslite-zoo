@@ -1,4 +1,5 @@
 using System;
+using Leopotam.EcsLite;
 using UnityEngine;
 
 namespace AleVerDes.LeoEcsLiteZoo
@@ -39,8 +40,14 @@ namespace AleVerDes.LeoEcsLiteZoo
         public T Value;
     }
 
-    [Obsolete]
-    public interface IUnityRef
+    [Serializable]
+    public struct EntityRef<T> where T : struct
     {
+        public int Value;
+        
+        public ref T Get(EcsWorld world)
+        {
+            return ref world.GetPool<T>().Get(Value);
+        }
     }
 }
