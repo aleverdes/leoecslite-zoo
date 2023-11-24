@@ -55,11 +55,21 @@ namespace AleVerDes.LeoEcsLiteZoo
     [Serializable]
     public struct EntityRef<T> where T : struct
     {
-        public int Value;
+        public int EntityId;
         
         public ref T Get(EcsWorld world)
         {
-            return ref world.GetPool<T>().Get(Value);
+            return ref world.GetPool<T>().Get(EntityId);
+        }
+        
+        public ref T Get()
+        {
+            return ref ConvertToEntity.DefaultConversionWorld.GetPool<T>().Get(EntityId);
+        }
+        
+        public static implicit operator int(EntityRef<T> entityRef)
+        {
+            return entityRef.EntityId;
         }
     }
 }
