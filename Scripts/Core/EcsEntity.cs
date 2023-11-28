@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace AleVerDes.LeoEcsLiteZoo
 {
+    /// <summary>
+    /// A class that makes it easy to convert an object to an entity.
+    /// </summary>
     [RequireComponent(typeof(ConvertToEntity))]
     public abstract class EcsEntity : MonoBehaviour, IConvertableToEntity
     {

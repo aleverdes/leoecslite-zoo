@@ -422,7 +422,8 @@ public void TestSystem : IEcsRunSystem
     {
         foreach (var entity in _deadQuery)
         {
-            // process entities
+            // get, add, has and del are avilable via EcsQuery interface
+            ref var health = ref _deadQuery.Get<Health>(entity);
         }
         
         var entitesCount = _includeOnlyQuery.GetFilter().GetEntitiesCount();

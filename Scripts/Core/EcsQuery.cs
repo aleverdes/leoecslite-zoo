@@ -19,6 +19,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public EcsFilter GetFilter() => _filter;
+
+        public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+        public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+        public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+        public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         
         
         public sealed class Exc<TExclude0> : IEcsQuery where TExclude0 : struct
@@ -30,6 +35,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1> : IEcsQuery where TExclude0 : struct where TExclude1 : struct
@@ -41,6 +51,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct
@@ -52,6 +67,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct
@@ -63,6 +83,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct
@@ -74,6 +99,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct
@@ -85,6 +115,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct
@@ -96,6 +131,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct
@@ -107,6 +147,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct
@@ -118,6 +163,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct
@@ -129,6 +179,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct
@@ -140,6 +195,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct
@@ -151,6 +211,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct
@@ -162,6 +227,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct
@@ -173,6 +243,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13, TExclude14> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct where TExclude14 : struct
@@ -184,6 +259,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13, TExclude14, TExclude15> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct where TExclude14 : struct where TExclude15 : struct
@@ -195,6 +275,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
     }
@@ -208,6 +293,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public EcsFilter GetFilter() => _filter;
+
+        public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+        public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+        public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+        public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         
         
         public sealed class Exc<TExclude0> : IEcsQuery where TExclude0 : struct
@@ -219,6 +309,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1> : IEcsQuery where TExclude0 : struct where TExclude1 : struct
@@ -230,6 +325,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct
@@ -241,6 +341,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct
@@ -252,6 +357,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct
@@ -263,6 +373,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct
@@ -274,6 +389,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct
@@ -285,6 +405,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct
@@ -296,6 +421,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct
@@ -307,6 +437,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct
@@ -318,6 +453,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct
@@ -329,6 +469,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct
@@ -340,6 +485,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct
@@ -351,6 +501,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct
@@ -362,6 +517,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13, TExclude14> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct where TExclude14 : struct
@@ -373,6 +533,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13, TExclude14, TExclude15> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct where TExclude14 : struct where TExclude15 : struct
@@ -384,6 +549,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
     }
@@ -397,6 +567,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public EcsFilter GetFilter() => _filter;
+
+        public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+        public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+        public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+        public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         
         
         public sealed class Exc<TExclude0> : IEcsQuery where TExclude0 : struct
@@ -408,6 +583,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1> : IEcsQuery where TExclude0 : struct where TExclude1 : struct
@@ -419,6 +599,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct
@@ -430,6 +615,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct
@@ -441,6 +631,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct
@@ -452,6 +647,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct
@@ -463,6 +663,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct
@@ -474,6 +679,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct
@@ -485,6 +695,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct
@@ -496,6 +711,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct
@@ -507,6 +727,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct
@@ -518,6 +743,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct
@@ -529,6 +759,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct
@@ -540,6 +775,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct
@@ -551,6 +791,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13, TExclude14> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct where TExclude14 : struct
@@ -562,6 +807,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13, TExclude14, TExclude15> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct where TExclude14 : struct where TExclude15 : struct
@@ -573,6 +823,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
     }
@@ -586,6 +841,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public EcsFilter GetFilter() => _filter;
+
+        public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+        public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+        public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+        public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         
         
         public sealed class Exc<TExclude0> : IEcsQuery where TExclude0 : struct
@@ -597,6 +857,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1> : IEcsQuery where TExclude0 : struct where TExclude1 : struct
@@ -608,6 +873,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct
@@ -619,6 +889,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct
@@ -630,6 +905,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct
@@ -641,6 +921,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct
@@ -652,6 +937,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct
@@ -663,6 +953,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct
@@ -674,6 +969,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct
@@ -685,6 +985,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct
@@ -696,6 +1001,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct
@@ -707,6 +1017,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct
@@ -718,6 +1033,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct
@@ -729,6 +1049,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct
@@ -740,6 +1065,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13, TExclude14> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct where TExclude14 : struct
@@ -751,6 +1081,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13, TExclude14, TExclude15> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct where TExclude14 : struct where TExclude15 : struct
@@ -762,6 +1097,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
     }
@@ -775,6 +1115,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public EcsFilter GetFilter() => _filter;
+
+        public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+        public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+        public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+        public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         
         
         public sealed class Exc<TExclude0> : IEcsQuery where TExclude0 : struct
@@ -786,6 +1131,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1> : IEcsQuery where TExclude0 : struct where TExclude1 : struct
@@ -797,6 +1147,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct
@@ -808,6 +1163,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct
@@ -819,6 +1179,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct
@@ -830,6 +1195,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct
@@ -841,6 +1211,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct
@@ -852,6 +1227,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct
@@ -863,6 +1243,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct
@@ -874,6 +1259,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct
@@ -885,6 +1275,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct
@@ -896,6 +1291,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct
@@ -907,6 +1307,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct
@@ -918,6 +1323,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct
@@ -929,6 +1339,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13, TExclude14> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct where TExclude14 : struct
@@ -940,6 +1355,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13, TExclude14, TExclude15> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct where TExclude14 : struct where TExclude15 : struct
@@ -951,6 +1371,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
     }
@@ -964,6 +1389,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public EcsFilter GetFilter() => _filter;
+
+        public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+        public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+        public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+        public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         
         
         public sealed class Exc<TExclude0> : IEcsQuery where TExclude0 : struct
@@ -975,6 +1405,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1> : IEcsQuery where TExclude0 : struct where TExclude1 : struct
@@ -986,6 +1421,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct
@@ -997,6 +1437,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct
@@ -1008,6 +1453,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct
@@ -1019,6 +1469,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct
@@ -1030,6 +1485,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct
@@ -1041,6 +1501,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct
@@ -1052,6 +1517,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct
@@ -1063,6 +1533,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct
@@ -1074,6 +1549,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct
@@ -1085,6 +1565,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct
@@ -1096,6 +1581,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct
@@ -1107,6 +1597,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct
@@ -1118,6 +1613,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13, TExclude14> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct where TExclude14 : struct
@@ -1129,6 +1629,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13, TExclude14, TExclude15> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct where TExclude14 : struct where TExclude15 : struct
@@ -1140,6 +1645,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
     }
@@ -1153,6 +1663,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public EcsFilter GetFilter() => _filter;
+
+        public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+        public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+        public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+        public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         
         
         public sealed class Exc<TExclude0> : IEcsQuery where TExclude0 : struct
@@ -1164,6 +1679,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1> : IEcsQuery where TExclude0 : struct where TExclude1 : struct
@@ -1175,6 +1695,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct
@@ -1186,6 +1711,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct
@@ -1197,6 +1727,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct
@@ -1208,6 +1743,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct
@@ -1219,6 +1759,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct
@@ -1230,6 +1775,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct
@@ -1241,6 +1791,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct
@@ -1252,6 +1807,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct
@@ -1263,6 +1823,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct
@@ -1274,6 +1839,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct
@@ -1285,6 +1855,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct
@@ -1296,6 +1871,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct
@@ -1307,6 +1887,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13, TExclude14> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct where TExclude14 : struct
@@ -1318,6 +1903,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13, TExclude14, TExclude15> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct where TExclude14 : struct where TExclude15 : struct
@@ -1329,6 +1919,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
     }
@@ -1342,6 +1937,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public EcsFilter GetFilter() => _filter;
+
+        public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+        public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+        public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+        public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         
         
         public sealed class Exc<TExclude0> : IEcsQuery where TExclude0 : struct
@@ -1353,6 +1953,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1> : IEcsQuery where TExclude0 : struct where TExclude1 : struct
@@ -1364,6 +1969,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct
@@ -1375,6 +1985,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct
@@ -1386,6 +2001,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct
@@ -1397,6 +2017,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct
@@ -1408,6 +2033,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct
@@ -1419,6 +2049,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct
@@ -1430,6 +2065,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct
@@ -1441,6 +2081,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct
@@ -1452,6 +2097,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct
@@ -1463,6 +2113,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct
@@ -1474,6 +2129,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct
@@ -1485,6 +2145,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct
@@ -1496,6 +2161,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13, TExclude14> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct where TExclude14 : struct
@@ -1507,6 +2177,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13, TExclude14, TExclude15> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct where TExclude14 : struct where TExclude15 : struct
@@ -1518,6 +2193,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
     }
@@ -1531,6 +2211,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public EcsFilter GetFilter() => _filter;
+
+        public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+        public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+        public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+        public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         
         
         public sealed class Exc<TExclude0> : IEcsQuery where TExclude0 : struct
@@ -1542,6 +2227,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1> : IEcsQuery where TExclude0 : struct where TExclude1 : struct
@@ -1553,6 +2243,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct
@@ -1564,6 +2259,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct
@@ -1575,6 +2275,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct
@@ -1586,6 +2291,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct
@@ -1597,6 +2307,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct
@@ -1608,6 +2323,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct
@@ -1619,6 +2339,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct
@@ -1630,6 +2355,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct
@@ -1641,6 +2371,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct
@@ -1652,6 +2387,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct
@@ -1663,6 +2403,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct
@@ -1674,6 +2419,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct
@@ -1685,6 +2435,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13, TExclude14> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct where TExclude14 : struct
@@ -1696,6 +2451,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13, TExclude14, TExclude15> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct where TExclude14 : struct where TExclude15 : struct
@@ -1707,6 +2467,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
     }
@@ -1720,6 +2485,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public EcsFilter GetFilter() => _filter;
+
+        public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+        public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+        public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+        public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         
         
         public sealed class Exc<TExclude0> : IEcsQuery where TExclude0 : struct
@@ -1731,6 +2501,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1> : IEcsQuery where TExclude0 : struct where TExclude1 : struct
@@ -1742,6 +2517,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct
@@ -1753,6 +2533,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct
@@ -1764,6 +2549,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct
@@ -1775,6 +2565,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct
@@ -1786,6 +2581,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct
@@ -1797,6 +2597,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct
@@ -1808,6 +2613,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct
@@ -1819,6 +2629,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct
@@ -1830,6 +2645,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct
@@ -1841,6 +2661,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct
@@ -1852,6 +2677,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct
@@ -1863,6 +2693,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct
@@ -1874,6 +2709,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13, TExclude14> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct where TExclude14 : struct
@@ -1885,6 +2725,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13, TExclude14, TExclude15> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct where TExclude14 : struct where TExclude15 : struct
@@ -1896,6 +2741,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
     }
@@ -1909,6 +2759,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public EcsFilter GetFilter() => _filter;
+
+        public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+        public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+        public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+        public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         
         
         public sealed class Exc<TExclude0> : IEcsQuery where TExclude0 : struct
@@ -1920,6 +2775,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1> : IEcsQuery where TExclude0 : struct where TExclude1 : struct
@@ -1931,6 +2791,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct
@@ -1942,6 +2807,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct
@@ -1953,6 +2823,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct
@@ -1964,6 +2839,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct
@@ -1975,6 +2855,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct
@@ -1986,6 +2871,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct
@@ -1997,6 +2887,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct
@@ -2008,6 +2903,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct
@@ -2019,6 +2919,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct
@@ -2030,6 +2935,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct
@@ -2041,6 +2951,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct
@@ -2052,6 +2967,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct
@@ -2063,6 +2983,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13, TExclude14> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct where TExclude14 : struct
@@ -2074,6 +2999,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13, TExclude14, TExclude15> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct where TExclude14 : struct where TExclude15 : struct
@@ -2085,6 +3015,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
     }
@@ -2098,6 +3033,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public EcsFilter GetFilter() => _filter;
+
+        public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+        public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+        public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+        public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         
         
         public sealed class Exc<TExclude0> : IEcsQuery where TExclude0 : struct
@@ -2109,6 +3049,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1> : IEcsQuery where TExclude0 : struct where TExclude1 : struct
@@ -2120,6 +3065,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct
@@ -2131,6 +3081,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct
@@ -2142,6 +3097,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct
@@ -2153,6 +3113,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct
@@ -2164,6 +3129,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct
@@ -2175,6 +3145,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct
@@ -2186,6 +3161,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct
@@ -2197,6 +3177,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct
@@ -2208,6 +3193,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct
@@ -2219,6 +3209,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct
@@ -2230,6 +3225,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct
@@ -2241,6 +3241,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct
@@ -2252,6 +3257,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13, TExclude14> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct where TExclude14 : struct
@@ -2263,6 +3273,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13, TExclude14, TExclude15> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct where TExclude14 : struct where TExclude15 : struct
@@ -2274,6 +3289,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
     }
@@ -2287,6 +3307,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public EcsFilter GetFilter() => _filter;
+
+        public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+        public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+        public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+        public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         
         
         public sealed class Exc<TExclude0> : IEcsQuery where TExclude0 : struct
@@ -2298,6 +3323,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1> : IEcsQuery where TExclude0 : struct where TExclude1 : struct
@@ -2309,6 +3339,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct
@@ -2320,6 +3355,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct
@@ -2331,6 +3371,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct
@@ -2342,6 +3387,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct
@@ -2353,6 +3403,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct
@@ -2364,6 +3419,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct
@@ -2375,6 +3435,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct
@@ -2386,6 +3451,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct
@@ -2397,6 +3467,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct
@@ -2408,6 +3483,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct
@@ -2419,6 +3499,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct
@@ -2430,6 +3515,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct
@@ -2441,6 +3531,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13, TExclude14> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct where TExclude14 : struct
@@ -2452,6 +3547,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13, TExclude14, TExclude15> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct where TExclude14 : struct where TExclude15 : struct
@@ -2463,6 +3563,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
     }
@@ -2476,6 +3581,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public EcsFilter GetFilter() => _filter;
+
+        public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+        public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+        public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+        public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         
         
         public sealed class Exc<TExclude0> : IEcsQuery where TExclude0 : struct
@@ -2487,6 +3597,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1> : IEcsQuery where TExclude0 : struct where TExclude1 : struct
@@ -2498,6 +3613,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct
@@ -2509,6 +3629,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct
@@ -2520,6 +3645,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct
@@ -2531,6 +3661,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct
@@ -2542,6 +3677,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct
@@ -2553,6 +3693,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct
@@ -2564,6 +3709,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct
@@ -2575,6 +3725,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct
@@ -2586,6 +3741,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct
@@ -2597,6 +3757,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct
@@ -2608,6 +3773,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct
@@ -2619,6 +3789,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct
@@ -2630,6 +3805,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13, TExclude14> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct where TExclude14 : struct
@@ -2641,6 +3821,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13, TExclude14, TExclude15> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct where TExclude14 : struct where TExclude15 : struct
@@ -2652,6 +3837,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
     }
@@ -2665,6 +3855,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public EcsFilter GetFilter() => _filter;
+
+        public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+        public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+        public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+        public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         
         
         public sealed class Exc<TExclude0> : IEcsQuery where TExclude0 : struct
@@ -2676,6 +3871,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1> : IEcsQuery where TExclude0 : struct where TExclude1 : struct
@@ -2687,6 +3887,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct
@@ -2698,6 +3903,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct
@@ -2709,6 +3919,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct
@@ -2720,6 +3935,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct
@@ -2731,6 +3951,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct
@@ -2742,6 +3967,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct
@@ -2753,6 +3983,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct
@@ -2764,6 +3999,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct
@@ -2775,6 +4015,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct
@@ -2786,6 +4031,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct
@@ -2797,6 +4047,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct
@@ -2808,6 +4063,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct
@@ -2819,6 +4079,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13, TExclude14> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct where TExclude14 : struct
@@ -2830,6 +4095,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13, TExclude14, TExclude15> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct where TExclude14 : struct where TExclude15 : struct
@@ -2841,6 +4111,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
     }
@@ -2854,6 +4129,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public EcsFilter GetFilter() => _filter;
+
+        public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+        public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+        public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+        public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         
         
         public sealed class Exc<TExclude0> : IEcsQuery where TExclude0 : struct
@@ -2865,6 +4145,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1> : IEcsQuery where TExclude0 : struct where TExclude1 : struct
@@ -2876,6 +4161,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct
@@ -2887,6 +4177,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct
@@ -2898,6 +4193,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct
@@ -2909,6 +4209,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct
@@ -2920,6 +4225,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct
@@ -2931,6 +4241,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct
@@ -2942,6 +4257,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct
@@ -2953,6 +4273,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct
@@ -2964,6 +4289,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct
@@ -2975,6 +4305,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct
@@ -2986,6 +4321,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct
@@ -2997,6 +4337,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct
@@ -3008,6 +4353,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13, TExclude14> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct where TExclude14 : struct
@@ -3019,6 +4369,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
         public sealed class Exc<TExclude0, TExclude1, TExclude2, TExclude3, TExclude4, TExclude5, TExclude6, TExclude7, TExclude8, TExclude9, TExclude10, TExclude11, TExclude12, TExclude13, TExclude14, TExclude15> : IEcsQuery where TExclude0 : struct where TExclude1 : struct where TExclude2 : struct where TExclude3 : struct where TExclude4 : struct where TExclude5 : struct where TExclude6 : struct where TExclude7 : struct where TExclude8 : struct where TExclude9 : struct where TExclude10 : struct where TExclude11 : struct where TExclude12 : struct where TExclude13 : struct where TExclude14 : struct where TExclude15 : struct
@@ -3030,6 +4385,11 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
+
+            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
+            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
+            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
+            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 
     }
@@ -3037,5 +4397,7 @@ namespace AleVerDes.LeoEcsLiteZoo
 
     internal interface IEcsQuery
     {
+        EcsFilter.Enumerator GetEnumerator();
+        EcsFilter GetFilter();
     }
 }
