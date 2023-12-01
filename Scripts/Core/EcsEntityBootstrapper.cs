@@ -7,7 +7,7 @@ namespace AleVerDes.LeoEcsLiteZoo
     /// A class that makes it easy to convert an object to an entity.
     /// </summary>
     [RequireComponent(typeof(ConvertToEntity))]
-    public abstract class EcsEntity : MonoBehaviour, IConvertableToEntity
+    public abstract class EcsEntityBootstrapper : MonoBehaviour, IConvertableToEntity
     {
         protected EcsWorld World;
         protected int Entity;
