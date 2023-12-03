@@ -47,7 +47,7 @@ namespace AleVerDes.LeoEcsLiteZoo
     }
 
     [Serializable]
-    public struct ObjectRef<T> where T : UnityEngine.Object
+    public struct Ref<T> where T : UnityEngine.Object
     {
         public T Value;
     }
