@@ -278,15 +278,9 @@ public class DebugFeature : IEcsUpdateFeature, IEcsLateUpdateFeature, IEcsFixedU
 }
 ```
 
-## ECS Unity Core Components
+## ECS UnityObject Reference Component
 
-* EcsTransform is a representation of an ECS Transform that includes the position, rotation, and scale of an object.
-* TransformRef contains a reference to Unity-transform.
-* RigidbodyRef contains a reference to Unity-rigidbody.
-* GameObjectRef contains a reference to the GameObject.
-* RectTransformRef contains a reference to a RectTransform.
-* Rigidbody2DRef contains a reference to a Rigidbody2D and works the same as RigidbodyRef.
-* UnityRef<T> where T : UnityEngine.Object, IUnityRef
+* Ref<T> where T : UnityEngine.Object
 
 ```csharp
 using System;
@@ -295,30 +289,9 @@ using UnityEngine;
 namespace AleVerDes.LeoEcsLiteZoo
 {
     [Serializable]
-    public struct ObjectRef<T> where T : UnityEngine.Object
+    public struct Ref<T> where T : UnityEngine.Object
     {
         public T Value;
-    }
-
-    [Serializable]
-    public struct EntityRef<T> where T : struct
-    {
-        public int EntityId;
-        
-        public ref T Get(EcsWorld world)
-        {
-            return ref world.GetPool<T>().Get(EntityId);
-        }
-        
-        public ref T Get()
-        {
-            return ref ConvertToEntity.DefaultConversionWorld.GetPool<T>().Get(EntityId);
-        }
-        
-        public static implicit operator int(EntityRef<T> entityRef)
-        {
-            return entityRef.EntityId;
-        }
     }
 }
 ```
