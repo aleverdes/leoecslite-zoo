@@ -116,42 +116,7 @@ namespace AleVerDes.LeoEcsLiteZoo
         {
             return FieldsByType.TryGetValue(type, out fields);
         }
-
-        private static bool CheckObjectForProcessed(object targetObject, Type injectionType)
-        {
-            if (!ProcessedObjects.TryGetValue(targetObject, out var injectedTypes))
-            {
-                ProcessedObjects[targetObject] = new HashSet<Type>();
-                return false;
-            }
-
-            return injectedTypes.Contains(injectionType);
-        }
-
-        private static void SetObjectAsProcessed(object targetObject, Type injectionType)
-        {
-            if (!ProcessedObjects.TryGetValue(targetObject, out var injectedTypes))
-            {
-                ProcessedObjects[targetObject] = new HashSet<Type>();
-                injectedTypes = ProcessedObjects[targetObject];
-            }
-
-            injectedTypes.Add(injectionType);
-        }
-
-        public static IEcsSystems InjectQueries(IEcsSystems ecsSystems, EcsWorld world)
-        {
-            if (world == null)
-                throw new Exception("For ECS-pool injection required the ECS World");
-
-            var allSystems = ecsSystems.GetAllSystems();
-
-            foreach (var system in allSystems)
-                InjectQueries(system, world);
-
-            return ecsSystems;
-        }
-
+        
         public static object InjectQueries(object target, EcsWorld world)
         {
             if (world == null)
