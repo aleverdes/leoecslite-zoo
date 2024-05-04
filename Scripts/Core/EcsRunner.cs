@@ -24,19 +24,19 @@ namespace AleVerDes.LeoEcsLiteZoo
         public virtual void Tick()
         {
             foreach (var (_, ecsModuleContainer) in Modules)
-                ecsModuleContainer.GetSystemsGroup().UpdateSystems.Run();
+                ecsModuleContainer.GetSystemsGroup().GetUpdateSystems().Run();
         }
 
         public virtual void LateTick()
         {
             foreach (var (_, ecsModuleContainer) in Modules)
-                ecsModuleContainer.GetSystemsGroup().LateUpdateSystems.Run();
+                ecsModuleContainer.GetSystemsGroup().GetLateUpdateSystems().Run();
         }
 
         public virtual void FixedTick()
         {
             foreach (var (_, ecsModuleContainer) in Modules)
-                ecsModuleContainer.GetSystemsGroup().FixedUpdateSystems.Run();
+                ecsModuleContainer.GetSystemsGroup().GetFixedUpdateSystems().Run();
         }
 
         public virtual void Dispose()

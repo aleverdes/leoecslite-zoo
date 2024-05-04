@@ -56,5 +56,9 @@ namespace AleVerDes.LeoEcsLiteZoo
             _lateUpdateSystems.Destroy();
             _fixedUpdateSystems.Destroy();
         }
+        
+        public IEcsSystems GetUpdateSystems() => _updateSystems;
+        public IEcsSystems GetLateUpdateSystems() => _lateUpdateSystems;
+        public IEcsSystems GetFixedUpdateSystems() => _fixedUpdateSystems;
     }
 }

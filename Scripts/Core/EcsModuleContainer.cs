@@ -13,6 +13,10 @@ namespace AleVerDes.LeoEcsLiteZoo
         EcsSystemsGroup GetSystemsGroup();
 
         IEnumerable<IEcsSystem> GetAllSystems();
+        
+        IEcsSystems GetUpdateSystems();
+        IEcsSystems GetLateUpdateSystems();
+        IEcsSystems GetFixedUpdateSystems();
     }
     
     public sealed class EcsModuleContainer : IEcsModuleContainer
@@ -83,5 +87,11 @@ namespace AleVerDes.LeoEcsLiteZoo
         {
             return _systemsGroup.GetAllSystems();
         }
+
+        public IEcsSystems GetUpdateSystems() => _systemsGroup.GetUpdateSystems();
+
+        public IEcsSystems GetLateUpdateSystems() => _systemsGroup.GetLateUpdateSystems();
+
+        public IEcsSystems GetFixedUpdateSystems() => _systemsGroup.GetFixedUpdateSystems();
     }
 }
