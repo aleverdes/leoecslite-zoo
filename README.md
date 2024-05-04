@@ -9,33 +9,6 @@ LeoECS Lite Unity Zoo is a big add-on to [LeoECS Lite](https://github.com/Leopot
 * Unity Core ECS Components; 
 * Several extensions for EcsWorld, IEcsSystems and Unity-objects.
 
-# Table of Contents
-
-* [Introduction](#introduction)
-* [Requirements](#requirements)
-* [Installation](#installation)
-    * [Unity Package Manager](#unity-package-manager)
-    * [Manual installation](#manual-installation)
-* [Usage](#usage)
-  * [ECS World & Runner Injection Example](#ecs-world--runner-injection-example)
-  * [ECS Module Example](#ecs-module-example)    
-  * [ECS Feature Example](#ecs-feature-example)     
-* [Features](#features) 
-    * [ECS Module](#ecs-module)
-    * [ECS Feature](#ecs-feature)
-    * [ECS UnityObject Reference Component](#ecs-unityobject-reference-component)
-    * [ECS Components Conversion](#ecs-components-conversion)
-    * [ECS Injection](#ecs-injection)
-        * [ECS Query](#ecs-query)
-        * [EcsWorld Injection](#ecsworld-injection)
-        * [EcsPool Injection](#ecspool-injection)
-    * [DelHere Systems](#delhere-systems)
-    * [LeoECS Lite Extensions](#leoecs-lite-extensions)
-        * [Unity Extensions](#unity-extensions)
-        * [ECS World Extensions](#ecs-world-extensions)
-        * [Zenject Extensions](#zenject-extensions)
-* [License](#license)
-
 # 📘 Introduction
 
 I developed LeoECS Lite Unity Zoo for my own use and have been developing it for a long time using it in my own projects. 
