@@ -52,8 +52,7 @@ namespace EcsSample
     {
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<EcsWorld>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<EcsRunner>().WithEcsModule<GameEcsModule>().NonLazy();
+            Container.BindNewEcsWorldFor<GameEcsModule>();
         }
     }
 }
@@ -398,6 +397,12 @@ world.NewEntityWith<TestComponent>() = new TestComponent()
 ```
 
 ### 💉 Zenject Extensions
+
+You can use the `BindNewEcsWorldFor<T>()` extension to instantiate your single world with runners for specified module.
+
+```csharp
+Container.BindNewEcsWorldFor<GameEcsModule>().NonLazy();
+```
 
 You can use the `WithEcsModule<T>()` extension to instantiate your modules into `EcsRunner`.
 
