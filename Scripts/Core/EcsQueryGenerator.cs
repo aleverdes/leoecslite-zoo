@@ -12,7 +12,7 @@ namespace AleVerDes.LeoEcsLiteZoo
         private const string ScriptTemplate = @"
 // CODEGEN
 // Collection of classes for EcsQuery (LeoECS Lite Zoo by Alexander Travkin @aleverdes)
-// Version 2.1.0
+// Version 4.0.0
 // https://github.com/aleverdes/leoecslite-zoo
 
 using System.Runtime.CompilerServices;

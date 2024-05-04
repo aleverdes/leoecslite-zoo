@@ -10,7 +10,7 @@ namespace AleVerDes.LeoEcsLiteZoo
 
     public class EcsFeatures : IEcsFeatures
     {
-        private List<IEcsFeature> _features = new List<IEcsFeature>();
+        private readonly List<IEcsFeature> _features = new();
 
         public IEcsFeatures Add(IEcsFeature feature)
         {

@@ -8,12 +8,12 @@ namespace AleVerDes.LeoEcsLiteZoo
 {
     public static class EcsInjectionUtils
     {
-        private const BindingFlags PrivateInstanceFlags = BindingFlags.NonPublic | BindingFlags.Instance; 
-        
+        private const BindingFlags PrivateInstanceFlags = BindingFlags.NonPublic | BindingFlags.Instance;
+
         private static readonly Dictionary<object, HashSet<Type>> ProcessedObjects = new();
-        
+
         private static readonly Dictionary<Type, FieldInfo[]> FieldsByType = new();
-        
+
         private static MethodInfo _getEcsPoolMethod;
         private static readonly Dictionary<EcsWorld, Dictionary<Type, object>> PoolsCache = new();
 
@@ -22,60 +22,16 @@ namespace AleVerDes.LeoEcsLiteZoo
         private static MethodInfo _endEcsMaskMethod;
         private static readonly Dictionary<Type, MethodInfo> IncEcsMaskGenericMethods = new();
         private static readonly Dictionary<Type, MethodInfo> ExcEcsMaskGenericMethods = new();
-        
-        public static IEcsSystems Inject(IEcsSystems ecsSystems, object injectedObject)
-        {
-            return Inject(ecsSystems, injectedObject, injectedObject.GetType());
-        }
-
-        public static IEcsSystems Inject(IEcsSystems ecsSystems, object injectedObject, Type injectionType)
-        {
-            var allSystems = ecsSystems.GetAllSystems();
-
-            foreach (var system in allSystems) 
-                Inject(system, injectedObject, injectionType);
-
-            return ecsSystems;
-        }
-
-        public static object Inject(object target, object injectedObject)
-        {
-            return Inject(target, injectedObject, injectedObject.GetType());
-        }
-
-        public static object Inject(object target, object injectedObject, Type[] injectionTypes)
-        {
-            var fields = GetFields(target.GetType());
-
-            foreach (var field in fields.Where(x => !x.GetCustomAttributes(typeof(IgnoreInjectionAttribute), true).Any()))
-                if (injectionTypes.Any(injectionType => injectionType == field.FieldType))
-                    field.SetValue(target, injectedObject);
-
-            return target;
-        }
 
         public static object Inject(object target, object injectedObject, Type injectionType)
         {
             var fields = GetFields(target.GetType());
-            
-            var requiredField = fields.FirstOrDefault(x => x.FieldType == injectionType && !x.GetCustomAttributes(typeof(IgnoreInjectionAttribute), true).Any());
-            if (requiredField != null) 
+
+            var requiredField = fields.FirstOrDefault(x => x.FieldType == injectionType);
+            if (requiredField != null)
                 requiredField.SetValue(target, injectedObject);
 
             return target;
-        }
-
-        public static IEcsSystems InjectPools(IEcsSystems ecsSystems, EcsWorld world)
-        {
-            if (world == null)
-                throw new Exception("For ECS-pool injection required the ECS World");
-
-            var allSystems = ecsSystems.GetAllSystems();
-
-            foreach (var system in allSystems) 
-                InjectPools(system, world);
-
-            return ecsSystems;
         }
 
         public static object InjectPools(object target, EcsWorld world)
@@ -88,9 +44,6 @@ namespace AleVerDes.LeoEcsLiteZoo
             foreach (var field in fields)
             {
                 if (!typeof(IEcsPool).IsAssignableFrom(field.FieldType))
-                    continue;
-                
-                if (field.GetCustomAttributes(typeof(IgnoreInjectionAttribute), true).Any())
                     continue;
 
                 var poolType = field.FieldType.GetGenericArguments().First();
@@ -126,7 +79,7 @@ namespace AleVerDes.LeoEcsLiteZoo
         {
             GetEcsPoolCache(ecsWorld).Add(poolType, ecsPool);
         }
-        
+
         private static bool TryGetEcsPool(EcsWorld ecsWorld, Type poolType, out object ecsPool)
         {
             return GetEcsPoolCache(ecsWorld).TryGetValue(poolType, out ecsPool);
@@ -185,7 +138,7 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             injectedTypes.Add(injectionType);
         }
-        
+
         public static IEcsSystems InjectQueries(IEcsSystems ecsSystems, EcsWorld world)
         {
             if (world == null)
@@ -193,12 +146,12 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             var allSystems = ecsSystems.GetAllSystems();
 
-            foreach (var system in allSystems) 
+            foreach (var system in allSystems)
                 InjectQueries(system, world);
 
             return ecsSystems;
         }
-        
+
         public static object InjectQueries(object target, EcsWorld world)
         {
             if (world == null)
@@ -215,23 +168,20 @@ namespace AleVerDes.LeoEcsLiteZoo
                 if (!typeof(IEcsQuery).IsAssignableFrom(field.FieldType))
                     continue;
 
-                if (field.GetCustomAttributes(typeof(IgnoreInjectionAttribute), true).Any())
-                    continue;
-                
                 if (!field.FieldType.IsGenericType)
                     continue;
 
                 var queryType = field.FieldType;
-                
-                var isIncludeOnly = queryType.DeclaringType == null; 
+
+                var isIncludeOnly = queryType.DeclaringType == null;
                 var isIncludeAndExclude = queryType.DeclaringType != null;
 
                 if (isIncludeOnly)
                 {
                     var genericTypes = queryType.GetGenericArguments();
-                    
+
                     var mask = CreateMask(world, genericTypes[0]);
-                    
+
                     for (var i = 1; i < genericTypes.Length; i++)
                     {
                         var type = genericTypes[i];
@@ -286,7 +236,7 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             return target;
         }
-        
+
         private static object CreateMask(EcsWorld world, Type firstType)
         {
             var createFilterMethod = typeof(EcsWorld).GetMethod("Filter");
@@ -297,9 +247,9 @@ namespace AleVerDes.LeoEcsLiteZoo
 
         private static object CreateQuery(Type queryType, object mask)
         {
-            var filter = _endEcsMaskMethod.Invoke(mask, new object[]{512});
+            var filter = _endEcsMaskMethod.Invoke(mask, new object[] { 512 });
             var query = Activator.CreateInstance(queryType);
-                    
+
             var queryFilterField = queryType.GetField("_filter", PrivateInstanceFlags);
             queryFilterField.SetValue(query, filter);
 

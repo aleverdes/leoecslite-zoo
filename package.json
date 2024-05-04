@@ -4,14 +4,15 @@
   "displayName": "LeoECS Lite Zoo",
   "description": "A big add-on to LeoECS Lite for Unity with following features: ECS runner, ECS modules, ECS features, ECS manager, ECS conversion, ECS injection and etc.",
   "unity": "2018.4",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "keywords": [
     "LeoECS",
     "LeoECS Lite",
     "ECS",
     "Conversion",
     "Injection",
-    "Extensions"
+    "Extensions",
+    "Zenject"
   ],
   "dependencies": {},
   "repository": {

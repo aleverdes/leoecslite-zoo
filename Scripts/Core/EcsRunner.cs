@@ -1,72 +1,68 @@
+using System;
 using System.Collections.Generic;
 using Leopotam.EcsLite;
-using UnityEngine;
+using Zenject;
 
 namespace AleVerDes.LeoEcsLiteZoo
 {
-    public class EcsRunner : MonoBehaviour, IEcsInjectionContainer
+    public interface IEcsRunner : ITickable, ILateTickable, IFixedTickable, IDisposable
     {
-        protected EcsWorld World;
-        protected IEcsManager EcsManager;
-
-        protected virtual void Awake()
-        {
-            World = new EcsWorld();
-            ConvertToEntity.DefaultConversionWorld = World;
-            
-            EcsManager = new EcsManager();
-            EcsManager.SetWorld(World);
-        }
+        void InstallModule(IEcsModule moduleInstaller);
+        void UninstallModule(IEcsModule moduleContainer);
+    }
+    
+    public class EcsRunner : IEcsRunner
+    {
+        protected readonly EcsWorld World;
+        protected readonly Dictionary<IEcsModule, IEcsModuleContainer> Modules = new();
         
-        public virtual void InstallModule(IEcsModuleInstaller moduleInstaller)
+        public EcsRunner(EcsWorld ecsWorld)
         {
-            EcsManager.InstallModule(moduleInstaller);
+            World = ecsWorld;
         }
 
-        public virtual void AddInjectionContext(EcsInjectionContext injectionContext)
+        public virtual void Tick()
         {
-            injectionContext.InitInjector();
-            EcsManager.AddInjector(injectionContext.GetInjector());
+            foreach (var (_, ecsModuleContainer) in Modules)
+                ecsModuleContainer.GetSystemsGroup().UpdateSystems.Run();
         }
 
-        protected virtual void Update()
+        public virtual void LateTick()
         {
-            EcsManager.Update();
+            foreach (var (_, ecsModuleContainer) in Modules)
+                ecsModuleContainer.GetSystemsGroup().LateUpdateSystems.Run();
         }
 
-        protected virtual void LateUpdate()
+        public virtual void FixedTick()
         {
-            EcsManager.LateUpdate();
+            foreach (var (_, ecsModuleContainer) in Modules)
+                ecsModuleContainer.GetSystemsGroup().FixedUpdateSystems.Run();
         }
 
-        protected virtual void FixedUpdate()
+        public virtual void Dispose()
         {
-            EcsManager.FixedUpdate();
+            foreach (var (_, ecsModuleContainer) in Modules)
+                ecsModuleContainer.GetSystemsGroup().Destroy();
         }
 
-        protected virtual void OnDestroy()
+        public virtual void InstallModule(IEcsModule module)
         {
-            EcsManager.Destroy();
+            var moduleContainer = new EcsModuleContainer();
+            moduleContainer.AddFeatures(module.AddFeatures(new EcsFeatures()));
+            moduleContainer.Initialize(World);
+            Modules.Add(module, moduleContainer);
+            foreach (var system in moduleContainer.GetAllSystems())
+            {
+                EcsInjectionUtils.Inject(system, World, typeof(EcsWorld));
+                EcsInjectionUtils.InjectPools(system, World);
+                EcsInjectionUtils.InjectQueries(system, World);
+            }
+            moduleContainer.GetSystemsGroup().Init();
         }
 
-        public virtual EcsWorld GetWorld()
+        public virtual void UninstallModule(IEcsModule moduleContainer)
         {
-            return World;
-        }
-
-        public virtual IEcsManager GetManager()
-        {
-            return EcsManager;
-        }
-
-        public virtual void AddInjector(IEcsInjector injector)
-        {
-            EcsManager.AddInjector(injector);
-        }
-
-        public virtual IEnumerable<IEcsInjector> GetInjectors()
-        {
-            return EcsManager.GetInjectors();
+            Modules.Remove(moduleContainer);
         }
     }
 }

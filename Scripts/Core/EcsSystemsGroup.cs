@@ -5,63 +5,56 @@ namespace AleVerDes.LeoEcsLiteZoo
 {
     public struct EcsSystemsGroup : IEcsSystems
     {
-        public IEcsSystems UpdateSystems;
-        public IEcsSystems LateUpdateSystems;
-        public IEcsSystems FixedUpdateSystems;
-        
-        public T GetShared<T>() where T : class
+        private readonly IEcsSystems _updateSystems;
+        private readonly IEcsSystems _lateUpdateSystems;
+        private readonly IEcsSystems _fixedUpdateSystems;
+
+        private readonly List<IEcsSystem> _allSystems;
+
+        public EcsSystemsGroup(IEcsSystems updateSystems, IEcsSystems lateUpdateSystems, IEcsSystems fixedUpdateSystems)
         {
-            return UpdateSystems.GetShared<T>();
+            _updateSystems = updateSystems;
+            _lateUpdateSystems = lateUpdateSystems;
+            _fixedUpdateSystems = fixedUpdateSystems;
+            _allSystems = new List<IEcsSystem>();
+            _allSystems.AddRange(_updateSystems.GetAllSystems());
+            _allSystems.AddRange(_lateUpdateSystems.GetAllSystems());
+            _allSystems.AddRange(_fixedUpdateSystems.GetAllSystems());
         }
 
         public IEcsSystems AddWorld(EcsWorld world, string name)
         {
-            UpdateSystems.AddWorld(world, name);
-            LateUpdateSystems.AddWorld(world, name);
-            FixedUpdateSystems.AddWorld(world, name);
+            _updateSystems.AddWorld(world, name);
+            _lateUpdateSystems.AddWorld(world, name);
+            _fixedUpdateSystems.AddWorld(world, name);
             return this;
         }
-
-        public EcsWorld GetWorld(string name = null)
-        {
-            return UpdateSystems.GetWorld(name);
-        }
-
-        public Dictionary<string, EcsWorld> GetAllNamedWorlds()
-        {
-            return UpdateSystems.GetAllNamedWorlds();
-        }
-
-        public IEcsSystems Add(IEcsSystem system)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public List<IEcsSystem> GetAllSystems()
-        {
-            var systems = new List<IEcsSystem>(UpdateSystems.GetAllSystems());
-            systems.AddRange(LateUpdateSystems.GetAllSystems());
-            systems.AddRange(FixedUpdateSystems.GetAllSystems());
-            return systems;
-        }
+        
+        public T GetShared<T>() where T : class => _updateSystems.GetShared<T>();
+        public EcsWorld GetWorld(string name = null) => _updateSystems.GetWorld(name);
+        public Dictionary<string, EcsWorld> GetAllNamedWorlds() => _updateSystems.GetAllNamedWorlds();
+        public IEcsSystems Add(IEcsSystem system) => throw new System.NotImplementedException();
+        public List<IEcsSystem> GetAllSystems() => _allSystems;
 
         public void Init()
         {
-            UpdateSystems.Init();
-            LateUpdateSystems.Init();
-            FixedUpdateSystems.Init();
+            _updateSystems.Init();
+            _lateUpdateSystems.Init();
+            _fixedUpdateSystems.Init();
         }
 
         public void Run()
         {
-            throw new System.NotImplementedException();
+            _updateSystems.Run();
+            _lateUpdateSystems.Run();
+            _fixedUpdateSystems.Run();
         }
 
         public void Destroy()
         {
-            UpdateSystems.Destroy();
-            LateUpdateSystems.Destroy();
-            FixedUpdateSystems.Destroy();
+            _updateSystems.Destroy();
+            _lateUpdateSystems.Destroy();
+            _fixedUpdateSystems.Destroy();
         }
     }
 }

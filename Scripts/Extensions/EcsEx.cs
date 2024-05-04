@@ -7,6 +7,8 @@ namespace AleVerDes.LeoEcsLiteZoo
 {
     public static class EcsEx
     {
+        private static List<Type> _tempListOfEntityTypes = new List<Type>();
+        
         public static ref T NewEntityWith<T>(this EcsWorld ecsWorld) where T : struct
         {
             var entity = ecsWorld.NewEntity();
@@ -17,6 +19,13 @@ namespace AleVerDes.LeoEcsLiteZoo
         {
             entity = ecsWorld.NewEntity();
             return ref ecsWorld.GetPool<T>().Add(entity);
+        }
+        
+        public static ref T NewEntityWith<T>(this EcsWorld ecsWorld, out EcsPackedEntityWithWorld entity) where T : struct
+        {
+            var e = ecsWorld.NewEntity();
+            entity = ecsWorld.PackEntityWithWorld(e);
+            return ref ecsWorld.GetPool<T>().Add(e);
         }
         
         public static ref T NewEntityWith<T>(this EcsWorld ecsWorld, T value) where T : struct
@@ -34,6 +43,15 @@ namespace AleVerDes.LeoEcsLiteZoo
             component = value;
             return ref component;
         }
+        
+        public static ref T NewEntityWith<T>(this EcsWorld ecsWorld, T value, out EcsPackedEntityWithWorld entity) where T : struct
+        {
+            var e = ecsWorld.NewEntity();
+            entity = ecsWorld.PackEntityWithWorld(e);
+            ref var component = ref ecsWorld.GetPool<T>().Add(e);
+            component = value;
+            return ref component;
+        }
 
         public static int GetFirstEntity<T>(this EcsWorld world) where T : struct
         {
@@ -42,10 +60,8 @@ namespace AleVerDes.LeoEcsLiteZoo
 
         public static int GetFirstEntity<T>(this EcsWorld world, out T component) where T : struct
         {
-            if (world.TryGetFirstEntity(out var entity, out component))
-            {
+            if (world.TryGetFirstEntity(out int entity, out component))
                 return entity;
-            }
 
             throw new Exception($"Entity with component \"{typeof(T)}\" not found");
         }
@@ -55,9 +71,14 @@ namespace AleVerDes.LeoEcsLiteZoo
             return ecsWorld.TryGetFirstEntity(out entity, out T _);
         }
 
+        public static bool TryGetFirstEntity<T>(this EcsWorld ecsWorld, out EcsPackedEntityWithWorld entity) where T : struct
+        {
+            return ecsWorld.TryGetFirstEntity(out entity, out T _);
+        }
+
         public static bool TryGetFirstEntity<T>(this EcsWorld ecsWorld, out T component) where T : struct
         {
-            return ecsWorld.TryGetFirstEntity(out _, out component);
+            return ecsWorld.TryGetFirstEntity(out int _, out component);
         }
 
         public static bool TryGetFirstEntity<T>(this EcsWorld ecsWorld, out int entity, out T component) where T : struct
@@ -76,6 +97,22 @@ namespace AleVerDes.LeoEcsLiteZoo
             return false;
         }
 
+        public static bool TryGetFirstEntity<T>(this EcsWorld ecsWorld, out EcsPackedEntityWithWorld entity, out T component) where T : struct
+        {
+            var filter = ecsWorld.Filter<T>().End();
+            var pool = ecsWorld.GetPool<T>();
+            foreach (var e in filter)
+            {
+                component = pool.Get(e);
+                entity = ecsWorld.PackEntityWithWorld(e);
+                return true;
+            }
+
+            component = default;
+            entity = default;
+            return false;
+        }
+
         public static int GetFirstEntity<T>(this EcsFilter filter) where T : struct
         {
             return filter.GetFirstEntity<T>(out _);
@@ -84,9 +121,7 @@ namespace AleVerDes.LeoEcsLiteZoo
         public static int GetFirstEntity<T>(this EcsFilter filter, out T component) where T : struct
         {
             if (filter.TryGetFirstEntity(out var entity, out component))
-            {
                 return entity;
-            }
 
             throw new Exception($"Entity with component \"{typeof(T)}\" not found");
         }
@@ -123,10 +158,8 @@ namespace AleVerDes.LeoEcsLiteZoo
 
         public static int GetRandomEntity<T>(this EcsWorld world, out T component) where T : struct
         {
-            if (world.TryGetRandomEntity(out var entity, out component))
-            {
+            if (world.TryGetRandomEntity(out int entity, out component))
                 return entity;
-            }
 
             throw new Exception($"Entity with component \"{typeof(T)}\" not found");
         }
@@ -135,10 +168,15 @@ namespace AleVerDes.LeoEcsLiteZoo
         {
             return ecsWorld.TryGetRandomEntity(out entity, out T _);
         }
+        
+        public static bool TryGetRandomEntity<T>(this EcsWorld ecsWorld, out EcsPackedEntityWithWorld entity) where T : struct
+        {
+            return ecsWorld.TryGetRandomEntity(out entity, out T _);
+        }
 
         public static bool TryGetRandomEntity<T>(this EcsWorld ecsWorld, out T component) where T : struct
         {
-            return ecsWorld.TryGetRandomEntity(out _, out component);
+            return ecsWorld.TryGetRandomEntity(out int _, out component);
         }
 
         public static bool TryGetRandomEntity<T>(this EcsWorld ecsWorld, out int entity, out T component) where T : struct
@@ -166,6 +204,34 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             component = default;
             entity = -1;
+            return false;
+        }
+
+        public static bool TryGetRandomEntity<T>(this EcsWorld ecsWorld, out EcsPackedEntityWithWorld entity, out T component) where T : struct
+        {
+            var filter = ecsWorld.Filter<T>().End();
+            var pool = ecsWorld.GetPool<T>();
+
+            if (filter.GetEntitiesCount() == 0)
+            {
+                throw new IndexOutOfRangeException("World's filter is empty");
+            }
+
+            var randomIndex = Random.Range(0, filter.GetEntitiesCount());
+
+            foreach (var e in filter)
+            {
+                if (randomIndex == 0)
+                {
+                    component = pool.Get(e);
+                    entity = ecsWorld.PackEntityWithWorld(e);
+                    return true;
+                }
+                randomIndex--;
+            }
+
+            component = default;
+            entity = default;
             return false;
         }
 
@@ -228,8 +294,8 @@ namespace AleVerDes.LeoEcsLiteZoo
 
         public static bool TryGetUnityRefValue<T>(this EcsWorld ecsWorld, out T component, out int entity) where T : UnityEngine.Object 
         {
-            var filter = ecsWorld.Filter<UnityRef<T>>().End();
-            var pool = ecsWorld.GetPool<UnityRef<T>>();
+            var filter = ecsWorld.Filter<UnityObjectRef<T>>().End();
+            var pool = ecsWorld.GetPool<UnityObjectRef<T>>();
             foreach (var e in filter)
             {
                 component = pool.Get(e).Value;
@@ -250,7 +316,7 @@ namespace AleVerDes.LeoEcsLiteZoo
         public static bool TryGetUnityRefValue<T>(this EcsFilter filter, out T component, out int entity) where T : UnityEngine.Object
         {
             var ecsWorld = filter.GetWorld();
-            var pool = ecsWorld.GetPool<UnityRef<T>>();
+            var pool = ecsWorld.GetPool<UnityObjectRef<T>>();
             foreach (var e in filter)
             {
                 component = pool.Get(e).Value;
@@ -265,20 +331,14 @@ namespace AleVerDes.LeoEcsLiteZoo
 
         public static IEnumerable<Type> GetAllComponentsOnEntity(this EcsWorld world, int entity)
         {
-            var result = new List<Type>();
-            
+            _tempListOfEntityTypes.Clear();
             var pools = default(IEcsPool[]);
             var poolsCount = world.GetAllPools(ref pools);
-            
-            foreach (var pool in pools)
-            {
-                if (pool.Has(entity))
-                {
-                    result.Add(pool.GetType().GenericTypeArguments[0]);
-                }
-            }
+            for (var i = 0; i < poolsCount; i++)
+                if (pools[i].Has(entity)) 
+                    _tempListOfEntityTypes.Add(pools[i].GetType().GenericTypeArguments[0]);
 
-            return result;
+            return _tempListOfEntityTypes;
         }
     }
 }
