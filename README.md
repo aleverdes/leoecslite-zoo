@@ -437,8 +437,6 @@ if (gameObject.TryGetEntity(out int entity))
 ### 🌍 ECS World Extensions
 
 ```csharp
-var world = ConvertToEntity.DefaultConversionWorld;
-
 world.NewEntityWith<TestComponent>() = new TestComponent()
 {
     Value = "something"
