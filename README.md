@@ -34,7 +34,6 @@ LeoECS Lite Unity Zoo is a big add-on to [LeoECS Lite](https://github.com/Leopot
   * [LeoECS Lite Extensions](#-leoecs-lite-extensions)
     * [Unity Extensions](#-unity-extensions)
     * [ECS World Extensions](#-ecs-world-extensions)
-    * [Zenject Extensions](#-zenject-extensions)
 * [License](#-license)
 
 
@@ -444,20 +443,6 @@ world.NewEntityWith<TestComponent>() = new TestComponent()
 {
     Value = "something"
 };
-```
-
-### 💉 Zenject Extensions
-
-You can use the `BindNewEcsWorldFor<T>()` extension to instantiate your single world with runners for specified module.
-
-```csharp
-Container.BindNewEcsWorldFor<GameEcsModule>().NonLazy();
-```
-
-You can use the `WithEcsModule<T>()` extension to instantiate your modules into `EcsRunner`.
-
-```csharp
-Container.BindInterfacesAndSelfTo<EcsRunner>().WithEcsModule<GameEcsModule>().NonLazy();
 ```
 
 # ©️ License
