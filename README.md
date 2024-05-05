@@ -1,13 +1,42 @@
 # 🦁 LeoECS Lite Unity Zoo
 
 LeoECS Lite Unity Zoo is a big add-on to [LeoECS Lite](https://github.com/Leopotam/ecslite) for Unity, including the following features:
-* ECS Manager;
-* ECS Modules;
+* ECS Runner;
 * ECS Features;
-* ECS Injection;
+* ECS Injection and custom DI containers support;
 * ECS Component Conversion;
 * Unity Core ECS Components; 
 * Several extensions for EcsWorld, IEcsSystems and Unity-objects.
+
+# Table of Contents
+
+* [Introduction](#-introduction)
+* [Requirements](#-requirements)
+* [Installation](#-installation)
+  * [Unity Package Manager](#-unity-package-manager)
+  * [Manual installation](#-manual-installation)
+* [Usage](#-usage)
+  * [ECS Module Example](#-ecs-module-example)
+  * [ECS Feature Example](#-ecs-feature-example)
+  * [ECS System Example](#-ecs-system-example)
+* [Work with DI Containers](#-work-with-di-containers)
+  * [Zenject](#-zenject)
+* [Features](#-features)
+  * [ECS Module](#-ecs-module)
+  * [ECS Feature](#-ecs-feature)
+  * [ECS UnityObject Reference Component](#-ecs-unityobject-reference-component)
+  * [ECS Components Conversion](#-ecs-components-conversion)
+  * [ECS Injection](#-ecs-injection)
+    * [ECS Query](#-ecs-query)
+    * [EcsWorld Injection](#-ecsworld-injection)
+    * [EcsPool Injection](#-ecspool-injection)
+  * [DelHere Systems](#-delhere-systems)
+  * [LeoECS Lite Extensions](#-leoecs-lite-extensions)
+    * [Unity Extensions](#-unity-extensions)
+    * [ECS World Extensions](#-ecs-world-extensions)
+    * [Zenject Extensions](#-zenject-extensions)
+* [License](#-license)
+
 
 # 📘 Introduction
 
@@ -19,7 +48,8 @@ Any bug reports and suggestions for improvements are welcome.
 
 * Unity 2019.4 or higher
 * [LeoECS Lite 2022.3.22 or higher](https://github.com/Leopotam/ecslite)
-* [Zenject 9.2.0 or higher](https://github.com/modesttree/Zenject/)
+* DI Container
+  * For example: [Zenject 9.2.0 or higher](https://github.com/modesttree/Zenject/)
 
 # 🛠️ Installation
 
@@ -38,47 +68,6 @@ Just put the LeoECS Lite Zoo folder in your unity project (in the Assets folder)
 # 🚀 Usage
 
 Below is an example of how to run ECS Manager from LeoECS Lite Zoo along with injection, world initialization and systems running.
-
-## 💻 ECS World & Runner Injection Example
-
-```csharp
-using AleVerDes.LeoEcsLiteZoo;
-using Leopotam.EcsLite;
-using Zenject;
-
-namespace EcsSample
-{
-    public class EcsInstaller : MonoInstaller
-    {
-        public override void InstallBindings()
-        {
-            Container.BindNewEcsWorldFor<GameEcsModule>();
-        }
-    }
-}
-```
-
-## 🧩 ECS Module Example
-
-```csharp
-using AleVerDes.LeoEcsLiteZoo;
-using Zenject;
-
-namespace EcsSample
-{
-    public class GameEcsModule : IEcsModule
-    {
-        [Inject] private readonly DiContainer _diContainer;
-        
-        public IEcsFeatures AddFeatures(IEcsFeatures features)
-        {
-            return features
-                    .Add(_diContainer.Instantiate<TestFeature>())
-                ;
-        }
-    }
-}
-```
 
 ## ⭐ ECS Feature Example
 
@@ -107,11 +96,14 @@ namespace EcsSample
 using AleVerDes.LeoEcsLiteZoo;
 using Leopotam.EcsLite;
 using UnityEngine;
+using Zenject;
 
 namespace EcsSample
 {
     public class TestSystem : IEcsInitSystem, IEcsRunSystem
     {
+        [Inject] private TestObject _testObject;
+        
         private EcsWorld _world;
         
         private EcsPool<TestComponent1> _testComponent1Pool;
@@ -126,6 +118,8 @@ namespace EcsSample
             
             var e2 = _world.NewEntity();
             _testComponent1Pool.Add(e2).Counter = 1234;
+            
+            Debug.Log(_testObject.name);
         }
         
         public void Run(IEcsSystems systems)
@@ -141,33 +135,90 @@ namespace EcsSample
 }
 ```
 
-# 🌟 Features
+# 📦 Work with DI Containers
 
-## 🧩 ECS Module
+## 💉 Zenject
 
-**ECS Module** is a container that is created and filled by **ECS Feature** using **ECS Module Installer**. The only way to organize code and execute it using **ECS Manager**.
+You need to declare the `EcsInstaller` class and bind the `GameEcsRunner` module to the DI container.
+Also, you need to call the `RunFeatures` method to add the `TestFeature` to the `GameEcsRunner`.
+For every ECS runner you can create a new world and add features to it.
+For it you can use `.AsTransient()` for `GameEcsRunner` binding and declare a specific ECS Modules in separated scenarios or services.
 
 ```csharp
-using AleVerDes.LeoEcsLiteZoo;
+using Leopotam.EcsLite;
 using Zenject;
 
 namespace EcsSample
 {
-    public class GameEcsModule : IEcsModule
+    public class EcsInstaller : MonoInstaller
     {
-        [Inject] private readonly DiContainer _diContainer;
-        
-        public IEcsFeatures AddFeatures(IEcsFeatures features)
+        public override void InstallBindings()
         {
-            return features
-                    .Add(_diContainer.Instantiate<TestFeature>())
-                ;
+            Container
+                .BindInterfacesAndSelfTo<GameEcsRunner>()
+                .AsSingle()
+                .OnInstantiated(RunFeatures)
+                .NonLazy();
+        }
+
+        private void RunFeatures(InjectContext injectContext, object o)
+        {
+            if (o is not GameEcsRunner ecsRunner)
+                throw new System.Exception("EcsRunner is not injected");
+            
+            var container = injectContext.Container;
+            
+            ecsRunner
+                .SetWorld(new EcsWorld())
+                .AddFeature(container.Instantiate<TestFeature>());
         }
     }
 }
 ```
 
-## ⭐ ECS Feature
+In `GameEcsRunner` you need to implement invokes of the all methods of base `EcsRunner`: `Init()`, `Update()`, `LateUpdate()`, `FixedUpdate()`, `Destroy()`.
+
+```csharp
+using System;
+using AleVerDes.LeoEcsLiteZoo;
+using Leopotam.EcsLite;
+using Zenject;
+
+namespace EcsSample
+{
+    public class GameEcsRunner : EcsRunner, IInitializable, ITickable, ILateTickable, IFixedTickable, IDisposable
+    {
+        public void Initialize()
+        {
+            Init();
+        }
+        
+        public void Tick()
+        {
+            Update();
+        }
+
+        public void LateTick()
+        {
+            LateUpdate();
+        }
+
+        public void FixedTick()
+        {
+            FixedUpdate();
+        }
+
+        public void Dispose()
+        {
+            Destroy();
+        }
+    }
+}
+```
+
+# 🌟 Features
+
+## 🧩 ECS Feature
 
 ECS Feature is the main way to organize and group in-game systems by context.
 
@@ -312,8 +363,7 @@ public void TestSystem : IEcsRunSystem
     {
         foreach (var entity in _deadQuery)
         {
-            // get, add, has and del are avilable via EcsQuery interface
-            ref var health = ref _deadQuery.Get<Health>(entity);
+            // use pools to get components
         }
         
         var entitesCount = _includeOnlyQuery.GetFilter().GetEntitiesCount();

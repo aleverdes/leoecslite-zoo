@@ -12,7 +12,7 @@ namespace AleVerDes.LeoEcsLiteZoo
         private const string ScriptTemplate = @"
 // CODEGEN
 // Collection of classes for EcsQuery (LeoECS Lite Zoo by Alexander Travkin @aleverdes)
-// Version 4.0.0
+// Version 4.2.0
 // https://github.com/aleverdes/leoecslite-zoo
 
 using System.Runtime.CompilerServices;
@@ -40,11 +40,6 @@ namespace AleVerDes.LeoEcsLiteZoo
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public EcsFilter GetFilter() => _filter;
-
-        public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
-        public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
-        public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
-        public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         
         {EXCLUDES}
     }
@@ -60,11 +55,6 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public EcsFilter GetFilter() => _filter;
-
-            public bool Has<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Has(entity);
-            public ref T Get<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Get(entity);
-            public ref T Add<T>(int entity) where T : struct => ref _filter.GetWorld().GetPool<T>().Add(entity);
-            public void Del<T>(int entity) where T : struct => _filter.GetWorld().GetPool<T>().Del(entity);
         }
 ";
 
