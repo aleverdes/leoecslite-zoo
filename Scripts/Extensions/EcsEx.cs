@@ -341,9 +341,19 @@ namespace AleVerDes.LeoEcsLiteZoo
             return _tempListOfEntityTypes;
         }
         
+        public static IEnumerable<Type> GetAllComponentsOnEntity(this EcsPackedEntityWithWorld entity)
+        {
+            return entity.World.GetAllComponentsOnEntity(entity.Id);
+        }
+        
         public static ref T Get<T>(this EcsPackedEntityWithWorld entity) where T : struct
         {
             return ref entity.World.GetPool<T>().Get(entity.Id);
+        }
+        
+        public static bool Has<T>(this EcsPackedEntityWithWorld entity) where T : struct
+        {
+            return entity.World.GetPool<T>().Has(entity.Id);
         }
     }
 }
