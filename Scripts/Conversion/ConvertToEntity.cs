@@ -39,9 +39,10 @@ namespace AleVerDes.LeoEcsLiteZoo
             yield return true;
         }
 
-        public void Convert()
+        public EcsPackedEntityWithWorld Convert()
         {
             Convert(_world);
+            return _packedEntityWithWorld;
         }
         
         public void Convert(EcsWorld world)
