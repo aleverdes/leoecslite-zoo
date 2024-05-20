@@ -45,10 +45,10 @@ namespace AleVerDes.LeoEcsLiteZoo
             return _packedEntityWithWorld;
         }
         
-        public void Convert(EcsWorld world)
+        public EcsPackedEntityWithWorld Convert(EcsWorld world)
         {
             if (_converted)
-                return;
+                return _packedEntityWithWorld;
 
             _world = world;
             _entity = _world.NewEntity();
@@ -66,7 +66,7 @@ namespace AleVerDes.LeoEcsLiteZoo
             if (!_hasAnyComponent)
             {
                 Debug.LogError("Can't convert game object to entity without IConvertableToEntity components", this);
-                return;
+                return default;
             }
 
             if (_convertMode == ConvertMode.ConvertAndDestroy)
@@ -76,6 +76,7 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             _packedEntityWithWorld = _world.PackEntityWithWorld(_entity);
             _converted = true;
+            return _packedEntityWithWorld;
         }
         
         private void OnDestroy()
