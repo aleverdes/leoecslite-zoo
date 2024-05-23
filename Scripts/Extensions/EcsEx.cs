@@ -355,5 +355,17 @@ namespace AleVerDes.LeoEcsLiteZoo
         {
             return entity.World.GetPool<T>().Has(entity.Id);
         }
+        
+        public static bool TryGetRandomEntityId(this EcsFilter filter, out int entity)
+        {
+            entity = -1;
+            
+            var count = filter.GetEntitiesCount();
+            if (count == 0)
+                return false;
+
+            entity = filter.GetRawEntities()[Random.Range(0, count)];
+            return true;
+        }
     }
 }
