@@ -1,67 +1,35 @@
-using System;
-using System.Collections;
 using Leopotam.EcsLite;
 using UnityEngine;
-using Zenject;
 
 namespace AleVerDes.LeoEcsLiteZoo
 {
     public sealed class ConvertToEntity : MonoBehaviour
     {
-        [Inject] private EcsWorld _world;
-        
-        [SerializeField] private ConvertTime _convertTime;
         [SerializeField] private ConvertMode _convertMode;
         [SerializeField] private CollectMode _collectMode;
         [SerializeField] private bool _destroyEntityWithGameObject;
 
-        private int _entity;
         private bool _converted;
         private bool _hasAnyComponent;
+        
         private EcsPackedEntityWithWorld _packedEntityWithWorld;
 
-        private IEnumerator Start()
-        {
-            switch (_convertTime)
-            {
-                case ConvertTime.EndOfFrame:
-                    yield return new WaitForEndOfFrame();
-                    break;
-                case ConvertTime.NextFrame:
-                    yield return null;
-                    break;
-                case ConvertTime.Manual:
-                    yield break;
-            }
-
-            Convert();
-
-            yield return true;
-        }
-
-        public EcsPackedEntityWithWorld Convert()
-        {
-            Convert(_world);
-            return _packedEntityWithWorld;
-        }
-        
         public EcsPackedEntityWithWorld Convert(EcsWorld world)
         {
             if (_converted)
                 return _packedEntityWithWorld;
 
-            _world = world;
-            _entity = _world.NewEntity();
+            var entity = world.NewEntity();
 
             var components = GetComponents<IConvertableToEntity>();
             foreach (var component in components)
             {
-                component.ConvertToEntity(_world, _entity);
+                component.ConvertToEntity(world, entity);
                 _hasAnyComponent = true;
             }
 
             if (_collectMode == CollectMode.IncludeChildren) 
-                ConvertChildrenToEntity(transform);
+                ConvertChildrenToEntity(transform, world, entity);
 
             if (!_hasAnyComponent)
             {
@@ -74,21 +42,21 @@ namespace AleVerDes.LeoEcsLiteZoo
                 Destroy(gameObject);
             }
 
-            _packedEntityWithWorld = _world.PackEntityWithWorld(_entity);
+            _packedEntityWithWorld = world.PackEntityWithWorld(entity);
             _converted = true;
             return _packedEntityWithWorld;
         }
         
         private void OnDestroy()
         {
-            if (_converted && _destroyEntityWithGameObject && _world != null)
+            if (_converted && _destroyEntityWithGameObject && _packedEntityWithWorld.Unpack(out var world, out var entity))
             {
-                _world.DelEntity(_entity);
-                _entity = -1;
+                world.DelEntity(entity);
+                _packedEntityWithWorld = default;
             }
         }
 
-        private void ConvertChildrenToEntity(Transform t)
+        private void ConvertChildrenToEntity(Transform t, EcsWorld world, int entity)
         {
             for (var i = 0; i < t.childCount; ++i)
             {
@@ -100,17 +68,15 @@ namespace AleVerDes.LeoEcsLiteZoo
                 var components = child.GetComponents<IConvertableToEntity>();
                 foreach (var component in components)
                 {
-                    component.ConvertToEntity(_world, _entity);
+                    component.ConvertToEntity(world, entity);
                     _hasAnyComponent = true;
                 }
-                ConvertChildrenToEntity(child);
+                ConvertChildrenToEntity(child, world, entity);
             }
         }
 
         public EcsPackedEntityWithWorld GetEntity()
         {
-            if (!_converted)
-                Convert();
             return _packedEntityWithWorld;
         }
     }

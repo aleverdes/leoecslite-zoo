@@ -11,12 +11,4 @@ namespace AleVerDes.LeoEcsLiteZoo
         ConvertAndInject,
         ConvertAndDestroy
     }
-    
-    public enum ConvertTime
-    {
-        Start,
-        EndOfFrame,
-        NextFrame,
-        Manual
-    }
 }
