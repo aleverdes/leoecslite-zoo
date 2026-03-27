@@ -33,6 +33,7 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             if (!_hasAnyComponent)
             {
+                world.DelEntity(entity);
                 Debug.LogError("Can't convert game object to entity without IConvertableToEntity components", this);
                 return default;
             }
@@ -62,7 +63,7 @@ namespace AleVerDes.LeoEcsLiteZoo
             {
                 var child = t.GetChild(i);
 
-                if (child.TryGetComponent<IConvertableToEntity>(out _)) 
+                if (child.TryGetComponent<ConvertToEntity>(out _))
                     continue;
                 
                 var components = child.GetComponents<IConvertableToEntity>();

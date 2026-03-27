@@ -7,8 +7,6 @@ namespace AleVerDes.LeoEcsLiteZoo
 {
     public static class EcsEx
     {
-        private static List<Type> _tempListOfEntityTypes = new List<Type>();
-        
         public static ref T NewEntityWith<T>(this EcsWorld ecsWorld) where T : struct
         {
             var entity = ecsWorld.NewEntity();
@@ -186,7 +184,9 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             if (filter.GetEntitiesCount() == 0)
             {
-                throw new IndexOutOfRangeException("World's filter is empty");
+                component = default;
+                entity = -1;
+                return false;
             }
 
             var randomIndex = Random.Range(0, filter.GetEntitiesCount());
@@ -214,7 +214,9 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             if (filter.GetEntitiesCount() == 0)
             {
-                throw new IndexOutOfRangeException("World's filter is empty");
+                component = default;
+                entity = default;
+                return false;
             }
 
             var randomIndex = Random.Range(0, filter.GetEntitiesCount());
@@ -266,7 +268,9 @@ namespace AleVerDes.LeoEcsLiteZoo
 
             if (filter.GetEntitiesCount() == 0)
             {
-                throw new IndexOutOfRangeException("World's filter is empty");
+                component = default;
+                entity = -1;
+                return false;
             }
 
             var randomIndex = Random.Range(0, filter.GetEntitiesCount());
@@ -329,31 +333,37 @@ namespace AleVerDes.LeoEcsLiteZoo
             return false;
         }
 
-        public static IEnumerable<Type> GetAllComponentsOnEntity(this EcsWorld world, int entity)
+        public static List<Type> GetAllComponentsOnEntity(this EcsWorld world, int entity)
         {
-            _tempListOfEntityTypes.Clear();
+            var result = new List<Type>();
             var pools = default(IEcsPool[]);
             var poolsCount = world.GetAllPools(ref pools);
             for (var i = 0; i < poolsCount; i++)
-                if (pools[i].Has(entity)) 
-                    _tempListOfEntityTypes.Add(pools[i].GetType().GenericTypeArguments[0]);
+                if (pools[i].Has(entity))
+                    result.Add(pools[i].GetType().GenericTypeArguments[0]);
 
-            return _tempListOfEntityTypes;
+            return result;
         }
         
-        public static IEnumerable<Type> GetAllComponentsOnEntity(this EcsPackedEntityWithWorld entity)
+        public static IEnumerable<Type> GetAllComponentsOnEntity(this EcsPackedEntityWithWorld packedEntity)
         {
-            return entity.World.GetAllComponentsOnEntity(entity.Id);
+            if (!packedEntity.Unpack(out var world, out var entity))
+                return Array.Empty<Type>();
+            return world.GetAllComponentsOnEntity(entity);
         }
-        
-        public static ref T Get<T>(this EcsPackedEntityWithWorld entity) where T : struct
+
+        public static ref T Get<T>(this EcsPackedEntityWithWorld packedEntity) where T : struct
         {
-            return ref entity.World.GetPool<T>().Get(entity.Id);
+            if (!packedEntity.Unpack(out var world, out var entity))
+                throw new Exception("Entity is no longer alive");
+            return ref world.GetPool<T>().Get(entity);
         }
-        
-        public static bool Has<T>(this EcsPackedEntityWithWorld entity) where T : struct
+
+        public static bool Has<T>(this EcsPackedEntityWithWorld packedEntity) where T : struct
         {
-            return entity.World.GetPool<T>().Has(entity.Id);
+            if (!packedEntity.Unpack(out var world, out var entity))
+                return false;
+            return world.GetPool<T>().Has(entity);
         }
         
         public static bool TryGetRandomEntityId(this EcsFilter filter, out int entity)
