@@ -10,8 +10,6 @@ namespace AleVerDes.LeoEcsLiteZoo
     {
         private const BindingFlags PrivateInstanceFlags = BindingFlags.NonPublic | BindingFlags.Instance;
 
-        private static readonly Dictionary<object, HashSet<Type>> ProcessedObjects = new();
-
         private static readonly Dictionary<Type, FieldInfo[]> FieldsByType = new();
 
         private static MethodInfo _getEcsPoolMethod;

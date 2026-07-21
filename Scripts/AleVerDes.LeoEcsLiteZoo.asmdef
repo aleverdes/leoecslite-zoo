@@ -2,7 +2,7 @@
     "name": "AleVerDes.LeoEcsLiteZoo",
     "rootNamespace": "AleVerDes.LeoEcsLiteZoo",
     "references": [
-        "GUID:e59bf9fc7d5a44b18a819a92edd46163"
+        "Leopotam.EcsLite"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -11,6 +11,17 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],
-    "versionDefines": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.modules.physics",
+            "expression": "",
+            "define": "LEOECSLITE_ZOO_PHYSICS"
+        },
+        {
+            "name": "com.unity.modules.physics2d",
+            "expression": "",
+            "define": "LEOECSLITE_ZOO_PHYSICS2D"
+        }
+    ],
     "noEngineReferences": false
 }
